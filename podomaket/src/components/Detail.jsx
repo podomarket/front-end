@@ -1,4 +1,4 @@
-// 제품 상세보기 페이지
+// 제품 하나 상세보기 페이지
 
 import React from "react";
 

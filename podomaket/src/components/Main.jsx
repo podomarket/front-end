@@ -5,7 +5,7 @@ import React from "react";
 const Main = () => {
   return (
     <div>
-      <h1>오늘의 상품 추천</h1>
+      <h1>오늘의 상품 추천!!</h1>
     </div>
   );
 };

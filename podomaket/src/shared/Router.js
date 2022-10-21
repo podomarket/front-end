@@ -10,10 +10,14 @@ import ProductList from "../components/ProductList";
 import ProductEdit from "../components/ProductEdit";
 import MainPage from "../pages/MainPage";
 import ProductPost from "../components/ProductPost";
+import Header from "../components/Header";
+import GlobalStyles from "../style/GlobalStyles";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
+      <GlobalStyles />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />

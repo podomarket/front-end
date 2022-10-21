@@ -20,6 +20,7 @@ export const Header = () => {
   const myPage = () => {
     navigate("/MyPage/1");
   };
+
   return (
     <NavBar>
       <Logo onClick={main}>PODOMARKET</Logo>

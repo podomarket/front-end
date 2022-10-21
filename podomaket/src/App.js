@@ -1,10 +1,10 @@
 import "./App.css";
-import Main from "../src/components/Main";
+import Router from "./shared/Router";
 
 function App() {
   return (
     <div>
-      <Main />
+      <Router />
     </div>
   );
 }

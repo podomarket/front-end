@@ -3,12 +3,18 @@ import React from "react";
 import styled from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
+
+  const close = () => {
+    navigate("/");
+  };
   return (
     <MainBox>
       <h4>
-        <Close />
+        <Close onClick={close} />
       </h4>
       <h2>로그인</h2>
       <Box>
@@ -110,6 +116,7 @@ const Kakao = styled(RiKakaoTalkFill)`
 `;
 
 const Close = styled(IoMdClose)`
+  cursor: pointer;
   font-size: 30px;
   padding: 15px;
 `;

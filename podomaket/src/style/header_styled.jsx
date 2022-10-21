@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const Logo = styled.div`
-  padding: 1vh 1vw;
+  padding: 1.8vh 1vw;
   text-align: left;
   width: 20vw;
   color: #f2f5f7;
   font-size: 30px;
+  font-weight: 600;
 `;
 
 export const NavBar = styled.div`
@@ -62,7 +63,6 @@ export const NavLinks = styled.ul`
     width: 80%;
   }
   @media screen and (max-width: 800px) {
-    background: #053742;
     position: fixed;
     opacity: 1;
     height: 100vh;
@@ -88,15 +88,5 @@ export const LogInOutButton = styled.button`
     background-color: #2e0533;
     border: 1.5px solid #2e0533;
     transition: all ease-in-out 350ms;
-  }
-`;
-export const Hamburger = styled.div`
-  display: none;
-  & div {
-    width: 30px;
-    height: 3px;
-    background: #f2f5f7;
-    margin: 5px;
-    transition: all 0.3s ease;
   }
 `;

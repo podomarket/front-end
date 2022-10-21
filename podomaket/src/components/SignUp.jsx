@@ -30,7 +30,7 @@ export const SignUp = () => {
         />
         <p>비밀번호 재확인</p>
         <input
-          type="password"
+          type="ConfirmPassword"
           maxLength="8"
           placeholder="비밀번호를 다시 입력하세요"
           required

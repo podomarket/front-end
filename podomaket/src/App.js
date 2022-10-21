@@ -1,7 +1,7 @@
 import "./App.css";
 
 function App() {
-  return <div className="App">소영의 깃 머지 테스트입니다!</div>;
+  return <div className="App">성과있는 하루 보내세요</div>;
 }
 
 export default App;

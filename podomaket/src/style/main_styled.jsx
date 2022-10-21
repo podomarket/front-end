@@ -6,10 +6,23 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 20px;
   & h2 {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 600;
-    margin-top: 15px;
+    margin-top: 10px;
   }
+`;
+export const ProductView = styled.div`
+  background-color: #fff;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+`;
+export const H2Button = styled.button`
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  background-color: #fff;
+  padding: 20px;
 `;
 export const Hr = styled.hr`
   margin: 0;

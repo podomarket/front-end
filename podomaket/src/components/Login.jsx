@@ -4,35 +4,27 @@ import styled from "styled-components";
 
 export const Login = () => {
   return (
-    <BackGroundBox>
-      <MainBox>
-        <h2>로그인</h2>
-        <Box>
-          <p>닉네임</p>
-          <br />
-          <input type="text" placeholder="닉네임을 입력하세요" />
-          <br />
-          <p>비밀번호</p>
-          <br />
-          <input type="password" placeholder="비밀번호를 입력하세요" />
-          <br />
-          <button>비밀번호를 잊어버리셨나요?</button>
-        </Box>
-        <MainButton>로그인</MainButton>
+    <MainBox>
+      <h2>로그인</h2>
+      <Box>
+        <p>닉네임</p>
         <br />
-        <button>카카오톡으로 회원가입</button>
+        <input type="text" placeholder="닉네임을 입력하세요" />
         <br />
-        <button>회원가입</button>
-      </MainBox>
-    </BackGroundBox>
+        <p>비밀번호</p>
+        <br />
+        <input type="password" placeholder="비밀번호를 입력하세요" />
+        <br />
+        <button>비밀번호를 잊어버리셨나요?</button>
+      </Box>
+      <MainButton>로그인</MainButton>
+      <br />
+      <button>카카오톡으로 회원가입</button>
+      <br />
+      <button>회원가입</button>
+    </MainBox>
   );
 };
-
-const BackGroundBox = styled.div`
-  width: 100%;
-  height: 1500px
-  background-image: linear-gradient(red, yellow);
-`;
 
 const MainBox = styled.div`
   background-color: #ffffff;

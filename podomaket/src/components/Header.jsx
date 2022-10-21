@@ -1,7 +1,13 @@
 // 헤더
 import React from "react";
 import { LogInOutButton, Logo, NavBar, NavLinks } from "../style/header_styled";
+import { useNavigate } from "react-router-dom";
 export const Header = () => {
+  const navigate = useNavigate();
+
+  const toLogin = () => {
+    navigate("/login");
+  };
   return (
     <NavBar>
       <Logo>PODOMARKET</Logo>
@@ -13,12 +19,10 @@ export const Header = () => {
           <p>닉네임</p>
         </li>
         <li>
-
           <a>마이페이지</a>
-
         </li>
         <li>
-          <LogInOutButton>로그인</LogInOutButton>
+          <LogInOutButton onClick={toLogin}>로그인</LogInOutButton>
         </li>
       </NavLinks>
     </NavBar>

@@ -1,7 +1,13 @@
 // 메인 페이지
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
-import { Container, Hr, NewPost } from "../style/main_styled";
+import {
+  Container,
+  H2Button,
+  Hr,
+  NewPost,
+  ProductView,
+} from "../style/main_styled";
 import { __getProducts } from "../features/podoSlice";
 
 export const Main = () => {
@@ -30,6 +36,11 @@ export const Main = () => {
           );
         })}
       </div>
+      <Hr />
+      <ProductView>
+        <div></div>
+        <H2Button>더 많은 상품 보기</H2Button>
+      </ProductView>
     </div>
   );
 };

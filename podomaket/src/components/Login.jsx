@@ -13,9 +13,19 @@ export const Login = () => {
       <h2>로그인</h2>
       <Box>
         <p>닉네임</p>
-        <input type="text" placeholder="닉네임을 입력하세요" />
+        <input
+          type="text"
+          placeholder="닉네임을 입력하세요"
+          maxLength="5"
+          required
+        />
         <p>비밀번호</p>
-        <input type="password" placeholder="비밀번호를 입력하세요" />
+        <input
+          type="password"
+          maxLength="8"
+          placeholder="비밀번호를 입력하세요"
+          required
+        />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
       <MainButton>로그인</MainButton>
@@ -28,7 +38,7 @@ export const Login = () => {
   );
 };
 
-const MainBox = styled.div`
+const MainBox = styled.form`
   background-color: #fcfcfc;
   box-shadow: 6px 6px 10px 3px #dfdfdf;
   width: 500px;

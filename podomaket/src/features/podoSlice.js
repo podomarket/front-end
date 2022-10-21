@@ -4,29 +4,18 @@ import moment from "moment";
 // 안써도 자동으로 한국 시간을 불러온다. 명확하게 하기 위해 import
 import "moment/locale/ko";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
 const initialState = {
-  products: [
-    {
-      id: "1",
-      title: "운동화 중고 판매",
-      price: "20,000원",
-      time: nowTime,
-    },
-  ],
+  products: [],
   isLoading: false,
   error: null,
 };
-
 export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get(`${BASE_URL}/product`);
-      console.log(products);
+      const products = await axios.get("http://localhost:3001/products");
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -35,7 +24,7 @@ export const __getProducts = createAsyncThunk(
 );
 
 export const podoSlice = createSlice({
-  name: "productList",
+  name: "products",
   initialState,
   reducers: {
     extraReducers: {

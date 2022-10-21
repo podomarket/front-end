@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Logo = styled.div`
@@ -7,6 +8,7 @@ export const Logo = styled.div`
   color: #f2f5f7;
   font-size: 30px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 export const NavBar = styled.div`
@@ -20,7 +22,6 @@ export const NavBar = styled.div`
     z-index: 3;
   }
 `;
-
 export const NavLinks = styled.ul`
   display: flex;
   padding: 0 0.7vw;
@@ -35,12 +36,13 @@ export const NavLinks = styled.ul`
     transition: all ease-in-out 350ms;
     padding: 10px;
     color: #f2f5f7;
+    cursor: pointer;
   }
   & li div {
     margin: 0 0.7vw;
     text-decoration: none;
     transition: all ease-in-out 350ms;
-    padding: 10px;
+    padding: 8px;
     color: #f2f5f7;
   }
   & li p {
@@ -53,7 +55,7 @@ export const NavLinks = styled.ul`
   & li a:hover {
     color: #000;
     background-color: #fff;
-    padding: 10px;
+    padding: 0.4rem 0.8rem;
     border-radius: 50px;
   }
   & li {
@@ -75,7 +77,7 @@ export const NavLinks = styled.ul`
   }
 `;
 export const LogInOutButton = styled.button`
-  padding: 0.6rem 0.8rem;
+  padding: 0.4rem 0.8rem;
   margin-left: 2vw;
   font-size: 1rem;
   cursor: pointer;

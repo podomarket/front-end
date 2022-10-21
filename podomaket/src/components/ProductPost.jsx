@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProductDB } from "../redux/async/post";
+import {
+  BackButton,
+  ButtonSet,
+  Container,
+  Input,
+  Label,
+  NewButton,
+  TextArea,
+  UploadName,
+  Wrap,
+} from "../style/productPost_styled";
 
 const ProductPost = () => {
   const dispatch = useDispatch();
@@ -12,31 +23,52 @@ const ProductPost = () => {
     dispatch(addProductDB({ title, body }));
   };
 
+  const [files, setFiles] = useState("");
+
+  const onLoadFile = (e) => {
+    const file = e.target.files;
+    console.log(file);
+    setFiles(file);
+  };
+
   return (
-    <div>
-      <input
-        id="title"
-        type="text"
-        placeholder="제목을 입력해주세요"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-      />
-      <div>
-        <textarea
-          id="body"
-          name="body"
-          placeholder="내용을 입력해주세요"
+    <Wrap>
+      <Container>
+        <Input
+          id="title"
+          type="text"
+          placeholder="제목을 입력해주세요"
           onChange={(e) => {
-            setBody(e.target.value);
+            setTitle(e.target.value);
           }}
-        ></textarea>
-      </div>
-      <div>
-        <button to="/">뒤로가기</button>
-        <button onClick={addProduct}>새 글 작성</button>
-      </div>
-    </div>
+        />
+        <div>
+          <TextArea
+            className="textarea"
+            id="body"
+            name="body"
+            placeholder="내용을 입력해주세요"
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
+          ></TextArea>
+        </div>
+        <div>
+          <UploadName
+            id="file"
+            type="file"
+            placeholder="file"
+            accept="img/*"
+            onChange={onLoadFile}
+          />
+          <Label htmlFor="file">파일찾기</Label>
+        </div>
+        <ButtonSet>
+          <BackButton to="/">뒤로가기</BackButton>
+          <NewButton onClick={addProduct}>새 글 작성</NewButton>
+        </ButtonSet>
+      </Container>
+    </Wrap>
   );
 };
 

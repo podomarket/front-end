@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { todoSlice } from "../features/todoList/todoSlice";
-import { commentSlice } from "../features/todoList/commentSlice";
+import { podoSlice } from "../features/podoSlice";
 
 export const store = configureStore({
   reducer: {

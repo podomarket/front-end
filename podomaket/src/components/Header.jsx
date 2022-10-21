@@ -13,7 +13,9 @@ export const Header = () => {
           <p>닉네임</p>
         </li>
         <li>
+
           <a>마이페이지</a>
+
         </li>
         <li>
           <LogInOutButton>로그인</LogInOutButton>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addProductDB } from "../redux/async/post";
+import { __addProduct } from "../features/podoSlice";
 import {
   BackButton,
   ButtonSet,
   Container,
+  CustomFile,
   Input,
-  Label,
   NewButton,
   TextArea,
   UploadName,
@@ -20,7 +20,11 @@ const ProductPost = () => {
   const [content, setContent] = useState("");
 
   const addProduct = () => {
+<<<<<<< HEAD
     dispatch(addProductDB({ title, content }));
+=======
+    dispatch(__addProduct({ title, body }));
+>>>>>>> 0b6a4d5de0e2ccfefd2aea91ff2748f2e0f6b64a
   };
 
   const [imageUrl, setImageUrl] = useState("");
@@ -32,6 +36,18 @@ const ProductPost = () => {
     setImageUrl(file);
   };
 
+  // const handleClick = (e) => {
+  //   const formdata = new FormData();
+  //   formdata.append("uploadImage", files[0]);
+
+  //   const config = {
+  //     Header: {
+  //       "content-type": "multipart/form-data",
+  //     },
+  //   };
+
+  //   axios.post(`http://localhost:3001/product`, formdata, config);
+  // };
   return (
     <Wrap>
       <Container>
@@ -42,6 +58,7 @@ const ProductPost = () => {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          multiple={true}
         />
         <div>
           <TextArea
@@ -54,16 +71,16 @@ const ProductPost = () => {
             }}
           ></TextArea>
         </div>
-        <div>
+        <CustomFile>
+          <span>이미지 파일을 선택해주세요</span>
           <UploadName
             id="file"
             type="file"
             placeholder="file"
-            accept="img/*"
+            accept="image/*"
             onChange={onLoadFile}
           />
-          <Label htmlFor="file">파일찾기</Label>
-        </div>
+        </CustomFile>
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
           <NewButton onClick={addProduct}>새 글 작성</NewButton>

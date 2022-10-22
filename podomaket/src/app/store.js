@@ -3,6 +3,6 @@ import { podoSlice } from "../features/podoSlice";
 
 export const store = configureStore({
   reducer: {
-    products: podoSlice.reducer,
+    productList: podoSlice.reducer,
   },
 });

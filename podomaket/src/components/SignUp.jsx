@@ -33,13 +33,15 @@ export const SignUp = () => {
   const handleAddUsers = (e) => {
     e.preventDefault();
     dispatch(__addUser(user));
-    setUser({
-      username: "",
-      nickname: "",
-      email: "",
-      password: "",
-      passwordCheck: "",
-    });
+    setUser(
+      JSON.stringify({
+        username: "",
+        nickname: "",
+        email: "",
+        password: "",
+        passwordCheck: "",
+      })
+    );
   };
 
   return (

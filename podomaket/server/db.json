@@ -16,6 +16,22 @@
       "id": "1",
       "username": "소영",
       "nickname": "thdud"
+    },
+    {
+      "username": "소영",
+      "nickname": "ㄴㅁㅇㄹ",
+      "email": "소영@naver.com",
+      "password": "thdudthdud",
+      "passwordCheck": "thdudthdud",
+      "id": "cAt6lVf"
+    },
+    {
+      "username": "thdud",
+      "nickname": "sdf",
+      "email": "thdud@naver.com",
+      "password": "thdudthdud",
+      "passwordCheck": "thdudthdud",
+      "id": "Y85YOTG"
     }
   ]
 }

@@ -9,10 +9,8 @@ import { addProductApi, addUserApi } from "./apis";
 
 const initialState = {
   products: [],
-<<<<<<< HEAD
   users: [],
-=======
->>>>>>> 3876f5c88fe2ea4c6f787365a2e7ad70094501c0
+
   isLoading: false,
   error: null,
 };
@@ -44,8 +42,9 @@ export const __addProducts = createAsyncThunk(
 export const __addUser = createAsyncThunk(
   "post/addUser",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      await axios.post("http://localhost:3001/users", payload);
+      await axios.post("http://localhost:3001/users/signup", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

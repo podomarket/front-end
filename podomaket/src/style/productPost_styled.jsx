@@ -24,7 +24,7 @@ export const Input = styled.input`
   margin-bottom: 10px;
 `;
 export const TextArea = styled.textarea`
-  width: 100%;
+  width: 500px;
   height: 350px;
   padding: 12px 20px;
   box-sizing: border-box;
@@ -33,7 +33,7 @@ export const TextArea = styled.textarea`
   background-color: #dddddd;
   font-size: 16px;
   resize: none;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   overflow: hidden;
 `;
 export const CustomFile = styled.div`

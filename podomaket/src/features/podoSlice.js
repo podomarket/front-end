@@ -41,7 +41,7 @@ export const __addProduct = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      await axios.post("http://localhost:3001/products", payload);
+      await axios.post("http://localhost:3001/product", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

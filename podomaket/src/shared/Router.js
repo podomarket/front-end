@@ -5,7 +5,7 @@ import Chat from "../components/Chat";
 
 import MyPageEdit from "../components/MyPageEdit";
 import Product from "../components/Product";
-import ProductList from "../components/ProductList";
+
 import ProductEdit from "../components/ProductEdit";
 import MainPage from "../pages/MainPage";
 import Header from "../components/Header";
@@ -20,17 +20,17 @@ const Router = () => {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/user/login" element={<Login />} />
+        <Route path="/user/signup" element={<SignUp />} />
+        <Route path="/mypage/chat" element={<Chat />} />
 
         <Route path="/mypage/:id" element={<MyProfilePage />} />
         <Route path="/mypage/edit/:id" element={<MyPageEdit />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/product" element={<ProductPostPage />} />
-        <Route path="/product/list/:id" element={<ProductList />} />
         <Route path="/product/edit/:id" element={<ProductEdit />} />
       </Routes>
+      ㄴ
     </BrowserRouter>
   );
 };

@@ -1,34 +1,29 @@
 {
-  "products": [
+  "product": [
     {
       "id": 1,
       "title": "json-server",
-      "nickname": "typicode"
+      "nickname": "typtcode"
     },
     {
-      "title": "1",
-      "body": "2",
+      "title": "asdf",
+      "content": "wefsdf",
       "id": 2
     },
     {
-      "title": "1",
-      "body": "2",
+      "title": "ㅁㅇ",
+      "content": "ㅁㄷㄹㄹㅇ",
       "id": 3
     },
     {
-      "title": "1",
-      "body": "2",
+      "title": "asdf",
+      "content": "wefsd",
       "id": 4
     },
     {
-      "title": "2",
-      "body": "2",
+      "title": "asd",
+      "content": "sdfsfd",
       "id": 5
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "id": 6
     }
   ]
 }

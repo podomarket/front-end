@@ -8,7 +8,13 @@ import { addProductApi, addUserApi } from "./apis";
 // const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
 const initialState = {
-  products: [],
+  products: [
+    {
+      id: 0,
+      title: "",
+      content: "",
+    },
+  ],
   isLoading: false,
   error: null,
 };
@@ -17,7 +23,7 @@ export const __getProducts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const products = await axios.get("http://localhost:3001/products");
-      console.log(products);
+      console.log(products.data);
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -27,12 +33,13 @@ export const __getProducts = createAsyncThunk(
 
 export const __addProduct = createAsyncThunk(
   "post/addPost",
-
-  async (params, thunkAPI) => {
-    // 서버랑 통신하는 코드 작성
-    const response = await addProductApi(params);
-    console.log(params);
-    return response;
+  async (payload, thunkAPI) => {
+    try {
+      await axios.post("http://localhost:3001/products", payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
   }
 );
 
@@ -70,7 +77,7 @@ export const podoSlice = createSlice({
       },
       [__addProduct.fulfilled]: (state, action) => {
         state.isLoading = false;
-        state.products.push(action.payload);
+        state.todos = action.payload;
       },
       [__addProduct.rejected]: (state, action) => {
         state.isLoading = false;

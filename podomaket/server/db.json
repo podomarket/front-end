@@ -1,26 +1,14 @@
 {
   "products": [
     {
-      "id": 1,
-      "title": "json-server",
-      "nickname": "typtcode"
+      "title": "1",
+      "content": "1",
+      "id": 1
     },
     {
-      "title": "",
-      "content": "",
+      "title": "123",
+      "content": "123",
       "id": 2
-    },
-    {
-      "title": "",
-      "content": "",
-      "id": 3
-    }
-  ],
-  "users": [
-    {
-      "id": 1,
-      "nickname": "소영",
-      "password": "thdud1004"
     }
   ]
 }

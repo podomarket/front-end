@@ -12,10 +12,14 @@ import { __getProducts } from "../features/podoSlice";
 
 export const Main = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
 
-  // 게시글 보여주기
+  const { products } = useSelector((state) => state.products);
+
+  console.log("상품 목록", products);
+
+  // 상품 보여주기
   useEffect(() => {
+    console.log("데이터 패칭!");
     dispatch(__getProducts());
   }, [dispatch]);
 

@@ -24,6 +24,7 @@ const ProductPost = () => {
   };
 
   const [imageUrl, setImageUrl] = useState("");
+  console.log();
 
   const onLoadFile = (e) => {
     const file = e.target.files;

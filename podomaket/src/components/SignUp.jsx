@@ -12,15 +12,13 @@ export const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(
-    JSON.stringify({
-      username: "",
-      nickname: "",
-      email: "",
-      password: "",
-      passwordCheck: "",
-    })
-  );
+  const [user, setUser] = useState({
+    username: "",
+    userId: "",
+    email: "",
+    password: "",
+    passwordCheck: "",
+  });
   console.log(user);
 
   const onChangeHandler = (e) => {
@@ -35,7 +33,7 @@ export const SignUp = () => {
     dispatch(__addUser(user));
     setUser({
       username: "",
-      nickname: "",
+      userId: "",
       email: "",
       password: "",
       passwordCheck: "",
@@ -52,10 +50,10 @@ export const SignUp = () => {
         <p>닉네임</p>
         <input
           type="text"
-          name="nickname"
-          maxLength="5"
+          name="userId"
+          minLength="5"
           placeholder="닉네임을 입력하세요"
-          value={user.nickname}
+          value={user.userId}
           onChange={onChangeHandler}
         />
         <ReButton type="button">중복확인</ReButton>

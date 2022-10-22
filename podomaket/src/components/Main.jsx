@@ -13,7 +13,7 @@ import { __getProducts } from "../features/podoSlice";
 export const Main = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
-
+  console.log(products);
   // 게시글 보여주기
   useEffect(() => {
     dispatch(__getProducts());
@@ -28,6 +28,7 @@ export const Main = () => {
       <Hr />
       <div>
         {products.map((podo) => {
+          console.log(podo);
           return (
             <div key={podo.id}>
               <div>{podo.id}</div>

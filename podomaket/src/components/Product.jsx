@@ -2,7 +2,6 @@
 import React from "react";
 import {
   Button,
-  Comment,
   Container,
   H1,
   H4,

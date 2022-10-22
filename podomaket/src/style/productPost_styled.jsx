@@ -36,14 +36,43 @@ export const TextArea = styled.textarea`
   margin-bottom: 20px;
   overflow: hidden;
 `;
+export const CustomFile = styled.div`
+  background-color: #eee;
+  width: 500px;
+  height: 30px;
+  border: 1px solid #ccc;
+  position: relative;
+  z-index: 1;
+  & span {
+    font-family: Tahoma, Arial;
+    font-size: 15px;
+    display: block;
+    padding: 5px 0 0 5px;
+  }
+  &:after {
+    content: "파일 업로드";
+    width: 100px;
+    height: 30px;
+    color: #fff;
+    background-color: #535353;
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Tahmoa, Arial;
+  }
+`;
 export const UploadName = styled.input`
-  display: inline-block;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #dddddd;
-  width: 78%;
-  color: #999999;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 `;
 export const Label = styled.div`
   display: inline-block;

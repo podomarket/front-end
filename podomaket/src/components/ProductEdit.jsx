@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addProductDB } from "../redux/async/post";
 import {
   BackButton,
   ButtonSet,
@@ -18,10 +17,6 @@ const ProductEdit = () => {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-
-  const addProduct = () => {
-    dispatch(addProductDB({ title, body }));
-  };
 
   return (
     <Wrap>
@@ -51,7 +46,7 @@ const ProductEdit = () => {
         </div>
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
-          <NewButton onClick={addProduct}>수정하기</NewButton>
+          <NewButton>수정하기</NewButton>
         </ButtonSet>
       </Container>
     </Wrap>

@@ -6,17 +6,22 @@ import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { __addUser } from "../features/podoSlice";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [user, setUser] = useState({
-    username: "",
-    nickname: "",
-    email: "",
-    password: "",
-    passwordCheck: "",
-  });
+  const [user, setUser] = useState(
+    JSON.stringify({
+      username: "",
+      nickname: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+    })
+  );
+  console.log(user);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -65,7 +70,7 @@ export const SignUp = () => {
         />
         <p>비밀번호 재확인</p>
         <input
-          type="ConfirmPassword"
+          type="Password"
           name="passwordCheck"
           minLength="8"
           placeholder="비밀번호를 다시 입력하세요"
@@ -90,7 +95,14 @@ export const SignUp = () => {
         />
         <br />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
-        <MainButton type="submit">가입하기</MainButton>
+        <MainButton
+          type="submit"
+          // onClick={() => {
+          //   navigate("/");
+          // }}
+        >
+          가입하기
+        </MainButton>
         <Back>취소</Back>
       </Box>
     </MainBox>

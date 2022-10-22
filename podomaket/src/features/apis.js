@@ -5,5 +5,5 @@ export const addProductApi = (product) => {
 };
 
 export const addUserApi = (users) => {
-  axios.post("http://localhost:3001/users/signup", users);
+  axios.post("http://34.201.116.215:8080/user/signup", users);
 };

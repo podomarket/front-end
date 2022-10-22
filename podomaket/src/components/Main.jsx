@@ -5,6 +5,7 @@ import {
   Container,
   H2Button,
   Hr,
+  List,
   NewPost,
   ProductView,
 } from "../style/main_styled";
@@ -14,8 +15,6 @@ export const Main = () => {
   const dispatch = useDispatch();
 
   const { products } = useSelector((state) => state.productList);
-
-  console.log("상품 목록", products);
 
   // 상품 보여주기
   useEffect(() => {
@@ -31,16 +30,15 @@ export const Main = () => {
       <Hr />
       <div>
         {products.map((podo) => {
-          console.log(podo);
           return (
-            <div key={podo.id}>
+            <List key={podo.id}>
               <ul>
                 <li>imageUrl: {podo.imageUrl}</li>
                 <li>title: {podo.title}</li>
-                <li>content: {podo.content}</li>
                 <li>price: {podo.price}</li>
+                <li>date: {podo.date}</li>
               </ul>
-            </div>
+            </List>
           );
         })}
       </div>

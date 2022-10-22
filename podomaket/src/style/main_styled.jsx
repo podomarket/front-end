@@ -30,10 +30,6 @@ export const Hr = styled.hr`
 export const List = styled.div`
   padding: 10px 20px;
   margin: 10px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
 `;
 export const NewPost = styled(Link)`
   text-decoration: none;

@@ -48,6 +48,8 @@ const ProductPost = () => {
     setProducts((prev) => {
       return { ...prev, [name]: value };
     });
+    const file = e.target.files;
+    setImageUrl(file);
   };
 
   const addProduct = (e) => {
@@ -66,7 +68,6 @@ const ProductPost = () => {
 
   const onLoadFile = (e) => {
     const file = e.target.files;
-    console.log(file);
     setImageUrl(file);
   };
 

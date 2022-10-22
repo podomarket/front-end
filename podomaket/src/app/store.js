@@ -5,4 +5,7 @@ export const store = configureStore({
   reducer: {
     productList: podoSlice.reducer,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });

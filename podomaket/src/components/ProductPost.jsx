@@ -79,7 +79,9 @@ const ProductPost = () => {
         </CustomFile>
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
-          <NewButton onClick={addProduct}>새 글 작성</NewButton>
+          <NewButton onClick={addProduct} to="/">
+            새 글 작성
+          </NewButton>
         </ButtonSet>
       </Container>
     </Wrap>

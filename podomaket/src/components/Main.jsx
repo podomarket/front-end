@@ -1,6 +1,6 @@
 // 메인 페이지
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   H2Button,
@@ -23,6 +23,8 @@ export const Main = () => {
     dispatch(__getProducts());
   }, [dispatch]);
 
+  console.log(products);
+
   return (
     <div>
       <Container>
@@ -31,7 +33,7 @@ export const Main = () => {
       </Container>
       <Hr />
       <div>
-        {products.map((podo) => {
+        {products?.map((podo) => {
           console.log(podo);
           return (
             <div key={podo.id}>

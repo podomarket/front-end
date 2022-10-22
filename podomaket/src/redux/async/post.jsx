@@ -7,7 +7,7 @@ export const addProductDB = createAsyncThunk(
     // 서버랑 통신하는 코드 작성
     console.log(payload);
     try {
-      await axios.post("http://localhost:3001/products", payload);
+      await axios.post("http://localhost:3001/product", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -21,7 +21,7 @@ export const getProductDB = createAsyncThunk(
     console.log(payload);
     // 서버랑 통신하는 코드 작성
     try {
-      await axios.get("http://localhost:3001/products", payload);
+      await axios.get("http://localhost:3001/product", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -23,12 +23,12 @@ const ProductPost = () => {
     dispatch(addProductDB({ title, content }));
   };
 
-  const [files, setFiles] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const onLoadFile = (e) => {
     const file = e.target.files;
     console.log(file);
-    setFiles(file);
+    setImageUrl(file);
   };
 
   return (

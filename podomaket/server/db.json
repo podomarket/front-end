@@ -1,5 +1,5 @@
 {
-  "products": [
+  "product": [
     {
       "id": 1,
       "title": "json-server",
@@ -9,6 +9,16 @@
       "title": "asdf",
       "content": "wefsdf",
       "id": 2
+    },
+    {
+      "title": "ㅁㅇ",
+      "content": "ㅁㄷㄹㄹㅇ",
+      "id": 3
+    },
+    {
+      "title": "asdf",
+      "content": "wefsd",
+      "id": 4
     }
   ]
 }

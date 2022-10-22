@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProductDB } from "../redux/async/post";
 import {
@@ -17,10 +17,10 @@ const ProductEdit = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [content, setContent] = useState("");
 
   const addProduct = () => {
-    dispatch(addProductDB({ title, body }));
+    dispatch(addProductDB({ title, content }));
   };
 
   return (
@@ -37,11 +37,11 @@ const ProductEdit = () => {
         <div>
           <TextArea
             className="textarea"
-            id="body"
-            name="body"
+            id="content"
+            name="content"
             placeholder="원래 내용"
             onChange={(e) => {
-              setBody(e.target.value);
+              setContent(e.target.value);
             }}
           ></TextArea>
         </div>

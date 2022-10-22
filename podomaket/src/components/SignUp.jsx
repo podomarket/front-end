@@ -14,7 +14,7 @@ export const SignUp = () => {
 
   const [user, setUser] = useState({
     username: "",
-    nickname: "",
+    userId: "",
     email: "",
     password: "",
     passwordCheck: "",
@@ -33,7 +33,7 @@ export const SignUp = () => {
     dispatch(__addUser(user));
     setUser({
       username: "",
-      nickname: "",
+      userId: "",
       email: "",
       password: "",
       passwordCheck: "",
@@ -50,10 +50,10 @@ export const SignUp = () => {
         <p>닉네임</p>
         <input
           type="text"
-          name="nickname"
+          name="userId"
           minLength="5"
           placeholder="닉네임을 입력하세요"
-          value={user.nickname}
+          value={user.userId}
           onChange={onChangeHandler}
         />
         <ReButton type="button">중복확인</ReButton>

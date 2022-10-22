@@ -8,13 +8,8 @@ import { addProductApi, addUserApi } from "./apis";
 // const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
 const initialState = {
-  products: [
-    {
-      id: 0,
-      title: "",
-      content: "",
-    },
-  ],
+  products: [],
+  users: [],
   isLoading: false,
   error: null,
 };
@@ -46,10 +41,8 @@ export const __addProduct = createAsyncThunk(
 export const __addUser = createAsyncThunk(
   "post/addUser",
   async (payload, thunkAPI) => {
-    // 서버랑 통신하는 코드 작성
-    const response = await addUserApi(payload);
+    await addUserApi(payload);
     console.log(payload);
-    return response;
   }
 );
 

@@ -10,5 +10,12 @@
       "content": "123",
       "id": 2
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "소영",
+      "nickname": "thdud"
+    }
   ]
 }

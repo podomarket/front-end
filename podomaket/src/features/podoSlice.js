@@ -17,18 +17,7 @@ export const __getProducts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const products = await axios.get("http://localhost:3001/product");
-      return thunkAPI.fulfillWithValue(products.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const __addProducts = createAsyncThunk(
-  "product/addProducts",
-  async (payload, thunkAPI) => {
-    try {
-      const products = await axios.post("http://localhost:3001/product");
+      console.log(products.data);
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -38,19 +27,16 @@ export const __addProducts = createAsyncThunk(
 
 export const __addProduct = createAsyncThunk(
   "post/addPost",
-  async (payload, thunkAPI) => {
-    console.log(payload);
-    try {
-      await axios.post("http://localhost:3001/products", payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
+  async (params, thunkAPI) => {
+    // 서버랑 통신하는 코드 작성
+    const response = await addProductApi(params);
+    console.log(params);
+    return response;
   }
 );
 
 export const podoSlice = createSlice({
-  name: "products",
+  name: "product",
   initialState,
   reducers: {
     extraReducers: {

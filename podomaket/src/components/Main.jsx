@@ -23,7 +23,7 @@ export const Main = () => {
     <div>
       <Container>
         <h2>오늘의 상품 추천</h2>
-        <NewPost to="/product/post">새 글 작성</NewPost>
+        <NewPost to="/product">새 글 작성</NewPost>
       </Container>
       <Hr />
       <div>
@@ -33,6 +33,7 @@ export const Main = () => {
             <div key={podo.id}>
               <div>{podo.id}</div>
               <div>{podo.title}</div>
+              <div>{podo.nickname}</div>
             </div>
           );
         })}

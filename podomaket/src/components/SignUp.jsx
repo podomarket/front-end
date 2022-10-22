@@ -9,10 +9,6 @@ import { __addUser } from "../features/podoSlice";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.users);
-  useEffect(() => {
-    dispatch(__getCommentList(cardId));
-  }, [dispatch, cardId]);
 
   const [users, setUsers] = useState({
     username: "",

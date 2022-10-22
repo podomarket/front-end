@@ -9,7 +9,10 @@ import { addProductApi, addUserApi } from "./apis";
 
 const initialState = {
   products: [],
+<<<<<<< HEAD
   users: [],
+=======
+>>>>>>> 3876f5c88fe2ea4c6f787365a2e7ad70094501c0
   isLoading: false,
   error: null,
 };
@@ -26,7 +29,7 @@ export const __getProducts = createAsyncThunk(
   }
 );
 
-export const __addProduct = createAsyncThunk(
+export const __addProducts = createAsyncThunk(
   "post/addPost",
   async (payload, thunkAPI) => {
     try {
@@ -41,54 +44,57 @@ export const __addProduct = createAsyncThunk(
 export const __addUser = createAsyncThunk(
   "post/addUser",
   async (payload, thunkAPI) => {
-    await addUserApi(payload);
-    console.log(payload);
+    try {
+      await axios.post("http://localhost:3001/users", payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
   }
 );
 
 export const podoSlice = createSlice({
-  name: "product",
+  name: "productList",
   initialState,
-  reducers: {
-    extraReducers: {
-      // GET Product List
-      [__getProducts.pending]: (state) => {
-        state.isLoading = true;
-      },
-      [__getProducts.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.products = action.payload;
-      },
-      [__getProducts.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      },
+  reducers: {},
+  extraReducers: {
+    // GET Product List
+    [__getProducts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getProducts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.products = action.payload;
+    },
+    [__getProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
-      // ADD Product
-      [__addProduct.pending]: (state) => {
-        state.isLoading = true;
-      },
-      [__addProduct.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.todos = action.payload;
-      },
-      [__addProduct.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      },
+    // ADD Product
+    [__addProducts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__addProducts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [__addProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
-      // ADD User
-      [__addUser.pending]: (state) => {
-        state.isLoading = true;
-      },
-      [__addUser.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.users.push(action.payload);
-      },
-      [__addUser.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      },
+    // ADD User
+    [__addUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__addUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.users.push(action.payload);
+    },
+    [__addUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

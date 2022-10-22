@@ -9,10 +9,6 @@ import { __addUser } from "../features/podoSlice";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
-  // const users = useSelector((state) => state.users.user);
-  // useEffect(() => {
-  //   dispatch(__addUser());
-  // }, [dispatch]);
 
   const [user, setUser] = useState({
     username: "",

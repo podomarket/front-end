@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { __addProduct } from "../features/podoSlice";
+import { __addProducts } from "../features/podoSlice";
 import {
   BackButton,
   ButtonSet,
@@ -18,9 +18,14 @@ const ProductPost = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
+  const [products, setProducts] = useState({
+    title: "",
+    imageUrl: "",
+    content: "",
+    price: 0,
+  });
   const addProduct = () => {
-    dispatch(__addProduct({ title, content }));
+    dispatch(__addProducts({ title, content }));
   };
 
   const [imageUrl, setImageUrl] = useState("");

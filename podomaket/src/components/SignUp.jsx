@@ -1,34 +1,39 @@
 // 회원가입 페이지
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useSelector } from "react";
 import styled from "styled-components";
 
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { __addUser } from "../features/podoSlice";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [users, setUsers] = useState({
-    username: "",
-    nickname: "",
-    email: "",
-    password: "",
-    passwordCheck: "",
-  });
+  const [user, setUser] = useState(
+    JSON.stringify({
+      username: "",
+      nickname: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+    })
+  );
+  console.log(user);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    setUsers((prev) => {
+    setUser((prev) => {
       return { ...prev, [name]: value };
     });
   };
 
   const handleAddUsers = (e) => {
     e.preventDefault();
-    dispatch(__addUser(users));
-    setUsers({
+    dispatch(__addUser(user));
+    setUser({
       username: "",
       nickname: "",
       email: "",
@@ -47,50 +52,57 @@ export const SignUp = () => {
         <p>닉네임</p>
         <input
           type="text"
+          name="nickname"
           maxLength="5"
           placeholder="닉네임을 입력하세요"
-          required
-          value={users.nickname}
+          value={user.nickname}
           onChange={onChangeHandler}
         />
-        <ReButton>중복확인</ReButton>
+        <ReButton type="button">중복확인</ReButton>
         <p>비밀번호</p>
         <input
           type="password"
-          maxLength="8"
+          name="password"
+          minLength="8"
           placeholder="비밀번호를 입력하세요"
-          value={users.password}
+          value={user.password}
           onChange={onChangeHandler}
-          required
         />
         <p>비밀번호 재확인</p>
         <input
-          type="ConfirmPassword"
-          maxLength="8"
+          type="Password"
+          name="passwordCheck"
+          minLength="8"
           placeholder="비밀번호를 다시 입력하세요"
-          value={users.passwordCheck}
+          value={user.passwordCheck}
           onChange={onChangeHandler}
-          required
         />
         <p>이름</p>
         <input
           type="text"
+          name="username"
           placeholder="이름을 입력하세요"
-          required
-          value={users.username}
+          value={user.username}
           onChange={onChangeHandler}
         />
         <p>e-mail</p>
         <input
           type="e-mail"
+          name="email"
           placeholder="이메일을 입력해주세요"
-          value={users.email}
+          value={user.email}
           onChange={onChangeHandler}
-          required
         />
         <br />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
-        <MainButton type="submit">가입하기</MainButton>
+        <MainButton
+          type="submit"
+          // onClick={() => {
+          //   navigate("/");
+          // }}
+        >
+          가입하기
+        </MainButton>
         <Back>취소</Back>
       </Box>
     </MainBox>

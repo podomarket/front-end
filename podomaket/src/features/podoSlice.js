@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   products: [],
+  users: [],
   isLoading: false,
   error: null,
 };
@@ -34,8 +35,9 @@ export const __addProducts = createAsyncThunk(
 export const __addUser = createAsyncThunk(
   "post/addUser",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      await axios.post("http://localhost:3001/users", payload);
+      await axios.post("http://34.201.116.215:8080/user/signup", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

@@ -1,61 +1,19 @@
 {
-  "products": [
+  "posts": [
     {
       "id": 1,
       "title": "json-server",
-      "nickname": "typicode"
-    },
-    {
-      "id": 2
-    },
-    {
-      "id": 3
-    },
-    {
-      "id": 4
-    },
-    {
-      "id": 5
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "id": 6
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "id": 7
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "id": 8
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "id": 9
-    },
-    {
-      "title": "",
-      "body": "",
-      "id": 10
-    },
-    {
-      "title": "",
-      "body": "",
-      "id": 11
-    },
-    {
-      "title": "",
-      "body": "",
-      "id": 12
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "id": 13
+      "author": "typicode"
     }
-  ]
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

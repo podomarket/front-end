@@ -1,0 +1,14 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "nickname": "typtcode"
+    },
+    {
+      "title": "asdf",
+      "content": "wefsdf",
+      "id": 2
+    }
+  ]
+}

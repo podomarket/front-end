@@ -28,6 +28,7 @@ export const Main = () => {
       <Hr />
       <div>
         {products.map((podo) => {
+          console.log(podo);
           return (
             <div key={podo.id}>
               <div>{podo.id}</div>

@@ -27,6 +27,7 @@ export const __getProducts = createAsyncThunk(
 
 export const __addProduct = createAsyncThunk(
   "post/addPost",
+
   async (params, thunkAPI) => {
     // 서버랑 통신하는 코드 작성
     const response = await addProductApi(params);

@@ -3,7 +3,7 @@ import axios from "axios";
 // import moment from "moment";
 // 안써도 자동으로 한국 시간을 불러온다. 명확하게 하기 위해 import
 import "moment/locale/ko";
-import { addProductApi } from "./apis";
+import { addProductApi, addUserApi } from "./apis";
 
 // const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
@@ -13,11 +13,11 @@ const initialState = {
   error: null,
 };
 export const __getProducts = createAsyncThunk(
-  "product/getProducts",
+  "products/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get("http://localhost:3001/product");
-      console.log(products.data);
+      const products = await axios.get("http://localhost:3001/products");
+      console.log(products);
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -32,6 +32,16 @@ export const __addProduct = createAsyncThunk(
     // 서버랑 통신하는 코드 작성
     const response = await addProductApi(params);
     console.log(params);
+    return response;
+  }
+);
+
+export const __addUser = createAsyncThunk(
+  "post/addUser",
+  async (payload, thunkAPI) => {
+    // 서버랑 통신하는 코드 작성
+    const response = await addUserApi(payload);
+    console.log(payload);
     return response;
   }
 );
@@ -63,6 +73,19 @@ export const podoSlice = createSlice({
         state.products.push(action.payload);
       },
       [__addProduct.rejected]: (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      },
+
+      // ADD User
+      [__addUser.pending]: (state) => {
+        state.isLoading = true;
+      },
+      [__addUser.fulfilled]: (state, action) => {
+        state.isLoading = false;
+        state.users.push(action.payload);
+      },
+      [__addUser.rejected]: (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       },

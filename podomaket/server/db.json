@@ -1,12 +1,11 @@
 {
-  "product": [
+  "products": [
     {
       "id": 1,
       "title": "json-server",
       "nickname": "typtcode"
     },
     {
-
       "title": "",
       "content": "",
       "id": 2
@@ -15,36 +14,13 @@
       "title": "",
       "content": "",
       "id": 3
-    },
+    }
+  ],
+  "users": [
     {
-      "title": "1",
-      "content": "2",
-      "id": 4
-    },
-    {
-      "title": "1",
-      "content": "2",
-      "id": 5
-    },
-    {
-      "title": "1",
-      "content": "2",
-      "id": 6
-    },
-    {
-      "title": "123",
-      "content": "123",
-      "id": 7
-    },
-    {
-      "title": "123",
-      "content": "123123",
-      "id": 8
-    },
-    {
-      "title": "안녕하세요",
-      "content": "반갑습니다",
-      "id": 9
+      "id": 1,
+      "nickname": "소영",
+      "password": "thdud1004"
     }
   ]
 }

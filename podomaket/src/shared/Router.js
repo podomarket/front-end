@@ -23,14 +23,12 @@ const Router = () => {
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/signup" element={<SignUp />} />
         <Route path="/mypage/chat" element={<Chat />} />
-
         <Route path="/mypage/:id" element={<MyProfilePage />} />
         <Route path="/mypage/edit/:id" element={<MyPageEdit />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/product" element={<ProductPostPage />} />
         <Route path="/product/edit/:id" element={<ProductEdit />} />
       </Routes>
-      ㄴ
     </BrowserRouter>
   );
 };

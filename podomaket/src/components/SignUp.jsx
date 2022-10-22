@@ -1,24 +1,61 @@
 // 회원가입 페이지
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { IoMdClose } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { __addUser } from "../features/podoSlice";
 
 export const SignUp = () => {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
+  useEffect(() => {
+    dispatch(__getCommentList(cardId));
+  }, [dispatch, cardId]);
+
+  const [users, setUsers] = useState({
+    username: "",
+    nickname: "",
+    email: "",
+    password: "",
+    passwordCheck: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setUsers((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleAddUsers = (e) => {
+    e.preventDefault();
+    dispatch(__addUser(users));
+    setUsers({
+      username: "",
+      nickname: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+    });
+  };
+
   return (
     <MainBox>
       <h4>
         <Close />
       </h4>
       <h2>회원가입</h2>
-      <Box>
+      <Box onSubmit={(e) => handleAddUsers(e)}>
         <p>닉네임</p>
         <input
           type="text"
           maxLength="5"
           placeholder="닉네임을 입력하세요"
           required
+          value={users.nickname}
+          onChange={onChangeHandler}
         />
         <ReButton>중복확인</ReButton>
         <p>비밀번호</p>
@@ -26,6 +63,8 @@ export const SignUp = () => {
           type="password"
           maxLength="8"
           placeholder="비밀번호를 입력하세요"
+          value={users.password}
+          onChange={onChangeHandler}
           required
         />
         <p>비밀번호 재확인</p>
@@ -33,12 +72,26 @@ export const SignUp = () => {
           type="ConfirmPassword"
           maxLength="8"
           placeholder="비밀번호를 다시 입력하세요"
+          value={users.passwordCheck}
+          onChange={onChangeHandler}
           required
         />
         <p>이름</p>
-        <input type="text" placeholder="이름을 입력하세요" required />
+        <input
+          type="text"
+          placeholder="이름을 입력하세요"
+          required
+          value={users.username}
+          onChange={onChangeHandler}
+        />
         <p>e-mail</p>
-        <input type="e-mail" placeholder="이메일을 입력해주세요" required />
+        <input
+          type="e-mail"
+          placeholder="이메일을 입력해주세요"
+          value={users.email}
+          onChange={onChangeHandler}
+          required
+        />
         <br />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
         <MainButton type="submit">가입하기</MainButton>

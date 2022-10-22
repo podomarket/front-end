@@ -20,11 +20,7 @@ const ProductPost = () => {
   const [content, setContent] = useState("");
 
   const addProduct = () => {
-<<<<<<< HEAD
-    dispatch(addProductDB({ title, content }));
-=======
-    dispatch(__addProduct({ title, body }));
->>>>>>> 0b6a4d5de0e2ccfefd2aea91ff2748f2e0f6b64a
+    dispatch(__addProduct({ title, content }));
   };
 
   const [imageUrl, setImageUrl] = useState("");

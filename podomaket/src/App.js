@@ -1,8 +1,14 @@
-import logo from "./logo.svg";
 import "./App.css";
 
+import Router from "../src/shared/Router";
+import Header from "./components/Header";
+
 function App() {
-  return <div className="App">test1</div>;
+  return (
+    <div>
+      <Router />
+    </div>
+  );
 }
 
 export default App;

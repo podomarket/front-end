@@ -12,15 +12,13 @@ export const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(
-    JSON.stringify({
-      username: "",
-      nickname: "",
-      email: "",
-      password: "",
-      passwordCheck: "",
-    })
-  );
+  const [user, setUser] = useState({
+    username: "",
+    nickname: "",
+    email: "",
+    password: "",
+    passwordCheck: "",
+  });
   console.log(user);
 
   const onChangeHandler = (e) => {
@@ -33,15 +31,13 @@ export const SignUp = () => {
   const handleAddUsers = (e) => {
     e.preventDefault();
     dispatch(__addUser(user));
-    setUser(
-      JSON.stringify({
-        username: "",
-        nickname: "",
-        email: "",
-        password: "",
-        passwordCheck: "",
-      })
-    );
+    setUser({
+      username: "",
+      nickname: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+    });
   };
 
   return (
@@ -55,7 +51,7 @@ export const SignUp = () => {
         <input
           type="text"
           name="nickname"
-          maxLength="5"
+          minLength="5"
           placeholder="닉네임을 입력하세요"
           value={user.nickname}
           onChange={onChangeHandler}

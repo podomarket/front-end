@@ -17,18 +17,19 @@ const ProductPost = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [content, setContent] = useState("");
 
   const addProduct = () => {
-    dispatch(__addProduct({ title, body }));
+    dispatch(__addProduct({ title, content }));
   };
 
-  const [files, setFiles] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  console.log();
 
   const onLoadFile = (e) => {
     const file = e.target.files;
     console.log(file);
-    setFiles(file);
+    setImageUrl(file);
   };
 
   // const handleClick = (e) => {
@@ -62,7 +63,7 @@ const ProductPost = () => {
             name="body"
             placeholder="내용을 입력해주세요"
             onChange={(e) => {
-              setBody(e.target.value);
+              setContent(e.target.value);
             }}
           ></TextArea>
         </div>

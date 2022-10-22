@@ -13,10 +13,22 @@ const initialState = {
   error: null,
 };
 export const __getProducts = createAsyncThunk(
-  "products/getProducts",
+  "product/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get("http://localhost:8080/products");
+      const products = await axios.get("http://localhost:3001/product");
+      return thunkAPI.fulfillWithValue(products.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __addProducts = createAsyncThunk(
+  "product/addProducts",
+  async (payload, thunkAPI) => {
+    try {
+      const products = await axios.post("http://localhost:3001/product");
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

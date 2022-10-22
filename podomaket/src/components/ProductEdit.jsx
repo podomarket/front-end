@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   BackButton,
@@ -16,7 +16,7 @@ const ProductEdit = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [content, setContent] = useState("");
 
   return (
     <Wrap>
@@ -32,11 +32,11 @@ const ProductEdit = () => {
         <div>
           <TextArea
             className="textarea"
-            id="body"
-            name="body"
+            id="content"
+            name="content"
             placeholder="원래 내용"
             onChange={(e) => {
-              setBody(e.target.value);
+              setContent(e.target.value);
             }}
           ></TextArea>
         </div>

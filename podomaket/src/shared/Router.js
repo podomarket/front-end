@@ -12,6 +12,7 @@ import Header from "../components/Header";
 import GlobalStyles from "../style/GlobalStyles";
 import ProductPostPage from "../pages/ProductPostPage";
 import MyProfilePage from "../pages/MyProfilePage";
+import ChatList from "../components/ChatList";
 
 const Router = () => {
   return (
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/product" element={<ProductPostPage />} />
         <Route path="/product/edit/:id" element={<ProductEdit />} />
+        <Route path="/chatlist" element={<ChatList />} />
       </Routes>
     </BrowserRouter>
   );

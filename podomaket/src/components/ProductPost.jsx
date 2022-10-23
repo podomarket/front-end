@@ -5,11 +5,13 @@ import {
   BackButton,
   ButtonSet,
   Container,
-  CustomFile,
+  ImageInput,
+  ImageLabel,
+  ImageLayout,
+  ImagePreview,
   Input,
   NewButton,
   TextArea,
-  UploadName,
   Wrap,
 } from "../style/productPost_styled";
 
@@ -29,8 +31,6 @@ const ProductPost = () => {
     setProducts((prev) => {
       return { ...prev, [name]: value };
     });
-    const file = e.target.files;
-    setImageUrl(file);
   };
 
   const addProduct = (e) => {
@@ -43,30 +43,29 @@ const ProductPost = () => {
       date: new Date().getTime(),
     });
   };
+  const [image, setImage] = useState("");
 
-  const [imageUrl, setImageUrl] = useState("");
+  const fileUpload = (e) => {
+    const image = URL.createObjectURL(e.target.files[0]);
+    setImage(image);
+  };
   console.log();
 
-  const onLoadFile = (e) => {
-    const file = e.target.files;
-    setImageUrl(file);
-  };
-
-  // const handleClick = (e) => {
-  //   const formdata = new FormData();
-  //   formdata.append("uploadImage", imageUrl[0]);
-
-  //   const config = {
-  //     Header: {
-  //       "content-type": "multipart/form-data",
-  //     },
-  //   };
-
-  //   axios.post(`http://localhost:3001/product`, formdata, config);
-  // };
   return (
     <Wrap>
       <Container>
+        <ImageLayout>
+          <ImageLabel htmlFor="file" />
+          <ImageInput
+            id="file"
+            type={"file"}
+            name="imageUrl"
+            placeholder="업로드"
+            accept={"image/*"}
+            onChange={fileUpload}
+          />
+          <ImagePreview src={image} />
+        </ImageLayout>
         <Input
           id="title"
           name="title"
@@ -76,7 +75,6 @@ const ProductPost = () => {
         />
         <div>
           <TextArea
-            className="textarea"
             id="content"
             name="content"
             placeholder="내용을 입력해주세요"
@@ -90,18 +88,6 @@ const ProductPost = () => {
           placeholder="가격을 입력해주세요"
           onChange={onChangeHandler}
         />
-        <CustomFile>
-          <span>이미지 파일을 선택해주세요</span>
-          <UploadName
-            id="file"
-            type="file"
-            name="imageUrl"
-            placeholder="파일을 업로드해주세요"
-            accept="image/*"
-            multiple={true}
-            onChange={onChangeHandler}
-          />
-        </CustomFile>
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
           <NewButton onClick={addProduct} to="/">

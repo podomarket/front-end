@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __setUser } from "../features/userSlice";
 import { setUserApi } from "../features/apis";
-import { login } from "../localStorage";
+import { login, localGet } from "../localStorage";
 
 export const Login = () => {
   const navigate = useNavigate();

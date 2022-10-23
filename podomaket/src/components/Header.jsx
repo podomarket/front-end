@@ -8,6 +8,8 @@ import {
   NavLinks,
 } from "../style/header_styled";
 import { useNavigate } from "react-router-dom";
+import { localGet } from "../localStorage";
+
 export const Header = () => {
   const navigate = useNavigate();
 
@@ -35,7 +37,9 @@ export const Header = () => {
           <a onClick={myPage}>마이페이지</a>
         </li>
         <li>
-          <LogInOutButton onClick={toLogin}>로그인</LogInOutButton>
+          <LogInOutButton onClick={toLogin}>
+            {localGet("token") ? "로그인" : "로그아웃"}
+          </LogInOutButton>
         </li>
       </NavLinks>
     </NavBar>

@@ -54,6 +54,10 @@ export const Login = () => {
     });
   };
 
+  const signupHandler = () => {
+    navigate("/users/signup");
+  };
+
   const kakaoHandler = (e) => {
     window.location.href =
       "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://localhost:8080/users/kakao/callback&response_type=code";
@@ -100,7 +104,7 @@ export const Login = () => {
       <MainButton type="submit" onClick={clickHandler}>
         로그인
       </MainButton>
-      <Button>회원가입</Button>
+      <Button onClick={signupHandler}>회원가입</Button>
       <p>
         <br />
         <Kakao onClick={kakaoHandler}></Kakao>

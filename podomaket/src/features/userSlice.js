@@ -25,6 +25,7 @@ export const __addUser = createAsyncThunk(
 export const __setUser = createAsyncThunk(
   "post/setUser",
   async (payload, thunkAPI) => {
+    console.log(payload);
     const result = await axios.post("http://localhost:3001/login");
     thunkAPI.dispatch(setUser(result.data));
   }
@@ -53,7 +54,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
     },
 
-    // Get User
+    // set User
     [__addUser.pending]: (state) => {
       state.isLoading = true;
     },

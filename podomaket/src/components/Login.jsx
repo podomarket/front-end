@@ -18,7 +18,7 @@ export const Login = () => {
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {
-    dispatch(__setUser());
+    dispatch(__setUser(login));
   };
 
   const [login, setLogin] = useState({
@@ -84,7 +84,7 @@ export const Login = () => {
   );
 };
 
-const MainBox = styled.form`
+const MainBox = styled.div`
   background-color: #fcfcfc;
   box-shadow: 6px 6px 10px 3px #dfdfdf;
   width: 500px;
@@ -120,7 +120,7 @@ const MainButton = styled.button`
   margin-top: 60px;
 `;
 
-const Box = styled.div`
+const Box = styled.form`
   & p {
     text-align: left;
     margin-left: 100px;

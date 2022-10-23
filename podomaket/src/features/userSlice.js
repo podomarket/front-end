@@ -31,10 +31,10 @@ export const __setUser = createAsyncThunk(
       "http://54.173.186.166:8080/users/login",
       payload
     );
-    // console.log(result);
+    console.log(result);
     localSet("token", result.headers.authorization);
 
-    // console.log(result.headers.authorization);
+    console.log(result.headers.authorization);
     thunkAPI.dispatch(setUser());
   }
 );

@@ -12,6 +12,19 @@ export const Wrap = styled.div`
 export const Container = styled.div`
   margin: auto;
 `;
+export const TextArea = styled.textarea`
+  width: 500px;
+  height: 250px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  background-color: #dddddd;
+  font-size: 16px;
+  resize: none;
+  margin-bottom: 10px;
+  overflow: hidden;
+`;
 export const Input = styled.input`
   width: 500px;
   padding: 12px 20px;
@@ -23,27 +36,41 @@ export const Input = styled.input`
   resize: none;
   margin-bottom: 10px;
 `;
-export const TextArea = styled.textarea`
-  width: 100%;
-  height: 350px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 4px;
-  background-color: #dddddd;
-  font-size: 16px;
-  resize: none;
-  margin-bottom: 20px;
+export const ImageLayout = styled.div`
+  position: relative;
+  height: 100px;
+  width: 100px;
   overflow: hidden;
+  resize: none;
+  margin: 10px auto;
+  border: 1px solid #ccc;
 `;
-export const UploadName = styled.input`
-  display: inline-block;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #dddddd;
-  width: 78%;
-  color: #999999;
+export const ImagePreview = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+export const ImageLabel = styled.label`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: transparent;
+`;
+
+export const ImageInput = styled.input`
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 `;
 export const Label = styled.div`
   display: inline-block;
@@ -59,6 +86,7 @@ export const Label = styled.div`
 export const ButtonSet = styled.div`
   display: flex;
   justify-content: end;
+  margin-bottom: 10px;
 `;
 export const BackButton = styled(Link)`
   text-decoration: none;

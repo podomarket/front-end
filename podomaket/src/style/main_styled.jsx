@@ -27,6 +27,10 @@ export const H2Button = styled.button`
 export const Hr = styled.hr`
   margin: 0;
 `;
+export const List = styled.div`
+  padding: 10px 20px;
+  margin: 10px;
+`;
 export const NewPost = styled(Link)`
   text-decoration: none;
   border: none;

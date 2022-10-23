@@ -1,8 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { podoSlice } from "../features/podoSlice";
+import userSlice from "../features/userSlice";
 
 export const store = configureStore({
   reducer: {
-    products: podoSlice.reducer,
+    productList: podoSlice.reducer,
+    userSlice,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });

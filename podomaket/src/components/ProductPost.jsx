@@ -1,71 +1,98 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addProductDB } from "../redux/async/post";
+import { __addProducts } from "../features/podoSlice";
 import {
   BackButton,
   ButtonSet,
   Container,
+  ImageInput,
+  ImageLabel,
+  ImageLayout,
+  ImagePreview,
   Input,
-  Label,
   NewButton,
   TextArea,
-  UploadName,
   Wrap,
 } from "../style/productPost_styled";
 
 const ProductPost = () => {
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [products, setProducts] = useState({
+    title: "",
+    imageUrl: "",
+    content: "",
+    price: 0,
+    date: new Date().getTime(),
+  });
 
-  const addProduct = () => {
-    dispatch(addProductDB({ title, content }));
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setProducts((prev) => {
+      return { ...prev, [name]: value };
+    });
   };
 
-  const [files, setFiles] = useState("");
-
-  const onLoadFile = (e) => {
-    const file = e.target.files;
-    console.log(file);
-    setFiles(file);
+  const addProduct = (e) => {
+    dispatch(__addProducts(products));
+    setProducts({
+      title: "",
+      imageUrl: "",
+      content: "",
+      price: 0,
+      date: new Date().getTime(),
+    });
   };
+  const [image, setImage] = useState("");
+
+  const fileUpload = (e) => {
+    const image = URL.createObjectURL(e.target.files[0]);
+    setImage(image);
+  };
+  console.log();
 
   return (
     <Wrap>
       <Container>
+        <ImageLayout>
+          <ImageLabel htmlFor="file" />
+          <ImageInput
+            id="file"
+            type={"file"}
+            name="imageUrl"
+            placeholder="업로드"
+            accept={"image/*"}
+            onChange={fileUpload}
+          />
+          <ImagePreview src={image} />
+        </ImageLayout>
         <Input
           id="title"
+          name="title"
           type="text"
           placeholder="제목을 입력해주세요"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
+          onChange={onChangeHandler}
         />
         <div>
           <TextArea
-            className="textarea"
-            id="body"
-            name="body"
+            id="content"
+            name="content"
             placeholder="내용을 입력해주세요"
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
+            onChange={onChangeHandler}
           ></TextArea>
         </div>
-        <div>
-          <UploadName
-            id="file"
-            type="file"
-            placeholder="file"
-            accept="img/*"
-            onChange={onLoadFile}
-          />
-          <Label htmlFor="file">파일찾기</Label>
-        </div>
+        <Input
+          id="price"
+          name="price"
+          type="text"
+          placeholder="가격을 입력해주세요"
+          onChange={onChangeHandler}
+        />
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
-          <NewButton onClick={addProduct}>새 글 작성</NewButton>
+          <NewButton onClick={addProduct} to="/">
+            새 글 작성
+          </NewButton>
         </ButtonSet>
       </Container>
     </Wrap>

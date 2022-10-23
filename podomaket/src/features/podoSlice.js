@@ -1,13 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import moment from "moment";
-// 안써도 자동으로 한국 시간을 불러온다. 명확하게 하기 위해 import
-import "moment/locale/ko";
-
-const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
 const initialState = {
   products: [],
+  users: [],
   isLoading: false,
   error: null,
 };
@@ -16,6 +12,7 @@ export const __getProducts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const products = await axios.get("http://localhost:3001/products");
+      console.log(products.data);
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -24,45 +21,46 @@ export const __getProducts = createAsyncThunk(
 );
 
 export const __addProducts = createAsyncThunk(
-  "products/addProducts",
+  "post/addPost",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.post("http://localhost:3001/products");
-      return thunkAPI.fulfillWithValue(products.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      await axios.post("http://localhost:3001/products", payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
     }
   }
 );
 
 export const podoSlice = createSlice({
-  name: "products",
+  name: "productList",
   initialState,
-  reducers: {
-    extraReducers: {
-      [__getProducts.pending]: (state) => {
-        state.isLoading = true;
-      },
-      [__getProducts.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.content = action.payload;
-      },
-      [__getProducts.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      },
+  reducers: {},
+  extraReducers: {
+    // GET Product List
+    [__getProducts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getProducts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.products = action.payload;
+    },
+    [__getProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
-      [__addProducts.pending]: (state) => {
-        state.isLoading = true;
-      },
-      [__addProducts.fulfilled]: (state, action) => {
-        state.isLoading = false;
-        state.products.push(action.payload);
-      },
-      [__addProducts.rejected]: (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      },
+    // ADD Product
+    [__addProducts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__addProducts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.products = action.payload;
+    },
+    [__addProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

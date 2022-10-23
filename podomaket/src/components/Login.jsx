@@ -1,50 +1,115 @@
 // 로그인 페이지
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { __setUser } from "../features/userSlice";
+import { setUserApi } from "../features/apis";
+import { login } from "../localStorage";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const close = () => {
     navigate("/");
   };
+
+  // const handleLogin = () => {
+  //   fetch(`${setUserApi}/login`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       userId: this.state.userId,
+  //       password: this.state.password,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+
+  //     .then((response) => {
+  //       if (response.ACCESS_TOKEN) {
+  //         localStorage.setItem("login-token", response.ACCESS_TOKEN);
+  //       }
+  //     });
+  // };
+
+  const logins = useSelector((state) => state.userSlice);
+
+  const clickHandler = async () => {
+    dispatch(__setUser(login));
+    navigate("/");
+  };
+
+  const [login, setLogin] = useState({
+    userId: "",
+    password: "",
+  });
+  console.log(login);
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setLogin((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const kakaoHandler = (e) => {
+    window.location.href =
+      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://localhost:8080/users/kakao/callback&response_type=code";
+  };
+
+  const handleAddUsers = (e) => {
+    e.preventDefault();
+    dispatch(__setUser(login));
+    setLogin({
+      userId: "",
+      password: "",
+    });
+  };
+
   return (
     <MainBox>
       <h4>
         <Close onClick={close} />
       </h4>
       <h2>로그인</h2>
-      <Box>
+      <Box onSubmit={(e) => handleAddUsers(e)}>
         <p>닉네임</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
-          maxLength="5"
+          name="userId"
+          value={login.userId}
+          minLength="5"
+          onChange={onChangeHandler}
           required
         />
         <p>비밀번호</p>
         <input
           type="password"
-          maxLength="8"
+          name="password"
+          value={login.password}
+          minLength="8"
           placeholder="비밀번호를 입력하세요"
+          onChange={onChangeHandler}
           required
         />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
-      <MainButton>로그인</MainButton>
-      <Button>카카오톡으로 회원가입</Button>
+      <MainButton type="submit" onClick={clickHandler}>
+        로그인
+      </MainButton>
       <Button>회원가입</Button>
       <p>
-        <Kakao></Kakao>
+        <br />
+        <Kakao onClick={kakaoHandler}></Kakao>
       </p>
     </MainBox>
   );
 };
 
-const MainBox = styled.form`
+const MainBox = styled.div`
   background-color: #fcfcfc;
   box-shadow: 6px 6px 10px 3px #dfdfdf;
   width: 500px;
@@ -80,7 +145,7 @@ const MainButton = styled.button`
   margin-top: 60px;
 `;
 
-const Box = styled.div`
+const Box = styled.form`
   & p {
     text-align: left;
     margin-left: 100px;

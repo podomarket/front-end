@@ -95,9 +95,9 @@ export const SignUp = () => {
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
         <MainButton
           type="submit"
-          onClick={() => {
-            navigate("/");
-          }}
+          // onClick={() => {
+          //   navigate("/");
+          // }}
         >
           가입하기
         </MainButton>

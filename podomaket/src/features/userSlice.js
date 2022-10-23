@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { localSet } from "../localStorage";
 
 const initialState = {
   token: null,
@@ -25,8 +26,13 @@ export const __addUser = createAsyncThunk(
 export const __setUser = createAsyncThunk(
   "post/setUser",
   async (payload, thunkAPI) => {
-    console.log(payload);
-    await axios.post("http://54.173.186.166:8080/users/login", payload);
+    const result = await axios.post(
+      "http://54.173.186.166:8080/users/login",
+      payload
+    );
+    console.log(result);
+    localSet("token", result.headers.authorization);
+    console.log(result.headers.authorization);
     thunkAPI.dispatch(setUser());
   }
 );
@@ -37,6 +43,7 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.login = action.payload;
+      state.token = action.payload.token;
     },
   },
   extraReducers: {
@@ -47,19 +54,6 @@ export const userSlice = createSlice({
     [__addUser.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.users.push(action.payload);
-    },
-    [__addUser.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-
-    // set User
-    [__addUser.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__addUser.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.login = action.payload;
     },
     [__addUser.rejected]: (state, action) => {
       state.isLoading = false;

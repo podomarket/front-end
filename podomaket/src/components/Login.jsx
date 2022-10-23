@@ -6,6 +6,8 @@ import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __setUser } from "../features/userSlice";
+import { setUserApi } from "../features/apis";
+import { login } from "../localStorage";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -15,10 +17,28 @@ export const Login = () => {
     navigate("/");
   };
 
+  // const handleLogin = () => {
+  //   fetch(`${setUserApi}/login`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       userId: this.state.userId,
+  //       password: this.state.password,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+
+  //     .then((response) => {
+  //       if (response.ACCESS_TOKEN) {
+  //         localStorage.setItem("login-token", response.ACCESS_TOKEN);
+  //       }
+  //     });
+  // };
+
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {
     dispatch(__setUser(login));
+    // navigate("/");
   };
 
   const [login, setLogin] = useState({

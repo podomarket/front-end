@@ -20,8 +20,8 @@ const Router = () => {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/user/signup" element={<SignUp />} />
+        <Route path="/users/login" element={<Login />} />
+        <Route path="/users/signup" element={<SignUp />} />
         <Route path="/mypage/chat" element={<Chat />} />
         <Route path="/mypage/:id" element={<MyProfilePage />} />
         <Route path="/mypage/edit/:id" element={<MyPageEdit />} />

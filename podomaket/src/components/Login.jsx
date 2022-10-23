@@ -38,7 +38,7 @@ export const Login = () => {
 
   const clickHandler = async () => {
     dispatch(__setUser(login));
-    // navigate("/");
+    navigate("/");
   };
 
   const [login, setLogin] = useState({
@@ -100,9 +100,9 @@ export const Login = () => {
       <MainButton type="submit" onClick={clickHandler}>
         로그인
       </MainButton>
-      <Button>카카오톡으로 회원가입</Button>
       <Button>회원가입</Button>
       <p>
+        <br />
         <Kakao onClick={kakaoHandler}></Kakao>
       </p>
     </MainBox>

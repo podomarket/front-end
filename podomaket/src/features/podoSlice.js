@@ -4,7 +4,6 @@ import axios from "axios";
 const initialState = {
   products: [],
   users: [],
-  login: [],
   isLoading: false,
   error: null,
 };

@@ -1,5 +1,13 @@
 import axios from "axios";
 
+// const instance = axios.create({
+//   baseURL: "http://54.173.186.166:8080",
+//   headers: {
+//     token: "",
+//     username: "",
+//   },
+// });
+
 // product
 
 export const addProductApi = (product) => {

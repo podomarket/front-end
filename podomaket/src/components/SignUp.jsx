@@ -47,12 +47,12 @@ export const SignUp = () => {
       </h4>
       <h2>회원가입</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>닉네임</p>
+        <p>아이디</p>
         <input
           type="text"
           name="userId"
           minLength="5"
-          placeholder="닉네임을 입력하세요"
+          placeholder="아이디를 입력하세요"
           value={user.userId}
           onChange={onChangeHandler}
         />

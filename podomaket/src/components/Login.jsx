@@ -79,7 +79,7 @@ export const Login = () => {
       </h4>
       <h2>로그인</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>닉네임</p>
+        <p>아이디</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"

@@ -1,40 +1,71 @@
 // 로그인 페이지
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { __getUser } from "../features/podoSlice";
+import { useDispatch } from "react-redux";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const close = () => {
     navigate("/");
   };
+
+  const [login, setLogin] = useState({
+    userId: "",
+    password: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setLogin((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleAddUsers = (e) => {
+    e.preventDefault();
+    dispatch(__getUser(login));
+    setLogin({
+      userId: "",
+      password: "",
+    });
+  };
+
   return (
     <MainBox>
       <h4>
         <Close onClick={close} />
       </h4>
       <h2>로그인</h2>
-      <Box>
+      <Box onSubmit={(e) => handleAddUsers(e)}>
         <p>닉네임</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
-          maxLength="5"
+          name="userId"
+          value={login.userId}
+          minLength="5"
+          onChange={onChangeHandler}
           required
         />
         <p>비밀번호</p>
         <input
           type="password"
-          maxLength="8"
+          name="password"
+          value={login.password}
+          minLength="8"
           placeholder="비밀번호를 입력하세요"
+          onChange={onChangeHandler}
           required
         />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
-      <MainButton>로그인</MainButton>
+      <MainButton type="submit">로그인</MainButton>
       <Button>카카오톡으로 회원가입</Button>
       <Button>회원가입</Button>
       <p>

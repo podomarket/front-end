@@ -188,6 +188,7 @@ const Kakao = styled(RiKakaoTalkFill)`
   padding: 4px;
   border-radius: 30px;
   text-align: center;
+  cursor: pointer;
 `;
 
 const Close = styled(IoMdClose)`

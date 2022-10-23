@@ -54,6 +54,11 @@ export const Login = () => {
     });
   };
 
+  const kakaoHandler = (e) => {
+    window.location.href =
+      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://localhost:8080/users/kakao/callback&response_type=code";
+  };
+
   const handleAddUsers = (e) => {
     e.preventDefault();
     dispatch(__setUser(login));
@@ -98,7 +103,7 @@ export const Login = () => {
       <Button>카카오톡으로 회원가입</Button>
       <Button>회원가입</Button>
       <p>
-        <Kakao></Kakao>
+        <Kakao onClick={kakaoHandler}></Kakao>
       </p>
     </MainBox>
   );

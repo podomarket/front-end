@@ -13,5 +13,5 @@ export const addUserApi = (users) => {
 };
 
 export const getUserApi = (login) => {
-  axios.post("http://34.201.116.215:8080/user/login", login);
+  axios.post("http://localhost:3001/user/login", login);
 };

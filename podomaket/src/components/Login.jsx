@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { __getUser } from "../features/podoSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { __setUser } from "../features/userSlice";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -15,10 +15,17 @@ export const Login = () => {
     navigate("/");
   };
 
+  const logins = useSelector((state) => state.userSlice);
+
+  const clickHandler = async () => {
+    dispatch(__setUser());
+  };
+
   const [login, setLogin] = useState({
     userId: "",
     password: "",
   });
+  console.log(login);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -29,7 +36,7 @@ export const Login = () => {
 
   const handleAddUsers = (e) => {
     e.preventDefault();
-    dispatch(__getUser(login));
+    dispatch(__setUser(login));
     setLogin({
       userId: "",
       password: "",
@@ -65,7 +72,9 @@ export const Login = () => {
         />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
-      <MainButton type="submit">로그인</MainButton>
+      <MainButton type="submit" onClick={clickHandler}>
+        로그인
+      </MainButton>
       <Button>카카오톡으로 회원가입</Button>
       <Button>회원가입</Button>
       <p>

@@ -2,8 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
+  token: null,
+  login: null,
   users: [],
-  login: [],
   isLoading: false,
   error: null,
 };
@@ -21,23 +22,23 @@ export const __addUser = createAsyncThunk(
   }
 );
 
-export const __getUser = createAsyncThunk(
-  "post/getUser",
+export const __setUser = createAsyncThunk(
+  "post/setUser",
   async (payload, thunkAPI) => {
-    console.log(payload);
-    try {
-      await axios.post("http://34.201.116.215:8080/user/login", payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
+    const result = await axios.post("http://localhost:3001/login");
+    thunkAPI.dispatch(setUser(result.data));
   }
 );
 
 export const userSlice = createSlice({
   name: "userSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.token = action.payload.token;
+      state.login = action.payload.login;
+    },
+  },
   extraReducers: {
     // ADD User
     [__addUser.pending]: (state) => {
@@ -66,3 +67,6 @@ export const userSlice = createSlice({
     },
   },
 });
+
+export const { setUser } = userSlice.actions;
+export default userSlice.reducer;

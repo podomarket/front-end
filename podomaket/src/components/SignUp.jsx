@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { __addUser } from "../features/podoSlice";
+import { __addUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
@@ -95,9 +95,9 @@ export const SignUp = () => {
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
         <MainButton
           type="submit"
-          // onClick={() => {
-          //   navigate("/");
-          // }}
+          onClick={() => {
+            navigate("/");
+          }}
         >
           가입하기
         </MainButton>

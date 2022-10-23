@@ -12,7 +12,7 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const toLogin = () => {
-    navigate("/login");
+    navigate("/user/login");
   };
   const main = () => {
     navigate("/");

@@ -1,5 +1,5 @@
 // 헤더
-import React from "react";
+
 import {
   LogInOutButton,
   Logo,
@@ -9,12 +9,25 @@ import {
 } from "../style/header_styled";
 import { useNavigate } from "react-router-dom";
 import { localGet } from "../localStorage";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   const navigate = useNavigate();
+  const tokens = useSelector((state) => state.userSlice.isLogin);
+  console.log(tokens);
+
+  const [useToken, setUseToken] = useState(false);
+
+  useEffect(() => {
+    setUseToken(!useToken);
+  }, [tokens]);
 
   const toLogin = () => {
     navigate("/users/login");
+    if (localGet) {
+      return localStorage.removeItem("token");
+    }
   };
   const main = () => {
     navigate("/");
@@ -38,7 +51,7 @@ export const Header = () => {
         </li>
         <li>
           <LogInOutButton onClick={toLogin}>
-            {localGet("token") ? "로그인" : "로그아웃"}
+            {useToken ? "로그아웃" : "로그인"}
           </LogInOutButton>
         </li>
       </NavLinks>

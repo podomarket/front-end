@@ -4,7 +4,7 @@ import { localSet } from "../localStorage";
 
 const initialState = {
   token: null,
-  login: [],
+  user: { username: "" },
   users: [],
   isLoading: false,
   error: null,
@@ -42,7 +42,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.login = action.payload;
+      state.user = action.payload;
       state.token = action.payload.token;
     },
   },

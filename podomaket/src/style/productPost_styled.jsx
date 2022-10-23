@@ -12,6 +12,19 @@ export const Wrap = styled.div`
 export const Container = styled.div`
   margin: auto;
 `;
+export const TextArea = styled.textarea`
+  width: 500px;
+  height: 250px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  background-color: #dddddd;
+  font-size: 16px;
+  resize: none;
+  margin-bottom: 10px;
+  overflow: hidden;
+`;
 export const Input = styled.input`
   width: 500px;
   padding: 12px 20px;
@@ -23,49 +36,34 @@ export const Input = styled.input`
   resize: none;
   margin-bottom: 10px;
 `;
-export const TextArea = styled.textarea`
-  width: 500px;
-  height: 350px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 4px;
-  background-color: #dddddd;
-  font-size: 16px;
-  resize: none;
-  margin-bottom: 10px;
-  overflow: hidden;
-`;
-export const CustomFile = styled.div`
-  background-color: #eee;
-  width: 500px;
-  height: 30px;
-  border: 1px solid #ccc;
+export const ImageLayout = styled.div`
   position: relative;
-  z-index: 1;
-  & span {
-    font-family: Tahoma, Arial;
-    font-size: 15px;
-    display: block;
-    padding: 5px 0 0 5px;
-  }
-  &:after {
-    content: "파일 업로드";
-    width: 100px;
-    height: 30px;
-    color: #fff;
-    background-color: #535353;
-    position: absolute;
-    top: 0;
-    right: 0;
-    line-height: 30px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: Tahmoa, Arial;
-  }
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  resize: none;
+  margin: 10px auto;
+  border: 1px solid #ccc;
 `;
-export const UploadName = styled.input`
+export const ImagePreview = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+export const ImageLabel = styled.label`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: transparent;
+`;
+
+export const ImageInput = styled.input`
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -88,6 +86,7 @@ export const Label = styled.div`
 export const ButtonSet = styled.div`
   display: flex;
   justify-content: end;
+  margin-bottom: 10px;
 `;
 export const BackButton = styled(Link)`
   text-decoration: none;

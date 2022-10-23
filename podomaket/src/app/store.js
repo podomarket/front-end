@@ -7,4 +7,7 @@ export const store = configureStore({
     productList: podoSlice.reducer,
     userSlice,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });

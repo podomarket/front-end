@@ -20,20 +20,6 @@ export const __getProducts = createAsyncThunk(
   }
 );
 
-// 연태님 test
-export const __getBoards = createAsyncThunk(
-  "products/getBoards",
-  async (payload, thunkAPI) => {
-    console.log(payload);
-    try {
-      await axios.get("http://118.40.172.207:8080/api/boards");
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
 export const __addProducts = createAsyncThunk(
   "post/addPost",
   async (payload, thunkAPI) => {
@@ -45,6 +31,19 @@ export const __addProducts = createAsyncThunk(
     }
   }
 );
+
+// 연태님 test
+// export const __getBoards = createAsyncThunk(
+//   "products/getBoards",
+//   async (payload, thunkAPI) => {
+//     try {
+//       await axios.get("http://118.40.172.207:8080/api/boards");
+//       return thunkAPI.fulfillWithValue(payload);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const podoSlice = createSlice({
   name: "productList",
@@ -77,17 +76,18 @@ export const podoSlice = createSlice({
       state.error = action.payload;
     },
 
-    //test
-    [__addProducts.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__addProducts.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.boards = action.payload;
-    },
-    [__addProducts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // //test
+    // [__addProducts.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__addProducts.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+
+    //   state.boards = action.payload;
+    // },
+    // [__addProducts.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
   },
 });

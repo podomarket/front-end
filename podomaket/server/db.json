@@ -1,57 +1,42 @@
 {
   "products": [
     {
-      "title": "살려주세요",
-      "imageUrl": "",
-      "content": "ㅠㅠ",
-      "price": "개발자는사람아님",
-      "date": 1666539704466,
+      "title": "1",
+      "content": "1",
       "id": 1
     },
     {
-      "title": "수정!!",
-      "imageUrl": "",
-      "content": "수정합니다",
-      "price": "수정입니다",
-      "date": 1666545068099,
+      "title": "123",
+      "content": "123",
       "id": 2
     },
     {
-      "title": "엉덩이방석팝니다",
+      "title": "d",
       "imageUrl": "",
-      "content": "싸게팔아요...\n",
-      "price": "10000원",
-      "date": 1666549895497,
+      "content": "d",
+      "price": "sdf",
+      "date": 1666570817216,
       "id": 3
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "소영",
+      "nickname": "thdud"
     },
     {
-      "title": "123",
-      "imageUrl": "",
-      "content": "123",
-
-      "price": "123",
-      "date": 1666526546369,
-      "id": 6
+      "username": "소영",
+      "nickname": "ㄴㅁㅇㄹ",
+      "email": "소영@naver.com",
+      "password": "thdudthdud",
+      "passwordCheck": "thdudthdud",
+      "id": "cAt6lVf"
     }
   ],
   "login": [
     {
       "id": 1
-    },
-    {
-      "userId": "sd",
-      "password": "we",
-      "id": 2
-    },
-    {
-      "userId": "sde",
-      "password": "wef",
-      "id": 3
-    },
-    {
-      "userId": "thdudthdud",
-      "password": "f",
-      "id": 4
     }
   ]
 }

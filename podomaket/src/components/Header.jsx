@@ -29,6 +29,7 @@ export const Header = () => {
       return localStorage.removeItem("token");
     }
   };
+
   const main = () => {
     navigate("/");
   };

@@ -36,7 +36,6 @@ export const __addProducts = createAsyncThunk(
   }
 );
 
-
 // 상품 삭제하기
 export const __delPrudcts = createAsyncThunk(
   "post/delProducts",
@@ -73,8 +72,6 @@ export const __updateProduct = createAsyncThunk(
   }
 );
 
-
-
 export const podoSlice = createSlice({
   name: "productList",
   initialState,
@@ -105,6 +102,5 @@ export const podoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-
   },
 });

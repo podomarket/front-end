@@ -1,6 +1,7 @@
 {
   "products": [
     {
+
       "title": "사람살려요",
       "imageUrl": "",
       "content": "ㅠㅠ",
@@ -8,6 +9,7 @@
       "date": 1666539704466,
       "id": 1,
       "sub": "123"
+
     }
   ],
   "login": [
@@ -15,11 +17,18 @@
       "id": 1
     }
   ],
+
   "mypage": [
     {
       "id": 1,
       "nickname": "오성은",
       "content": "자기소개입니다~"
+
+  "comments": [
+    {
+      "username": "thdud",
+      "comment": "안녕하세요?"
+
     }
   ]
 }

@@ -24,6 +24,7 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
+import { __addComments } from "../features/commentSlice";
 
 export const Product = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,29 @@ export const Product = () => {
     dispatch(__delPrudcts(params));
   };
 
+  //Comments
+
+  const [comments, setComments] = useState({
+    comments: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setComments((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const onAddCommentsHandler = (e) => {
+    e.preventDefault();
+    dispatch(__addComments(comments));
+    setComments({
+      comments: "",
+    });
+  };
+
+  console.log(comments);
+
   return (
     <Wrap>
       <Container>
@@ -84,13 +108,15 @@ export const Product = () => {
             <Like>❤ 5</Like>
             <div>💬 3</div>
           </LikeAndComment>
-          <Button>댓글달기</Button>
+          <Button onClick={onAddCommentsHandler}>댓글달기</Button>
         </Flex>
         <CommentInput
           type="text"
           autoComplete="off"
+          name="comments"
           placeholder="댓글을 작성해주세요"
-        />
+          onChange={onChangeHandler}
+        ></CommentInput>
       </Container>
     </Wrap>
   );

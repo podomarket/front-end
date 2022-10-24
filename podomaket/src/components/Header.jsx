@@ -34,7 +34,7 @@ export const Header = () => {
     navigate("/");
   };
   const myPage = () => {
-    navigate("/MyPage/1");
+    navigate("/mypage/1");
   };
 
   return (

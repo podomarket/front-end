@@ -66,12 +66,6 @@ const ProductPost = () => {
   const fileUpload = (e) => {
     const image = URL.createObjectURL(e.target.files[0]);
     setImageUrl(image);
-
-    //const formData = new FormData();
-
-    // formData.append("image", image);
-    // fileUpload(formData);
-    // for (const keyValue of formData) console.log(keyValue);
   };
   console.log();
 

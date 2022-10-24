@@ -15,7 +15,9 @@ export const __getProducts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const products = await axios.get("http://localhost:3001/products");
+
       // console.log(products.data);
+
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -28,7 +30,7 @@ export const __addProducts = createAsyncThunk(
   "post/addProducts",
   async (payload, thunkAPI) => {
     try {
-      await axios.post("http://localhost:3001/products", payload);
+      await axios.post("http://54.173.186.166:8080/products", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

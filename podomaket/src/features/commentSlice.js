@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import {} from "./apis";
+import { addCommentsApi } from "./apis";
 
 const initialState = {
   comments: [],
@@ -9,19 +9,21 @@ const initialState = {
 };
 
 export const __addComments = createAsyncThunk(
-  "post/addProducts",
+  "post/addComments",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      await axios.post("http://54.173.186.166:8080/products/comments", payload);
+      await axios.post(addCommentsApi, payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
+      console.log("error");
       return thunkAPI.rejectWithValue(err);
     }
   }
 );
 
 export const commentSlice = createSlice({
-  name: "productCommnent",
+  name: "commnents",
   initialState,
   reducers: {},
   extraReducers: {
@@ -31,7 +33,7 @@ export const commentSlice = createSlice({
     },
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.comments.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -39,3 +41,6 @@ export const commentSlice = createSlice({
     },
   },
 });
+
+export const { commnents } = commentSlice.actions;
+export default commentSlice.reducer;

@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 export const Header = () => {
   const navigate = useNavigate();
   const tokens = useSelector((state) => state.userSlice.isLogin);
-  console.log(tokens);
+  // console.log(tokens);
 
   const [useToken, setUseToken] = useState(false);
 

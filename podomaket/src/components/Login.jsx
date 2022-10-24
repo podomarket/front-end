@@ -6,6 +6,8 @@ import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __setUser } from "../features/userSlice";
+import { setUserApi } from "../features/apis";
+import { login, localGet } from "../localStorage";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -15,10 +17,28 @@ export const Login = () => {
     navigate("/");
   };
 
+  // const handleLogin = () => {
+  //   fetch(`${setUserApi}/login`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       userId: this.state.userId,
+  //       password: this.state.password,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+
+  //     .then((response) => {
+  //       if (response.ACCESS_TOKEN) {
+  //         localStorage.setItem("login-token", response.ACCESS_TOKEN);
+  //       }
+  //     });
+  // };
+
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {
     dispatch(__setUser(login));
+    navigate("/");
   };
 
   const [login, setLogin] = useState({
@@ -32,6 +52,15 @@ export const Login = () => {
     setLogin((prev) => {
       return { ...prev, [name]: value };
     });
+  };
+
+  const signupHandler = () => {
+    navigate("/users/signup");
+  };
+
+  const kakaoHandler = (e) => {
+    window.location.href =
+      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://localhost:8080/users/kakao/callback&response_type=code";
   };
 
   const handleAddUsers = (e) => {
@@ -50,7 +79,7 @@ export const Login = () => {
       </h4>
       <h2>로그인</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>닉네임</p>
+        <p>아이디</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
@@ -75,10 +104,10 @@ export const Login = () => {
       <MainButton type="submit" onClick={clickHandler}>
         로그인
       </MainButton>
-      <Button>카카오톡으로 회원가입</Button>
-      <Button>회원가입</Button>
+      <Button onClick={signupHandler}>회원가입</Button>
       <p>
-        <Kakao></Kakao>
+        <br />
+        <Kakao onClick={kakaoHandler}></Kakao>
       </p>
     </MainBox>
   );
@@ -163,6 +192,7 @@ const Kakao = styled(RiKakaoTalkFill)`
   padding: 4px;
   border-radius: 30px;
   text-align: center;
+  cursor: pointer;
 `;
 
 const Close = styled(IoMdClose)`

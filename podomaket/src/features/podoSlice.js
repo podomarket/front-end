@@ -5,7 +5,6 @@ import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
 const initialState = {
   products: [],
   users: [],
-  login: [],
   isLoading: false,
   error: null,
 };
@@ -36,6 +35,7 @@ export const __addProducts = createAsyncThunk(
     }
   }
 );
+
 
 // 상품 삭제하기
 export const __delPrudcts = createAsyncThunk(
@@ -73,6 +73,8 @@ export const __updateProduct = createAsyncThunk(
   }
 );
 
+
+
 export const podoSlice = createSlice({
   name: "productList",
   initialState,
@@ -103,5 +105,6 @@ export const podoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
   },
 });

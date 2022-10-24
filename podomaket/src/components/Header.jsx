@@ -1,5 +1,5 @@
 // 헤더
-import React from "react";
+
 import {
   LogInOutButton,
   Logo,
@@ -8,11 +8,26 @@ import {
   NavLinks,
 } from "../style/header_styled";
 import { useNavigate } from "react-router-dom";
+import { localGet } from "../localStorage";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 export const Header = () => {
   const navigate = useNavigate();
+  const tokens = useSelector((state) => state.userSlice.isLogin);
+  console.log(tokens);
+
+  const [useToken, setUseToken] = useState(false);
+
+  useEffect(() => {
+    setUseToken(!useToken);
+  }, [tokens]);
 
   const toLogin = () => {
-    navigate("/user/login");
+    navigate("/users/login");
+    if (localGet) {
+      return localStorage.removeItem("token");
+    }
   };
   const main = () => {
     navigate("/");
@@ -35,7 +50,9 @@ export const Header = () => {
           <a onClick={myPage}>마이페이지</a>
         </li>
         <li>
-          <LogInOutButton onClick={toLogin}>로그인</LogInOutButton>
+          <LogInOutButton onClick={toLogin}>
+            {useToken ? "로그아웃" : "로그인"}
+          </LogInOutButton>
         </li>
       </NavLinks>
     </NavBar>

@@ -12,7 +12,7 @@ import Header from "../components/Header";
 import GlobalStyles from "../style/GlobalStyles";
 import ProductPostPage from "../pages/ProductPostPage";
 import MyProfilePage from "../pages/MyProfilePage";
-import Test from "../components/Test";
+
 
 const Router = () => {
   return (
@@ -21,15 +21,15 @@ const Router = () => {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/user/signup" element={<SignUp />} />
+        <Route path="/users/login" element={<Login />} />
+        <Route path="/users/signup" element={<SignUp />} />
         <Route path="/mypage/chat" element={<Chat />} />
         <Route path="/mypage/:id" element={<MyProfilePage />} />
         <Route path="/mypage/edit/:id" element={<MyPageEdit />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/product" element={<ProductPostPage />} />
         <Route path="/product/edit/:id" element={<ProductEdit />} />
-        <Route path="/test" element={<Test />} />
+
       </Routes>
     </BrowserRouter>
   );

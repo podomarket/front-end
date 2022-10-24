@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { localSet } from "../localStorage";
 
 const initialState = {
   token: null,
-  login: null,
+  user: { username: "" },
   users: [],
   isLoading: false,
   error: null,
+  isLogin: null,
 };
 
 export const __addUser = createAsyncThunk(
@@ -14,7 +16,7 @@ export const __addUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      await axios.post("http://34.201.116.215:8080/user/signup", payload);
+      await axios.post("http://54.173.186.166:8080/users/signup", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -25,9 +27,15 @@ export const __addUser = createAsyncThunk(
 export const __setUser = createAsyncThunk(
   "post/setUser",
   async (payload, thunkAPI) => {
-    console.log(payload);
-    const result = await axios.post("http://localhost:3001/login");
-    thunkAPI.dispatch(setUser(result.data));
+    const result = await axios.post(
+      "http://54.173.186.166:8080/users/login",
+      payload
+    );
+    console.log(result);
+    localSet("token", result.headers.authorization);
+
+    console.log(result.headers.authorization);
+    thunkAPI.dispatch(setUser());
   }
 );
 
@@ -36,8 +44,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
+      state.user = action.payload;
       state.token = action.payload.token;
-      state.login = action.payload.login;
+      state.isLogin = true;
     },
   },
   extraReducers: {
@@ -48,19 +57,6 @@ export const userSlice = createSlice({
     [__addUser.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.users.push(action.payload);
-    },
-    [__addUser.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-
-    // set User
-    [__addUser.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__addUser.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.login = action.payload;
     },
     [__addUser.rejected]: (state, action) => {
       state.isLoading = false;

@@ -9,9 +9,8 @@ import axios from "axios";
 // });
 
 // product
-
 export const addProductApi = (product) => {
-  axios.post("http://localhost:3001/products", product);
+  axios.post("http://54.173.186.166:8080/products", product);
 };
 
 export const delPostAPI = async (id) => {
@@ -23,8 +22,12 @@ export const updateProductAPI = async (id, edit) => {
   await axios.patch(`http://localhost:3001/products/${id}`, edit);
 };
 
-// user
+// profile
+export const updateProfileAPI = async (id, edit) => {
+  await axios.patch(`hhttp://localhost:3001/mypage/${id}`, edit);
+};
 
+// user
 export const addUserApi = (users) => {
   axios.post("http://54.173.186.166:8080/users/signup", users);
 };

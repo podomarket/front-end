@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 export const Wrap = styled.div`
   width: 600px;
@@ -30,19 +31,21 @@ export const Sub = styled.div`
   font-weight: 600;
   size: 14px;
   margin-top: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
-export const Button = styled.button`
-  padding: 0.4rem 0.8rem;
+export const ProfileEdit = styled(Link)`
+  text-decoration: none;
+  border: none;
+  padding: 0.6rem 0.8rem;
   font-size: 1rem;
   cursor: pointer;
-  background-color: transparent;
-  border: 1.5px solid #2e0533;
+  background-color: #681170;
+  border: 1.5px solid #f2f5f7;
   border-radius: 2em;
   font-weight: 600;
-  margin-bottom: 20px;
+  color: #f2f5f7;
   &:hover {
-    color: #fff;
+    color: #f2f5f7;
     background-color: #2e0533;
     border: 1.5px solid #2e0533;
     transition: all ease-in-out 350ms;

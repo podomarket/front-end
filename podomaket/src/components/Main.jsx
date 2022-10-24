@@ -3,23 +3,44 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import {
   Container,
+  FlexDiv,
   H2Button,
   Hr,
+  Like,
+  LikeAndReply,
+  LikeAndReplyFlex,
   List,
   NewPost,
+  Price,
+  Product,
   ProductView,
+  Reply,
+  Thumbnail,
+  Title,
+  Wrap,
 } from "../style/main_styled";
 import { __getProducts } from "../features/podoSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Main = () => {
+  const [items, setItems] = useState([]);
+  const [visible, setVisible] = useState(8);
+
+  const ShowMoreItems = () => {
+    setVisible((prevValue) => prevValue + 4);
+  };
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { products } = useSelector((state) => state.productList);
-
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-  }, [dispatch]);
+    fetch("http://localhost:3001/products")
+      .then((res) => res.json())
+      .then((data) => setItems(data));
+  }, []);
 
   const detailDate = (a) => {
     const milliSeconds = new Date().getTime() - a;
@@ -39,6 +60,9 @@ export const Main = () => {
     return `${Math.floor(years)}년 전`;
   };
 
+  const [like, setLike] = useState(0);
+  const [reply, setReply] = useState(0);
+
   return (
     <div>
       <Container>
@@ -46,24 +70,48 @@ export const Main = () => {
         <NewPost to="/product">새 글 작성</NewPost>
       </Container>
       <Hr />
-      <div>
-        {products.map((podo) => {
+      <Wrap>
+        {items.slice(0, visible).map((podo) => {
           return (
             <List key={podo.id}>
-              <ul>
-                <li>imageUrl: {podo.imageUrl}</li>
-                <li>title: {podo.title}</li>
-                <li>price: {podo.price}</li>
-                <li>date: {detailDate(podo.date)}</li>
-              </ul>
+              <Product>
+                <Thumbnail
+                  onClick={() => navigate("/product/" + podo.id)}
+                ></Thumbnail>
+                <LikeAndReply>
+                  <Title onClick={() => navigate("/product/" + podo.id)}>
+                    {podo.title}
+                  </Title>
+                  <LikeAndReplyFlex>
+                    <Like
+                      onClick={() => {
+                        setLike(like + 1);
+                      }}
+                    >
+                      ❤<span>{like}</span>
+                    </Like>
+                    <Reply
+                      onClick={() => {
+                        setReply(reply + 1);
+                      }}
+                    >
+                      💬<span>{reply}</span>
+                    </Reply>
+                  </LikeAndReplyFlex>
+                </LikeAndReply>
+                <FlexDiv>
+                  <Price>{podo.price}</Price>
+                  <div>{detailDate(podo.date)}</div>
+                </FlexDiv>
+              </Product>
             </List>
           );
         })}
-      </div>
+      </Wrap>
       <Hr />
       <ProductView>
         <div></div>
-        <H2Button>더 많은 상품 보기</H2Button>
+        <H2Button onClick={ShowMoreItems}>더 많은 상품 보기</H2Button>
       </ProductView>
     </div>
   );

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { __addProducts } from "../features/podoSlice";
+import { __addProducts, __getProducts } from "../features/podoSlice";
 import {
   BackButton,
   ButtonSet,
@@ -32,8 +32,24 @@ const ProductPost = () => {
       return { ...prev, [name]: value };
     });
   };
-
+  // 새 글 작성
   const addProduct = (e) => {
+    let req = {
+      title: products.title,
+      content: products.content,
+      price: products.price,
+    };
+    let json = JSON.stringify(req);
+    const form = new FormData();
+    //콘솔 추가
+    const titleblob = new Blob([json], { type: "application/json" });
+    form.append("title", titleblob);
+    console.log(titleblob);
+    const contentblob = new Blob([json], { type: "application/json" });
+    form.append("content", contentblob);
+    const priceblob = new Blob([json], { type: "application/json" });
+    form.append("price", priceblob);
+    form.append("imageUrl", imageUrl);
     dispatch(__addProducts(products));
     setProducts({
       title: "",
@@ -43,11 +59,19 @@ const ProductPost = () => {
       date: new Date().getTime(),
     });
   };
-  const [image, setImage] = useState("");
+
+  // 파일 업로드
+  const [imageUrl, setImageUrl] = useState("");
 
   const fileUpload = (e) => {
     const image = URL.createObjectURL(e.target.files[0]);
-    setImage(image);
+    setImageUrl(image);
+
+    //const formData = new FormData();
+
+    // formData.append("image", image);
+    // fileUpload(formData);
+    // for (const keyValue of formData) console.log(keyValue);
   };
   console.log();
 
@@ -64,7 +88,7 @@ const ProductPost = () => {
             accept={"image/*"}
             onChange={fileUpload}
           />
-          <ImagePreview src={image} />
+          <ImagePreview src={imageUrl} />
         </ImageLayout>
         <Input
           id="title"

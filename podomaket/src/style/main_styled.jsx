@@ -45,7 +45,7 @@ export const List = styled.div`
 `;
 export const Loading = styled.div`
   font-weight: 600;
-  font-size: 50px;
+  font-size: 100px;
   text-align: center;
 `;
 export const Product = styled.div`

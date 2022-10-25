@@ -47,7 +47,7 @@ const Posts = ({ posts }) => {
   const [postsPerPage, setPostsPerPage] = useState(4);
   const [totalPosts, setTotalPosts] = useState(0);
 
-  const data = posts.data;
+  const data = products.data;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,66 +73,46 @@ const Posts = ({ posts }) => {
   };
 
   return (
-    <div posts={currentPosts(posts)} loading={loading}>
-      <div>
-        <Container>
-          <h2>오늘의 상품 추천</h2>
-          <NewPost to="/product">새 글 작성</NewPost>
-        </Container>
-        <Hr />
-        <Wrap>
-          <>
-            {loading && <Loading> loading... </Loading>}
-            <ul>
-              {data &&
-                data.map((post) => {
-                  return (
-                    <List key={post.id}>
-                      <Product>
-                        <Thumbnail
-                          onClick={() => navigate("/product/" + post.id)}
-                        ></Thumbnail>
-                        <LikeAndReply>
-                          <Title
-                            onClick={() => navigate("/product/" + post.id)}
-                          >
-                            {post?.title}
-                          </Title>
-                          <LikeAndReplyFlex>
-                            <Like
-                            // onClick={() => {
-                            //   setLike(like + 1);
-                            // }}
-                            >
-                              ❤<span></span>
-                            </Like>
-                            <Reply
-                            // onClick={() => {
-                            //   setReply(reply + 1);
-                            // }}
-                            >
-                              💬<span></span>
-                            </Reply>
-                          </LikeAndReplyFlex>
-                        </LikeAndReply>
-                        <FlexDiv>
-                          <Price>{post?.price}</Price>
-                          <div>{detailDate(post.date)}</div>
-                        </FlexDiv>
-                      </Product>
-                    </List>
-                  );
-                })}
-            </ul>
-          </>
-        </Wrap>
-        <Hr />
-        <ProductView>
-          <div></div>
-          <H2Button onClick={ShowMoreItems}>더 많은 상품 보기</H2Button>
-        </ProductView>
-      </div>
-    </div>
+    <>
+      <Hr />
+      <Wrap>
+        <>
+          {loading && <Loading> loading... </Loading>}
+          <ul>
+            {data &&
+              data.map((post) => {
+                return (
+                  <List key={post.id}>
+                    <Product>
+                      <Thumbnail
+                        onClick={() => navigate("/product/" + post.id)}
+                      ></Thumbnail>
+                      <LikeAndReply>
+                        <Title onClick={() => navigate("/product/" + post.id)}>
+                          {post?.title}
+                        </Title>
+                        <LikeAndReplyFlex>
+                          <Like>
+                            ❤<span></span>
+                          </Like>
+                          <Reply>
+                            💬<span></span>
+                          </Reply>
+                        </LikeAndReplyFlex>
+                      </LikeAndReply>
+                      <FlexDiv>
+                        <Price>{post?.price}</Price>
+                        <div>{detailDate(post.date)}</div>
+                      </FlexDiv>
+                    </Product>
+                  </List>
+                );
+              })}
+          </ul>
+        </>
+      </Wrap>
+      <Hr />
+    </>
   );
 };
 export default Posts;

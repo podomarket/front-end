@@ -61,7 +61,7 @@ const ProductEdit = () => {
     const req = {
       title: products.title,
       content: products.content,
-      price: products.price,
+      // price: products.price,
     };
     let json = JSON.stringify(req);
     const form = new FormData();
@@ -79,7 +79,7 @@ const ProductEdit = () => {
       edit: {
         title: products.title,
         content: products.content,
-        price: products.price,
+        // price: products.price,
       },
       callBackFunc: () => {
         handleGoBack();

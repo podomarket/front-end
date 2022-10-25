@@ -2,11 +2,47 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
 
+const DATA_URL = "http://54.173.186.166:8080";
+
+const register = (payload) => {
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+  console.log("accessToken", accessToken);
+  console.log("refreshToken", refreshToken);
+  const frm = new FormData();
+  frm.append("title", payload.title);
+  frm.append("content", payload.content);
+  // frm.append("file", payload.file);
+  axios
+    .post("http://54.173.186.166:8080/products", frm, {
+      headers: {
+        Authorization: accessToken,
+        "Refresh-Token": refreshToken,
+        "Content-Type": "application/json",
+        // "Content-Type": "multipart/form-data",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: JSON.stringify({
+        refresh: localStorage.getItem(refreshToken),
+      }),
+    })
+    .then(function a(response) {
+      alert("게시되었습니다.");
+      window.location.replace("/");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
 const initialState = {
-  products: [],
-  users: [],
-  isLoading: false,
-  error: null,
+  products: [
+    {
+      title: "",
+      content: "",
+    },
+  ],
 };
 
 // 상품 가져오기
@@ -14,7 +50,7 @@ export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get("http://localhost:3001/products");
+      const products = await axios.get(`${DATA_URL}/products`);
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -23,17 +59,18 @@ export const __getProducts = createAsyncThunk(
 );
 
 // 상품 추가하기
-export const __addProducts = createAsyncThunk(
-  "post/addProducts",
-  async (payload, thunkAPI) => {
-    try {
-      await axios.post("http://54.173.186.166:8080/products", payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  }
-);
+// export const __addProducts = createAsyncThunk(
+//   "post/addProducts",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const result = await axios.post(`${DATA_URL}/products`, payload);
+//       console.log(result);
+//       return thunkAPI.fulfillWithValue(payload);
+//     } catch (err) {
+//       return thunkAPI.rejectWithValue(err);
+//     }
+//   }
+// );
 
 // 상품 삭제하기
 export const __delPrudcts = createAsyncThunk(
@@ -74,7 +111,13 @@ export const __updateProduct = createAsyncThunk(
 export const podoSlice = createSlice({
   name: "productList",
   initialState,
-  reducers: {},
+  reducers: {
+    // action => dispatch로 보낸 데이터를 받아오는 곳
+    addPost: (state, action) => {
+      state.products = action.payload;
+      register(action.payload);
+    },
+  },
   extraReducers: {
     // GET Product List
     [__getProducts.pending]: (state) => {
@@ -90,16 +133,19 @@ export const podoSlice = createSlice({
     },
 
     // ADD Product
-    [__addProducts.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__addProducts.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.products = action.payload;
-    },
-    [__addProducts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // [__addProducts.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__addProducts.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.products = action.payload;
+    // },
+    // [__addProducts.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
   },
 });
+
+export const { addPost } = podoSlice.actions;
+export default podoSlice.reducer;

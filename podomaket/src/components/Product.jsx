@@ -5,13 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { __delPrudcts, __getProducts } from "../features/podoSlice";
 import {
   Button,
-  CommentBody,
-  CommentContainer,
-  CommentDate,
-  CommentInfo,
-  Commentinput,
   CommentInput,
-  CommentMore,
   Container,
   DeleteButton,
   EditButton,

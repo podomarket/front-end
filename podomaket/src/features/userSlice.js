@@ -27,15 +27,32 @@ export const __addUser = createAsyncThunk(
 export const __setUser = createAsyncThunk(
   "post/setUser",
   async (payload, thunkAPI) => {
-    const result = await axios.post(
-      "http://54.173.186.166:8080/users/login",
-      payload
-    );
-    console.log(result);
-    localSet("token", result.headers.authorization);
+    try {
+      const response = await axios.post(
+        "http://54.173.186.166:8080/users/login",
+        payload
+      );
+      const accessToken = response.headers.authorization;
+      const refreshToken = response.headers["refresh-token"];
+      // localSet("token", response.headers.authorization);
 
-    console.log(result.headers.authorization);
-    thunkAPI.dispatch(setUser());
+      // console.log(response.headers.authorization);
+      // thunkAPI.dispatch(setUser());
+      if (response.status === 200 || response.status === 201) {
+        window.localStorage.setItem("accessToken", accessToken);
+        window.localStorage.setItem("refreshToken", refreshToken);
+        // window.localStorage.setItem("nickname", response.data.data.nickname);
+        alert("로그인 성공");
+        window.location.replace("/");
+        return thunkAPI.fulfillWithValue(response.data);
+      }
+    } catch (error) {
+      if (400 < error.response.status && error.response.status < 500) {
+        window.location.reload();
+        alert("로그인 실패");
+      }
+      return thunkAPI.rejectWithValue(error);
+    }
   }
 );
 

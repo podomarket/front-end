@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
 
 const initialState = {
   products: [],
@@ -7,12 +8,16 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+
+// 상품 가져오기
 export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
     try {
       const products = await axios.get("http://localhost:3001/products");
-      console.log(products.data);
+
+      // console.log(products.data);
+
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -20,28 +25,51 @@ export const __getProducts = createAsyncThunk(
   }
 );
 
-// 연태님 test
-export const __getBoards = createAsyncThunk(
-  "products/getBoards",
+// 상품 추가하기
+export const __addProducts = createAsyncThunk(
+  "post/addProducts",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
-      await axios.get("http://118.40.172.207:8080/api/boards");
+      await axios.post("http://54.173.186.166:8080/products", payload);
       return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
     }
   }
 );
 
-export const __addProducts = createAsyncThunk(
-  "post/addPost",
-  async (payload, thunkAPI) => {
+// 상품 삭제하기
+export const __delPrudcts = createAsyncThunk(
+  "post/delProducts",
+  async (params, thunkAPI) => {
+    // 👉🏻 params에 담긴, id와 뒤로가기 함수 : callBackFunc를 구조분해 할당함.
+    const { id, callBackFunc } = params;
     try {
-      await axios.post("http://localhost:3001/products", payload);
-      return thunkAPI.fulfillWithValue(payload);
+      const response = await delPostAPI(id);
+      // 👉🏻 삭제 하고난 후 뒤로가기 함수 실행
+      callBackFunc();
+      return thunkAPI.fulfillWithValue(id);
     } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+      console.log("error ::::::", err.response);
+      return thunkAPI.rejectWithValue("<<", err);
+    }
+  }
+);
+
+//상품 수정하기
+export const __updateProduct = createAsyncThunk(
+  "post/updateProducts",
+  async (params, thunkAPI) => {
+    const { id, edit, callBackFunc } = params;
+    // console.log(edit);
+    try {
+      const response = await updateProductAPI(id, edit);
+      // 👉🏻 수정 하고난 후 뒤로가기 함수 실행
+      callBackFunc();
+      return thunkAPI.fulfillWithValue({ id, edit }); // 인자가 하나여야 함
+    } catch (err) {
+      console.log("error ::::::", err.response);
+      return thunkAPI.rejectWithValue("<<", err);
     }
   }
 );
@@ -71,19 +99,6 @@ export const podoSlice = createSlice({
     [__addProducts.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.products = action.payload;
-    },
-    [__addProducts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-
-    //test
-    [__addProducts.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__addProducts.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.boards = action.payload;
     },
     [__addProducts.rejected]: (state, action) => {
       state.isLoading = false;

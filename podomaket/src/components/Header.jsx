@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 export const Header = () => {
   const navigate = useNavigate();
   const tokens = useSelector((state) => state.userSlice.isLogin);
-  console.log(tokens);
+  // console.log(tokens);
 
   const [useToken, setUseToken] = useState(false);
 
@@ -29,11 +29,12 @@ export const Header = () => {
       return localStorage.removeItem("token");
     }
   };
+
   const main = () => {
     navigate("/");
   };
   const myPage = () => {
-    navigate("/MyPage/1");
+    navigate("/mypage/1");
   };
 
   return (

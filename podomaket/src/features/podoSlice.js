@@ -5,10 +5,11 @@ import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
 const DATA_URL = "http://54.173.186.166:8080";
 
 const register = (payload) => {
+  console.log(payload); //글쓰기 내용이 담김
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
-  console.log("accessToken", accessToken);
-  console.log("refreshToken", refreshToken);
+  // console.log("accessToken", accessToken);
+  // console.log("refreshToken", refreshToken);
   const frm = new FormData();
   frm.append("title", payload.title);
   frm.append("content", payload.content);
@@ -50,7 +51,7 @@ export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get("http://localhost:3001/products");
+      const products = await axios.get("http://54.173.186.166:8080/products");
 
       // console.log(products.data);
 

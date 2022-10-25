@@ -22,6 +22,20 @@ export const __addComments = createAsyncThunk(
   }
 );
 
+export const __getComments = createAsyncThunk(
+  "get/getComments",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      await axios.__getComments(addCommentsApi, payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      console.log("error");
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
 export const commentSlice = createSlice({
   name: "commnents",
   initialState,

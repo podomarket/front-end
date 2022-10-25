@@ -41,5 +41,9 @@ export const setUserApi = (login) => {
 //comments
 
 export const addCommentsApi = (id, comments) => {
-  axios.post(`http://54.173.186.166:8080/products/${id}/comments`, comments);
+  axios.post(`${DATA_URL}/products/comments`, comments);
+};
+
+export const getCommentsApi = (id, comments) => {
+  axios.get(`${DATA_URL}/products/${id}/comments`);
 };

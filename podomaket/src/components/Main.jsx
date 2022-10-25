@@ -73,10 +73,10 @@ export const Main = () => {
       <Hr />
       <Wrap>
         {/* {console.log(Object.values(items)[1].content[0])} */}
-        {Object.values(items) //[data, success, error]
+        {Object.keys(items) //[data, success, error]
           .slice(0, visible)
           .map((podo) => {
-            console.log(podo);
+            console.log(podo.data);
             return (
               <List>
                 <Product>

@@ -1,20 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { updateProfileAPI } from "./apis";
+import { getProfileOneAPI, updateProfileAPI } from "./apis";
 
-const register = (payload, params) => {
-  console.log(payload, params);
+const register = (payload) => {
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
   console.log("accessToken", accessToken);
   console.log("refreshToken", refreshToken);
+  console.log(payload);
   const frm = new FormData();
   frm.append("nickname", payload.nickname);
   frm.append("content", payload.content);
-  // frm.append("file", payload.file);
+  frm.append("id", payload.id);
   axios
-    .post(`http://localhost:3000/mypage/${params}`, frm, {
+    .post(`http://localhost:3000/mypage/${payload.id}`, frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
@@ -38,26 +37,44 @@ const register = (payload, params) => {
 
 const initialState = {
   profiles: [
-    {
-      nickname: "",
-      content: "",
-    },
+    // {
+    //   nickname: "",
+    //   content: "",
+    // },
   ],
 };
 
 // const initialState = {
-//   profile: [],
+//   profiles: [],
 //   isLoading: false,
 //   error: null,
 // };
 
 // 프로필 가져오기
+// export const __getProfile = createAsyncThunk(
+//   "profile/getProfile",
+//   async (params, thunkAPI) => {
+//     try {
+//       const profiles = await axios.get(
+//         `http://localhost:3000/mypage/${payload.id}`
+//       );
+//       return thunkAPI.fulfillWithValue(profiles.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
+
+// 하나만 가져오기
 export const __getProfile = createAsyncThunk(
-  "profile/getProfile",
-  async (payload, thunkAPI) => {
+  "post/getPostOne",
+  async (params, thunkAPI) => {
     try {
-      const profiles = await axios.get("http://localhost:3000/mypage/1");
-      return thunkAPI.fulfillWithValue(profiles.data);
+
+      const response = await getProfileOneAPI(params);
+      // console.log(response);
+      return thunkAPI.fulfillWithValue(response);
+
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -65,20 +82,22 @@ export const __getProfile = createAsyncThunk(
 );
 
 //프로필 수정하기
-export const __updateProfile = createAsyncThunk(
-  "Profile/updateProfile",
-  async (params, thunkAPI) => {
-    const { id, edit } = params;
-    console.log(id);
-    try {
-      const response = await updateProfileAPI(id, edit);
-      return thunkAPI.fulfillWithValue({ id, edit }); // 인자가 하나여야 함
-    } catch (err) {
-      console.log("error ::::::", err.response);
-      return thunkAPI.rejectWithValue("<<", err);
-    }
-  }
-);
+
+// export const __updateProfile = createAsyncThunk(
+//   "Profile/updateProfile",
+//   async (params, thunkAPI) => {
+//     const { id, edit } = params;
+//     console.log(edit);
+//     try {
+//       const response = await updateProfileAPI(id, edit);
+//       return thunkAPI.fulfillWithValue({ id, edit }); // 인자가 하나여야 함
+//     } catch (err) {
+//       console.log("error ::::::", err.response);
+//       return thunkAPI.rejectWithValue("<<", err);
+//     }
+//   }
+// );
+
 
 export const profileSlice = createSlice({
   name: "profileList",
@@ -96,7 +115,7 @@ export const profileSlice = createSlice({
     },
     [__getProfile.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.profile = action.payload;
+      state.profiles = action.payload;
     },
     [__getProfile.rejected]: (state, action) => {
       state.isLoading = false;

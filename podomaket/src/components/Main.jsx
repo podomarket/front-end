@@ -72,18 +72,20 @@ export const Main = () => {
       </Container>
       <Hr />
       <Wrap>
-        {Object.keys(items)
+        {/* {console.log(Object.values(items)[1].content[0])} */}
+        {Object.values(items) //[data, success, error]
           .slice(0, visible)
           .map((podo) => {
+            console.log(podo);
             return (
-              <List key={podo.id}>
+              <List>
                 <Product>
                   <Thumbnail
                     onClick={() => navigate("/product/" + podo.id)}
                   ></Thumbnail>
                   <LikeAndReply>
                     <Title onClick={() => navigate("/product/" + podo.id)}>
-                      {podo.title}
+                      {podo?.title}
                     </Title>
                     {/* <LikeAndReplyFlex>
                       <Like
@@ -103,8 +105,8 @@ export const Main = () => {
                     </LikeAndReplyFlex> */}
                   </LikeAndReply>
                   <FlexDiv>
-                    {/* <Price>{podo.price}</Price> */}
-                    {/* <div>{detailDate(podo.date)}</div> */}
+                    <Price>{podo?.price}</Price>
+                    <div>{detailDate(podo.date)}</div>
                   </FlexDiv>
                 </Product>
               </List>

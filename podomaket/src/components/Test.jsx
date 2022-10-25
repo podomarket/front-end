@@ -10,7 +10,7 @@ const Test = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/products")
+    fetch("http://54.173.186.166:8080/products")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);

@@ -13,7 +13,7 @@ export const __getProfile = createAsyncThunk(
   "profile/getProfile",
   async (payload, thunkAPI) => {
     try {
-      const profiles = await axios.get("http://localhost:3001/mypage");
+      const profiles = await axios.get("http://54.173.186.166:8080/mypage");
       return thunkAPI.fulfillWithValue(profiles.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

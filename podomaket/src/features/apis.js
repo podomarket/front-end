@@ -29,6 +29,10 @@ export const updateProfileAPI = async (id, edit) => {
   await axios.patch(`${DATA_URL}/mypage/${id}`, edit);
 };
 
+export const getProfileOneAPI = async (id) => {
+  await axios.get(`http://localhost:3000/mypage/${id}`);
+};
+
 // user
 export const addUserApi = (users) => {
   axios.post("http://54.173.186.166:8080/users/signup", users);

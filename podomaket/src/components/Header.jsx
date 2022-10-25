@@ -9,7 +9,7 @@ import {
 } from "../style/header_styled";
 import { useNavigate, useParams } from "react-router-dom";
 import { localGet } from "../localStorage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 export const Header = () => {
@@ -17,14 +17,15 @@ export const Header = () => {
   const tokens = useSelector((state) => state.userSlice.isLogin);
 
   const [useToken, setUseToken] = useState(false);
-  useEffect(() => {
-    setUseToken(!useToken);
-  }, [tokens]);
+
+  const token = localStorage.getItem("accessToken");
+  console.log(token);
 
   const toLogin = () => {
     navigate("/users/login");
-    if (localGet) {
-      return localStorage.removeItem("token");
+    if (token) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
     }
   };
 
@@ -47,7 +48,7 @@ export const Header = () => {
         </li>
         <li>
           <LogInOutButton onClick={toLogin}>
-            {useToken ? "로그아웃" : "로그인"}
+            {token ? "로그아웃" : "로그인"}
           </LogInOutButton>
         </li>
       </NavLinks>

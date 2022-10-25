@@ -29,8 +29,9 @@ export const Product = () => {
   const { id } = useParams();
 
   // 상품 하나만 보여주도록 find 함수 사용
-  const post = products.find((post) => post.id === Number(id));
-  const user = users.find((user) => user.id === Number(id));
+  const post = products?.find((post) => post?.id === Number(id));
+  const user = users?.find((user) => user?.id === Number(id));
+  console.log(products);
 
   // 상품 보여주기
   useEffect(() => {

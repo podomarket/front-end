@@ -10,7 +10,6 @@ import {
   LikeAndReply,
   LikeAndReplyFlex,
   List,
-  Loading,
   NewPost,
   Price,
   Product,
@@ -28,11 +27,14 @@ import Pagination from "./Pagination";
 import styled from "styled-components";
 
 export const Main = () => {
+
   const [products, setProducts] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   // const [totalPosts, setTotalPosts] = useState(0);
+
 
   const data = products.data;
 
@@ -41,6 +43,7 @@ export const Main = () => {
       setLoading(true);
       const response = await axios.get("http://54.173.186.166:8080/products");
       setProducts(response.data);
+
       setLoading(false);
     };
     fetchData();
@@ -50,8 +53,10 @@ export const Main = () => {
   const indexOfFirst = indexOfLast - postsPerPage;
   const currentPosts = (products) => {
     let currentPosts = 0;
+
     currentPosts = Object.keys(products).slice(indexOfFirst, indexOfLast);
     // currentPosts = posts.slice(indexOfFirst, indexOfLast);
+
     return currentPosts;
   };
 
@@ -60,17 +65,22 @@ export const Main = () => {
   };
 
   return (
+
     <>
+
       <Container>
         <h2>오늘의 상품 추천</h2>
         <NewPost to="/product">새 글 작성</NewPost>
       </Container>
-      <Posts posts={currentPosts(products)} loading={loading}></Posts>
+    <Posts posts={currentPosts(products)} loading={loading}></Posts>
+
       <ProductView>
         <div></div>
         <H2Button onClick={ShowMoreItems}>더 많은 상품 보기</H2Button>
       </ProductView>
+
     </>
+
   );
 };
 

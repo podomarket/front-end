@@ -20,6 +20,7 @@ const register = (payload) => {
         "Content-Type": "application/json",
         // "Content-Type": "multipart/form-data",
       },
+
       redirect: "follow",
       referrer: "no-referrer",
       body: JSON.stringify({
@@ -70,11 +71,18 @@ export const __getProfile = createAsyncThunk(
   "post/getPostOne",
   async (params, thunkAPI) => {
     try {
+<<<<<<< HEAD
+      const profiles = await axios.get(
+        `http://localhost:3000/mypage/${payload.id}`
+      );
+      return thunkAPI.fulfillWithValue(profiles.data);
+=======
 
       const response = await getProfileOneAPI(params);
       // console.log(response);
       return thunkAPI.fulfillWithValue(response);
 
+>>>>>>> 6820f5bd43963c47959c5c323f182b18080a5b88
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

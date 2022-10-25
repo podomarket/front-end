@@ -121,6 +121,10 @@ export const podoSlice = createSlice({
       state.products = action.payload;
       register(action.payload);
     },
+    updatePost: (state, action) => {
+      state.products = action.payload;
+      register(action.payload);
+    },
   },
   extraReducers: {
     // GET Product List
@@ -151,5 +155,5 @@ export const podoSlice = createSlice({
   },
 });
 
-export const { addPost } = podoSlice.actions;
+export const { addPost, updatePost } = podoSlice.actions;
 export default podoSlice.reducer;

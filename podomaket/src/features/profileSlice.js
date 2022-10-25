@@ -70,9 +70,11 @@ export const __getProfile = createAsyncThunk(
   "post/getPostOne",
   async (params, thunkAPI) => {
     try {
+
       const response = await getProfileOneAPI(params);
       // console.log(response);
       return thunkAPI.fulfillWithValue(response);
+
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -80,6 +82,7 @@ export const __getProfile = createAsyncThunk(
 );
 
 //프로필 수정하기
+
 // export const __updateProfile = createAsyncThunk(
 //   "Profile/updateProfile",
 //   async (params, thunkAPI) => {
@@ -94,6 +97,7 @@ export const __getProfile = createAsyncThunk(
 //     }
 //   }
 // );
+
 
 export const profileSlice = createSlice({
   name: "profileList",

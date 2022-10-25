@@ -50,7 +50,10 @@ export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get(`${DATA_URL}/products`);
+      const products = await axios.get("http://localhost:3001/products");
+
+      // console.log(products.data);
+
       return thunkAPI.fulfillWithValue(products.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -95,7 +98,7 @@ export const __updateProduct = createAsyncThunk(
   "post/updateProducts",
   async (params, thunkAPI) => {
     const { id, edit, callBackFunc } = params;
-    console.log(edit);
+    // console.log(edit);
     try {
       const response = await updateProductAPI(id, edit);
       // 👉🏻 수정 하고난 후 뒤로가기 함수 실행

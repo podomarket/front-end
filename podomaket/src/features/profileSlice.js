@@ -3,17 +3,18 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { updateProfileAPI } from "./apis";
 
-const register = (payload) => {
+const register = (payload, params) => {
+  console.log(payload, params);
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
   console.log("accessToken", accessToken);
   console.log("refreshToken", refreshToken);
   const frm = new FormData();
-  frm.append("title", payload.title);
+  frm.append("nickname", payload.nickname);
   frm.append("content", payload.content);
   // frm.append("file", payload.file);
   axios
-    .post("http://localhost:3000/MyPage/1", frm, {
+    .post(`http://localhost:3000/mypage/${params}`, frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
@@ -36,9 +37,9 @@ const register = (payload) => {
 };
 
 const initialState = {
-  products: [
+  profiles: [
     {
-      title: "",
+      nickname: "",
       content: "",
     },
   ],

@@ -53,9 +53,10 @@ const MyPageEdit = () => {
   // };
 
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   // text useState
-  const [title, setTitle] = useState("");
+  const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
 
   // image preview useState
@@ -63,8 +64,8 @@ const MyPageEdit = () => {
   const [uploadImageForm, setUploadImageForm] = useState(null);
 
   // post useState
-  const [post, setPost] = useState({
-    title: "",
+  const [profile, setProfile] = useState({
+    nickname: "",
     content: "",
     // file: "",
   });
@@ -85,20 +86,23 @@ const MyPageEdit = () => {
   // };
 
   const postHandler = (e) => {
-    setTitle(e.target.value);
+    setNickname(e.target.value);
     setContent(e.target.value);
     const { value, name } = e.target;
-    setPost({
-      ...post,
+    setProfile({
+      ...profile,
       [name]: value,
       // file: uploadImageForm,
     });
   };
 
   const submitHandler = () => {
-    dispatch(updateProfile(post));
+    const params = {
+      id,
+    };
+    dispatch(updateProfile(profile, params));
     // if (!title || !content || !previewImage) {
-    if (!title || !content) {
+    if (!nickname || !content) {
       return alert("빈칸 없이 입력해 주세요");
     }
   };

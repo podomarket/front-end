@@ -7,7 +7,7 @@ import {
   NavBar,
   NavLinks,
 } from "../style/header_styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { localGet } from "../localStorage";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -15,10 +15,8 @@ import { useEffect, useState } from "react";
 export const Header = () => {
   const navigate = useNavigate();
   const tokens = useSelector((state) => state.userSlice.isLogin);
-  // console.log(tokens);
 
   const [useToken, setUseToken] = useState(false);
-
   useEffect(() => {
     setUseToken(!useToken);
   }, [tokens]);
@@ -41,9 +39,6 @@ export const Header = () => {
     <NavBar>
       <Logo onClick={main}>PODOMARKET</Logo>
       <NavLinks>
-        <li>
-          <div>프로필 사진</div>
-        </li>
         <li>
           <p>닉네임</p>
         </li>

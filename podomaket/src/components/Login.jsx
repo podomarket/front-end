@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { __setUser } from "../features/userSlice";
 import { setUserApi } from "../features/apis";
 import { login, localGet } from "../localStorage";
+import axios from "axios";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ export const Login = () => {
   //       }
   //     });
   // };
-
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {

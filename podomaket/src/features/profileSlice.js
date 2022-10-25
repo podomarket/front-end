@@ -13,7 +13,7 @@ const register = (payload) => {
   frm.append("content", payload.content);
   // frm.append("file", payload.file);
   axios
-    .post("http://localhost:3000/MyPage/1", frm, {
+    .post("http://localhost:3000/mypage/1", frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
@@ -55,7 +55,7 @@ export const __getProfile = createAsyncThunk(
   "profile/getProfile",
   async (payload, thunkAPI) => {
     try {
-      const profiles = await axios.get("http://54.173.186.166:8080/mypage");
+      const profiles = await axios.get("http://localhost:3000/mypage/1");
       return thunkAPI.fulfillWithValue(profiles.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -68,7 +68,7 @@ export const __updateProfile = createAsyncThunk(
   "Profile/updateProfile",
   async (params, thunkAPI) => {
     const { id, edit } = params;
-    console.log(edit);
+    console.log(id);
     try {
       const response = await updateProfileAPI(id, edit);
       return thunkAPI.fulfillWithValue({ id, edit }); // 인자가 하나여야 함

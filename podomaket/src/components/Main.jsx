@@ -10,7 +10,6 @@ import {
   LikeAndReply,
   LikeAndReplyFlex,
   List,
-  Loading,
   NewPost,
   Price,
   Product,
@@ -28,6 +27,24 @@ import Pagination from "./Pagination";
 import styled from "styled-components";
 
 export const Main = () => {
+  const [items, setItems] = useState([]);
+  const [visible, setVisible] = useState(8);
+
+  // const ShowMoreItems = () => {
+  //   setVisible((prevValue) => prevValue + 4);
+  // };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // 상품 보여주기
+  // useEffect(() => {
+  //   dispatch(__getProducts());
+  //   fetch("http://54.173.186.166:8080/products")
+  //     .then((res) => res.json())
+  //     .then((data) => setItems(data));
+  // }, []);
+
   const detailDate = (a) => {
     const milliSeconds = new Date().getTime() - a;
     const seconds = milliSeconds / 1000;
@@ -46,19 +63,19 @@ export const Main = () => {
     return `${Math.floor(years)}년 전`;
   };
 
-  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   const [totalPosts, setTotalPosts] = useState(0);
 
-  const data = posts.data;
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await axios.get("http://54.173.186.166:8080/products");
+      // const response = await axios.get("http://54.173.186.166:8080/products");
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
       setPosts(response.data);
       setLoading(false);
     };
@@ -69,8 +86,8 @@ export const Main = () => {
   const indexOfFirst = indexOfLast - postsPerPage;
   const currentPosts = (posts) => {
     let currentPosts = 0;
-    currentPosts = Object.keys(posts).slice(indexOfFirst, indexOfLast);
-    // currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    // currentPosts = Object.keys(posts).slice(indexOfFirst, indexOfLast);
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };
 
@@ -79,66 +96,59 @@ export const Main = () => {
   };
 
   return (
-    <div posts={currentPosts(posts)} loading={loading}>
-      <div>
-        <Container>
-          <h2>오늘의 상품 추천</h2>
-          <NewPost to="/product">새 글 작성</NewPost>
-        </Container>
-        <Hr />
-        <Wrap>
-          <Posts posts={currentPosts(posts)} loading={loading}></Posts>
-          <>
-            {loading && <Loading> loading... </Loading>}
-            <ul>
-              {data &&
-                data.map((post) => {
-                  return (
-                    <List key={post.id}>
-                      <Product>
-                        <Thumbnail
-                          onClick={() => navigate("/product/" + post.id)}
-                        ></Thumbnail>
-                        <LikeAndReply>
-                          <Title
-                            onClick={() => navigate("/product/" + post.id)}
-                          >
-                            {post?.title}
-                          </Title>
-                          <LikeAndReplyFlex>
-                            <Like
-                            // onClick={() => {
-                            //   setLike(like + 1);
-                            // }}
-                            >
-                              ❤<span></span>
-                            </Like>
-                            <Reply
-                            // onClick={() => {
-                            //   setReply(reply + 1);
-                            // }}
-                            >
-                              💬<span></span>
-                            </Reply>
-                          </LikeAndReplyFlex>
-                        </LikeAndReply>
-                        <FlexDiv>
-                          <Price>{post?.price}</Price>
-                          <div>{detailDate(post.date)}</div>
-                        </FlexDiv>
-                      </Product>
-                    </List>
-                  );
-                })}
-            </ul>
-          </>
-        </Wrap>
-        <Hr />
-        <ProductView>
-          <div></div>
-          <H2Button onClick={ShowMoreItems}>더 많은 상품 보기</H2Button>
-        </ProductView>
-      </div>
+    <div>
+      <Container>
+        <h2>오늘의 상품 추천</h2>
+        <NewPost to="/product">새 글 작성</NewPost>
+      </Container>
+      <Hr />
+      <Wrap>
+        <Posts posts={currentPosts(posts)} loading={loading}></Posts>
+        {Object.keys(items)
+          .slice(0, visible)
+          .map((podo) => {
+            console.log(podo.data);
+            return (
+              <List>
+                <Product>
+                  <Thumbnail
+                    onClick={() => navigate("/product/" + podo.id)}
+                  ></Thumbnail>
+                  <LikeAndReply>
+                    <Title onClick={() => navigate("/product/" + podo.id)}>
+                      {podo?.title}
+                    </Title>
+                    {/* <LikeAndReplyFlex>
+                      <Like
+                        onClick={() => {
+                          setLike(like + 1);
+                        }}
+                      >
+                        ❤<span>{like}</span>
+                      </Like>
+                      <Reply
+                        onClick={() => {
+                          setReply(reply + 1);
+                        }}
+                      >
+                        💬<span>{reply}</span>
+                      </Reply>
+                    </LikeAndReplyFlex> */}
+                  </LikeAndReply>
+                  <FlexDiv>
+                    <Price>{podo?.price}</Price>
+                    <div>{detailDate(podo.date)}</div>
+                  </FlexDiv>
+                </Product>
+              </List>
+            );
+          })}
+      </Wrap>
+      <Hr />
+      <ProductView>
+        <div></div>
+        <H2Button onClick={ShowMoreItems}>더 많은 상품 보기</H2Button>
+      </ProductView>
     </div>
   );
 };

@@ -26,6 +26,8 @@ export const Main = () => {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(8);
 
+  console.log(items);
+
   const ShowMoreItems = () => {
     setVisible((prevValue) => prevValue + 4);
   };
@@ -33,11 +35,10 @@ export const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { products } = useSelector((state) => state.productList);
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-    fetch("http://localhost:3001/products")
+    fetch("http://54.173.186.166:8080/products")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
@@ -71,42 +72,44 @@ export const Main = () => {
       </Container>
       <Hr />
       <Wrap>
-        {items.slice(0, visible).map((podo) => {
-          return (
-            <List key={podo.id}>
-              <Product>
-                <Thumbnail
-                  onClick={() => navigate("/product/" + podo.id)}
-                ></Thumbnail>
-                <LikeAndReply>
-                  <Title onClick={() => navigate("/product/" + podo.id)}>
-                    {podo.title}
-                  </Title>
-                  <LikeAndReplyFlex>
-                    <Like
-                      onClick={() => {
-                        setLike(like + 1);
-                      }}
-                    >
-                      ❤<span>{like}</span>
-                    </Like>
-                    <Reply
-                      onClick={() => {
-                        setReply(reply + 1);
-                      }}
-                    >
-                      💬<span>{reply}</span>
-                    </Reply>
-                  </LikeAndReplyFlex>
-                </LikeAndReply>
-                <FlexDiv>
-                  <Price>{podo.price}</Price>
-                  <div>{detailDate(podo.date)}</div>
-                </FlexDiv>
-              </Product>
-            </List>
-          );
-        })}
+        {Object.keys(items)
+          .slice(0, visible)
+          .map((podo) => {
+            return (
+              <List key={podo.id}>
+                <Product>
+                  <Thumbnail
+                    onClick={() => navigate("/product/" + podo.id)}
+                  ></Thumbnail>
+                  <LikeAndReply>
+                    <Title onClick={() => navigate("/product/" + podo.id)}>
+                      {podo.title}
+                    </Title>
+                    {/* <LikeAndReplyFlex>
+                      <Like
+                        onClick={() => {
+                          setLike(like + 1);
+                        }}
+                      >
+                        ❤<span>{like}</span>
+                      </Like>
+                      <Reply
+                        onClick={() => {
+                          setReply(reply + 1);
+                        }}
+                      >
+                        💬<span>{reply}</span>
+                      </Reply>
+                    </LikeAndReplyFlex> */}
+                  </LikeAndReply>
+                  <FlexDiv>
+                    {/* <Price>{podo.price}</Price> */}
+                    {/* <div>{detailDate(podo.date)}</div> */}
+                  </FlexDiv>
+                </Product>
+              </List>
+            );
+          })}
       </Wrap>
       <Hr />
       <ProductView>

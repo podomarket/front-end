@@ -29,7 +29,6 @@ const MyPageEdit = () => {
     const image = URL.createObjectURL(e.target.files[0]);
     setImageUrl(image);
   };
-
   const updateProfile = () => {
     const params = {
       id,
@@ -77,8 +76,8 @@ const MyPageEdit = () => {
         />
         <div>
           <TextArea
-            id="sub"
-            name="sub"
+            id="content"
+            name="content"
             placeholder="자기소개"
             onChange={onChangeHandler}
           ></TextArea>

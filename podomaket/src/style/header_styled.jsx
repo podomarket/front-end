@@ -13,7 +13,7 @@ export const Logo = styled.div`
 
 export const NavBar = styled.div`
   height: 4rem;
-  width: 100vw;
+  width: 100%;
   display: flex;
   background-color: #681170;
   justify-content: space-between;

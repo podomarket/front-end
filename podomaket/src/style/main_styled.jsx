@@ -31,12 +31,22 @@ export const Hr = styled.hr`
 export const Wrap = styled.div`
   /* display: flex;
   flex-wrap: wrap; */
-  text-align: center;
   margin: 20px 0;
+  & ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+  }
 `;
 export const List = styled.div`
   padding: 10px 20px;
   margin: 10px;
+`;
+export const Loading = styled.div`
+  font-weight: 600;
+  font-size: 50px;
+  text-align: center;
 `;
 export const Product = styled.div`
   width: 200px;

@@ -18,6 +18,8 @@ export const MyPage = () => {
   const profile =
     profiles && profiles.find((profile) => profile.id === Number(id));
 
+  console.log(id);
+
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProfile());

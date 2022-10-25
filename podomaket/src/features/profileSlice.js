@@ -13,14 +13,16 @@ const register = (payload, params) => {
   frm.append("nickname", payload.nickname);
   frm.append("content", payload.content);
   // frm.append("file", payload.file);
+
   axios
-    .post(`http://localhost:3000/mypage/${params}`, frm, {
+    .post(`http://localhost:3000/mypage/${params.id}`, frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
         "Content-Type": "application/json",
         // "Content-Type": "multipart/form-data",
       },
+
       redirect: "follow",
       referrer: "no-referrer",
       body: JSON.stringify({
@@ -56,7 +58,9 @@ export const __getProfile = createAsyncThunk(
   "profile/getProfile",
   async (payload, thunkAPI) => {
     try {
-      const profiles = await axios.get("http://localhost:3000/mypage/1");
+      const profiles = await axios.get(
+        `http://localhost:3000/mypage/${payload.id}`
+      );
       return thunkAPI.fulfillWithValue(profiles.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -66,6 +66,13 @@ const ProductPost = () => {
     }
   };
 
+
+  useEffect(() => {
+    fetch("http://54.173.186.166:8080/products")
+      .then((res) => res.json())
+      .then((data) => setItems(data));
+  }, []);
+
   return (
     <Wrap>
       <Container>

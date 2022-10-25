@@ -103,19 +103,23 @@ export const Main = () => {
       </Container>
       <Hr />
       <Wrap>
+
         <Posts posts={currentPosts(posts)} loading={loading}></Posts>
         {Object.keys(items)
+
+        
           .slice(0, visible)
           .map((podo) => {
+            console.log(podo.data);
             return (
-              <List key={podo.id}>
+              <List>
                 <Product>
                   <Thumbnail
                     onClick={() => navigate("/product/" + podo.id)}
                   ></Thumbnail>
                   <LikeAndReply>
                     <Title onClick={() => navigate("/product/" + podo.id)}>
-                      {podo.title}
+                      {podo?.title}
                     </Title>
                     {/* <LikeAndReplyFlex>
                       <Like
@@ -135,8 +139,8 @@ export const Main = () => {
                     </LikeAndReplyFlex> */}
                   </LikeAndReply>
                   <FlexDiv>
-                    {/* <Price>{podo.price}</Price> */}
-                    {/* <div>{detailDate(podo.date)}</div> */}
+                    <Price>{podo?.price}</Price>
+                    <div>{detailDate(podo.date)}</div>
                   </FlexDiv>
                 </Product>
               </List>

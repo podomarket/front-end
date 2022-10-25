@@ -29,9 +29,10 @@ export const Hr = styled.hr`
   margin: 0;
 `;
 export const Wrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* display: flex;
+  flex-wrap: wrap; */
+  text-align: center;
+  margin: 20px 0;
 `;
 export const List = styled.div`
   padding: 10px 20px;

@@ -1,32 +1,110 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import { useDispatch } from "react-redux";
+import { addPost, __addProducts, __getProducts } from "../features/podoSlice";
+import {
+  BackButton,
+  ButtonSet,
+  Container,
+  ImageInput,
+  ImageLabel,
+  ImageLayout,
+  ImagePreview,
+  Input,
+  NewButton,
+  TextArea,
+  Wrap,
+} from "../style/productPost_styled";
 
-const Test = () => {
-  const [items, setItems] = useState([]);
-  const [visible, setVisible] = useState(4);
+const ProductPost = () => {
+  const dispatch = useDispatch();
 
-  const ShowMoreItems = () => {
-    setVisible((prevValue) => prevValue + 4);
+  // text useState
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  // image preview useState
+  const [previewImage, setPreviewImage] = useState("");
+  const [uploadImageForm, setUploadImageForm] = useState(null);
+
+  // post useState
+  const [post, setPost] = useState({
+    title: "",
+    content: "",
+    // file: "",
+  });
+
+  const imgFileHandler = (e) => {
+    setUploadImageForm(e.target.files[0]);
+
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        setPreviewImage([...previewImage, previewImgUrl]);
+      }
+    };
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3001/products")
-      .then((res) => res.json())
-      .then((data) => setItems(data));
-  }, []);
+  const postHandler = (e) => {
+    setTitle(e.target.value);
+    setContent(e.target.value);
+    const { value, name } = e.target;
+    setPost({
+      ...post,
+      [name]: value,
+      file: uploadImageForm,
+    });
+  };
+
+  const submitHandler = () => {
+    dispatch(addPost(post));
+    if (!title || !content || !previewImage) {
+      return alert("빈칸 없이 입력해 주세요");
+    }
+  };
+
   return (
-    <div className="container">
-      {items.slice(0, visible).map((item) => (
-        <div className="card">
-          <div className="id">
-            <span>{item.id}</span>
-          </div>
-          <p>{item.title}</p>
+    <Wrap>
+      <Container>
+        <ImageLayout>
+          <ImageLabel htmlFor="file" />
+          <ImageInput
+            id="addFile"
+            type="file"
+            name="imageUrl"
+            placeholder="업로드"
+            accept={"image/*"}
+            onChange={imgFileHandler}
+          />
+          <ImagePreview src={previewImage} />
+        </ImageLayout>
+        <Input
+          id="title"
+          name="title"
+          type="text"
+          placeholder="제목을 입력해주세요"
+          onChange={postHandler}
+        />
+        <div>
+          <TextArea
+            id="content"
+            name="content"
+            placeholder="내용을 입력해주세요"
+            onChange={postHandler}
+          ></TextArea>
         </div>
-      ))}
-      <button onClick={ShowMoreItems}>Lead more</button>
-    </div>
+        <ButtonSet>
+          <BackButton to="/">뒤로가기</BackButton>
+          <NewButton onClick={submitHandler} to="/">
+            새 글 작성
+          </NewButton>
+        </ButtonSet>
+      </Container>
+    </Wrap>
   );
 };
 
-export default Test;
+export default ProductPost;

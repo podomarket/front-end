@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { closeModal } from "../features/modalSlice";
-import { __updateProfile } from "../features/profileSlice";
+import { updateProfile, __updateProfile } from "../features/profileSlice";
 import {
   BtnContainer,
   CancleButton,
@@ -19,67 +19,118 @@ import {
 } from "../style/myPageEdit_styled";
 
 const MyPageEdit = () => {
+  // const dispatch = useDispatch();
+  // const { id } = useParams();
+
+  // // 파일 업로드
+  // const [imageUrl, setImageUrl] = useState("");
+
+  // const fileUpload = (e) => {
+  //   const image = URL.createObjectURL(e.target.files[0]);
+  //   setImageUrl(image);
+  // };
+  // const updateProfile = () => {
+  //   const params = {
+  //     id,
+  //     edit: {
+  //       nickname: "오성은",
+  //       content: profiles.content,
+  //     },
+  //   };
+  //   dispatch(__updateProfile(params));
+  // };
+
+  // const [profiles, setProfiles] = useState({
+  //   nickname: "",
+  //   content: "",
+  // });
+
+  // const onChangeHandler = (e) => {
+  //   const { name, value } = e.target;
+  //   setProfiles((prev) => {
+  //     return { ...prev, [name]: value };
+  //   });
+  // };
+
   const dispatch = useDispatch();
-  const { id } = useParams();
 
-  // 파일 업로드
-  const [imageUrl, setImageUrl] = useState("");
+  // text useState
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-  const fileUpload = (e) => {
-    const image = URL.createObjectURL(e.target.files[0]);
-    setImageUrl(image);
-  };
-  const updateProfile = () => {
-    const params = {
-      id,
-      edit: {
-        nickname: "오성은",
-        content: profiles.content,
-      },
-    };
-    dispatch(__updateProfile(params));
-  };
+  // image preview useState
+  const [previewImage, setPreviewImage] = useState("");
+  const [uploadImageForm, setUploadImageForm] = useState(null);
 
-  const [profiles, setProfiles] = useState({
-    nickname: "",
+  // post useState
+  const [post, setPost] = useState({
+    title: "",
     content: "",
+    // file: "",
   });
 
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setProfiles((prev) => {
-      return { ...prev, [name]: value };
+  // const imgFileHandler = (e) => {
+  //   setUploadImageForm(e.target.files[0]);
+
+  //   let reader = new FileReader();
+  //   if (e.target.files[0]) {
+  //     reader.readAsDataURL(e.target.files[0]);
+  //   }
+  //   reader.onload = () => {
+  //     const previewImgUrl = reader.result;
+  //     if (previewImgUrl) {
+  //       setPreviewImage([...previewImage, previewImgUrl]);
+  //     }
+  //   };
+  // };
+
+  const postHandler = (e) => {
+    setTitle(e.target.value);
+    setContent(e.target.value);
+    const { value, name } = e.target;
+    setPost({
+      ...post,
+      [name]: value,
+      // file: uploadImageForm,
     });
+  };
+
+  const submitHandler = () => {
+    dispatch(updateProfile(post));
+    // if (!title || !content || !previewImage) {
+    if (!title || !content) {
+      return alert("빈칸 없이 입력해 주세요");
+    }
   };
 
   return (
     <ModalContainer>
       <Modal>
-        <ImageLayout>
+        {/* <ImageLayout>
           <ImageLabel htmlFor="file" />
           <ImageInput
-            id="file"
-            type={"file"}
+            id="addFile"
+            type="file"
             name="imageUrl"
             placeholder="업로드"
             accept={"image/*"}
-            onChange={fileUpload}
+            onChange={imgFileHandler}
           />
-          <ImagePreview src={imageUrl} />
-        </ImageLayout>
+          <ImagePreview src={previewImage} />
+        </ImageLayout> */}
         <Input
           id="nickname"
           name="nickname"
           type="text"
           placeholder="이름"
-          onChange={onChangeHandler}
+          onChange={postHandler}
         />
         <div>
           <TextArea
             id="content"
             name="content"
             placeholder="자기소개"
-            onChange={onChangeHandler}
+            onChange={postHandler}
           ></TextArea>
         </div>
         <BtnContainer>
@@ -93,7 +144,7 @@ const MyPageEdit = () => {
           <EditButton
             onClick={() => {
               dispatch(closeModal());
-              updateProfile();
+              submitHandler();
             }}
           >
             수정하기

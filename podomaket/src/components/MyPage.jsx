@@ -15,7 +15,8 @@ export const MyPage = () => {
   const { id } = useParams();
 
   // 프로필 하나만 보여주도록 find 함수 사용
-  const profile = profiles.find((profile) => profile.id === Number(id));
+  const profile =
+    profiles && profiles.find((profile) => profile.id === Number(id));
 
   // 상품 보여주기
   useEffect(() => {

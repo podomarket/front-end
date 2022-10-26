@@ -19,7 +19,6 @@ export const Header = () => {
   const [useToken, setUseToken] = useState(false);
 
   const token = localStorage.getItem("accessToken");
-  console.log(token);
 
   const toLogin = () => {
     navigate("/users/login");

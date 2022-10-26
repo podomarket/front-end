@@ -36,14 +36,9 @@ const register = (payload) => {
 };
 
 const initialState = {
-  products: [
-    {
-      id: 0,
-      file: "",
-      title: "",
-      content: "",
-    },
-  ],
+  products: [],
+  isLoading: false,
+  error: "",
 };
 
 // 상품 전체 조회
@@ -141,7 +136,7 @@ export const podoSlice = createSlice({
     },
   },
   extraReducers: {
-    // GET Product List
+    // 상품 전체 조회
     [__getProducts.pending]: (state) => {
       state.isLoading = true;
     },
@@ -154,6 +149,7 @@ export const podoSlice = createSlice({
       state.error = action.payload;
     },
 
+    // 상품 단일 조회
     [__getDetailProduct.fulfilled]: (state, action) => {
       state.products = action.payload;
     },

@@ -40,6 +40,8 @@ export const SignUp = () => {
     });
   };
 
+  //중복확인
+
   return (
     <MainBox>
       <h4>

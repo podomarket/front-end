@@ -18,7 +18,7 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
-import { __addComments } from "../features/commentSlice";
+import { getComments, __addComments } from "../features/commentSlice";
 
 export const Product = () => {
   const dispatch = useDispatch();
@@ -27,16 +27,15 @@ export const Product = () => {
   const products = useSelector((state) => state.productList.products);
   const { id } = useParams();
 
-
   const data = products.data;
 
   console.log(products);
 
-
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-  }, []);
+    dispatch(getComments({ id }));
+  }, [dispatch]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -53,26 +52,24 @@ export const Product = () => {
     dispatch(__delPrudcts(params));
   };
 
-  //Comments
-
-  const [comments, setComments] = useState({
-    comments: "",
-  });
+  //Comments 추가
+  const [content, setContent] = useState("");
 
   const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setComments((prev) => {
-      return { ...prev, [name]: value };
-    });
+    setContent(e.target.value);
   };
+
+  const token = localStorage.getItem("accessToken");
 
   const onAddCommentsHandler = (e) => {
     e.preventDefault();
-    dispatch(__addComments(comments));
-    setComments({
-      comments: "",
-    });
+    dispatch(__addComments({ content, id }));
+    setContent("");
   };
+
+  //comments 불러오기
+  useEffect(() => {});
+
   return (
     <Wrap>
       <Container>
@@ -109,6 +106,9 @@ export const Product = () => {
           placeholder="댓글을 작성해주세요"
           onChange={onChangeHandler}
         ></CommentInput>
+        <p>
+          {id} : {content} 되나요
+        </p>
       </Container>
     </Wrap>
   );

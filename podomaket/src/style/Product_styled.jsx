@@ -20,7 +20,6 @@ export const Container = styled.div`
 export const H1 = styled.h1`
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   width: 300px;
   font-size: 25px;
   margin-right: 10px;

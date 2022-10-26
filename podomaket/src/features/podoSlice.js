@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
-
-const token = localStorage.getItem("accessToken");
+import { useParams } from "react-router-dom";
+import {
+  delPostAPI,
+  getDetailProductAPI,
+  getProductOneAPI,
+  updateProductAPI,
+} from "./apis";
 
 const DATA_URL = "http://54.173.186.166:8080";
 
@@ -13,6 +17,7 @@ const addProduct = (payload) => {
   const frm = new FormData();
   frm.append("title", payload.title);
   frm.append("content", payload.content);
+  frm.append("price", payload.price);
   frm.append("file", payload.file);
   axios
     .post("http://54.173.186.166:8080/products", frm, {
@@ -31,17 +36,17 @@ const addProduct = (payload) => {
       console.log(error);
     });
 };
-
 const updateProduct = (payload) => {
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
-
+  console.log(payload);
   const frm = new FormData();
   frm.append("title", payload.title);
   frm.append("content", payload.content);
+  frm.append("price", payload.price);
   frm.append("file", payload.file);
   axios
-    .patch("http://54.173.186.166:8080/products", frm, {
+    .put(`http://54.173.186.166:8080/products/${payload.id}`, frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
@@ -81,33 +86,17 @@ export const __getProducts = createAsyncThunk(
 );
 
 // 상품 단일 조회
-// export const __getDetailProduct = createAsyncThunk(
-//   "products/getDetailProduct",
-//   async (payload, thunkAPI) => {
-//     console.log("슬라이스 payload =>", payload);
-//     try {
-//       await getDetailProductAPI(payload);
-//       console.log("무엇을 받고 있나요?", payload);
-//       return thunkAPI.fulfillWithValue(payload);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
-
-// 상품 추가하기
-// export const __addProducts = createAsyncThunk(
-//   "post/addProducts",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const result = await axios.post(`${DATA_URL}/products`, payload);
-//       console.log(result);
-//       return thunkAPI.fulfillWithValue(payload);
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err);
-//     }
-//   }
-// );
+export const __getDetailProduct = createAsyncThunk(
+  "products/getDetailProduct",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await getDetailProductAPI(payload);
+      return thunkAPI.fulfillWithValue(response);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 // 상품 삭제하기
 export const __delPrudcts = createAsyncThunk(
@@ -155,11 +144,23 @@ export const podoSlice = createSlice({
       addProduct(action.payload);
     },
     updatePost: (state, action) => {
-      state.products = action.payload;
       updateProduct(action.payload);
     },
   },
   extraReducers: {
+    // 하나의 정보 가져오기
+    [__getDetailProduct.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getDetailProduct.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.products = action.payload;
+    },
+    [__getDetailProduct.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     // 상품 전체 조회
     [__getProducts.pending]: (state) => {
       state.isLoading = true;
@@ -187,25 +188,6 @@ export const podoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-
-    // 상품 단일 조회
-    // [__getDetailProduct.fulfilled]: (state, action) => {
-    //   console.log("액션 페이로드 =>", action.payload);
-    //   state.products = action.payload;
-    // },
-
-    // ADD Product
-    // [__addProducts.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__addProducts.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.products = action.payload;
-    // },
-    // [__addProducts.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
   },
 });
 

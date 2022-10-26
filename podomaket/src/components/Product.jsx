@@ -21,7 +21,7 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
-import { __addComments } from "../features/commentSlice";
+import { __addComments, __delComment } from "../features/commentSlice";
 import styled from "styled-components";
 
 export const Product = () => {
@@ -86,7 +86,7 @@ export const Product = () => {
     setComments(data);
   };
 
-  console.log("jsx get 요청 =>", contents);
+  // console.log("jsx get 요청 =>", contents);
 
   useEffect(() => {
     fetchComments();
@@ -101,7 +101,7 @@ export const Product = () => {
               <div>
                 <H1>{contents?.title}</H1>
               </div>
-              <Price>{contents?.price}</Price>
+              <Price>{contents?.price}원</Price>
             </Flex>
             {token ? (
               <Flex>
@@ -119,10 +119,7 @@ export const Product = () => {
         </>
         <hr />
         <Flex>
-          <LikeAndComment>
-            <Like>❤ 5</Like>
-            <div>💬 3</div>
-          </LikeAndComment>
+          <div></div>
           {token ? (
             <Button onClick={onAddCommentsHandler}>댓글달기</Button>
           ) : null}
@@ -136,11 +133,17 @@ export const Product = () => {
         ></CommentInput>
         {datas?.map((comment) => {
           return (
-            <Box>
+            <Box key={comment.id}>
               <p>
                 {comment?.username} : {comment?.content}
-                <button>수정</button>
-                <button>삭제</button>
+                <EditCommentButton>수정</EditCommentButton>
+                <DeleteCommentButton
+                  onClick={() => {
+                    dispatch(__delComment(comment?.id));
+                  }}
+                >
+                  삭제
+                </DeleteCommentButton>
               </p>
             </Box>
           );
@@ -155,4 +158,36 @@ export default Product;
 const Box = styled.div`
   padding: 15px;
   width: 500px;
+`;
+const EditCommentButton = styled.button`
+  margin-left: 10px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.5px solid #2e0533;
+  border-radius: 2em;
+  font-weight: 600;
+  &:hover {
+    color: #fff;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
+`;
+const DeleteCommentButton = styled.button`
+  margin-left: 10px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.5px solid #2e0533;
+  border-radius: 2em;
+  font-weight: 600;
+  &:hover {
+    color: #fff;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
 `;

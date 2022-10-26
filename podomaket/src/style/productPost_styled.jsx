@@ -38,7 +38,9 @@ export const Input = styled.input`
 `;
 export const ImageLayout = styled.div`
   position: relative;
+  border-radius: 100%;
   height: 100px;
+  border-radius: 100%;
   width: 100px;
   overflow: hidden;
   resize: none;

@@ -78,20 +78,7 @@ export const Price = styled.div`
   width: 120px;
   white-space: nowrap;
 `;
-export const LikeAndReply = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const LikeAndReplyFlex = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const Like = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const Reply = styled.div`
-  margin-left: 5px;
+export const Flex = styled.div`
   display: flex;
   justify-content: space-between;
 `;

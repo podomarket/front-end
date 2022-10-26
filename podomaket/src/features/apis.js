@@ -30,10 +30,12 @@ export const updateProductAPI = async (id, edit) => {
   await axios.patch(`${DATA_URL}/products/${id}`, edit);
 };
 
-// export const getDetailProductAPI = async (payload) => {
-//   console.log("get api=>", payload.id);
-//   await axios.get(`http://54.173.186.166:8080/products/${payload.id}`);
-// };
+export const getDetailProductAPI = async (payload) => {
+  const response = await axios.get(
+    `http://54.173.186.166:8080/products/${payload.id}`
+  );
+  return response.data;
+};
 
 // profile
 export const updateProfileAPI = async (id, edit) => {
@@ -71,6 +73,23 @@ export const addCommentsApi = (payload) => {
 export const getCommentsApi = (payload) => {
   // console.log("get=>", payload);
   axios.get(`${DATA_URL}/products/${payload.id}`);
+};
+
+export const delCommentAPI = (payload) => {
+  const frm = new FormData();
+  frm.append("content", payload.content);
+  console.log(payload);
+  axios.delete(
+    `http://54.173.186.166:8080/${payload.id}/comments/${payload.id}`,
+    frm,
+    {
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+        "Refresh-Token": localStorage.getItem("refreshToken"),
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
 // 중복확인 api

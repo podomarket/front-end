@@ -1,7 +1,13 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { updatePost, __updateProduct } from "../features/podoSlice";
+import {
+  updatePost,
+  __getDetailProduct,
+  __getProducts,
+  __updateProduct,
+} from "../features/podoSlice";
 import {
   BackButton,
   ButtonSet,
@@ -18,6 +24,7 @@ import {
 
 const ProductEdit = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   // text useState
   const [title, setTitle] = useState("");
@@ -29,8 +36,10 @@ const ProductEdit = () => {
 
   // post useState
   const [post, setPost] = useState({
+    id: id,
     title: "",
     content: "",
+    price: "",
     file: "",
   });
 
@@ -62,10 +71,20 @@ const ProductEdit = () => {
 
   const submitHandler = () => {
     dispatch(updatePost(post));
-    if (!title || !content || !previewImage) {
-      return alert("빈칸 없이 입력해 주세요");
-    }
   };
+
+  const [products, setProducts] = useState([]);
+  const data = products.data;
+  const __getDetailProduct = async () => {
+    const { data } = await axios.get(
+      `http://54.173.186.166:8080/products/${id}`
+    );
+    setProducts(data);
+  };
+
+  useEffect(() => {
+    __getDetailProduct(id);
+  }, []);
 
   return (
     <Wrap>
@@ -80,34 +99,36 @@ const ProductEdit = () => {
             accept={"image/*"}
             onChange={imgFileHandler}
           />
-          <ImagePreview src={previewImage} />
+          <ImagePreview
+            src={previewImage === "" ? data?.imgUrl : previewImage}
+          />
         </ImageLayout>
         <Input
           id="title"
           name="title"
+          defaultValue={data?.title}
           type="text"
-          placeholder="제목을 입력해주세요"
           onChange={postHandler}
         />
         <div>
           <TextArea
             id="content"
             name="content"
-            placeholder="내용을 입력해주세요"
+            defaultValue={data?.content}
             onChange={postHandler}
           ></TextArea>
         </div>
-        {/* <Input
+        <Input
           id="price"
           name="price"
+          defaultValue={data?.price}
           type="text"
-          placeholder="가격을 입력해주세요"
           onChange={postHandler}
-        /> */}
+        />
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
           <NewButton onClick={submitHandler} to="/">
-            새 글 작성
+            수정하기
           </NewButton>
         </ButtonSet>
       </Container>

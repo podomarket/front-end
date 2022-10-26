@@ -28,6 +28,15 @@ import Pagination from "./Pagination";
 import styled from "styled-components";
 
 export const Main = () => {
+  const { products: post } = useSelector((state) => state.productList);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(__getProducts());
+  }, [dispatch]);
+
+  console.log(post);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,9 +57,9 @@ export const Main = () => {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (products) => {
+  const currentPosts = (product) => {
     let currentPosts = 0;
-    currentPosts = Object.keys(products).slice(indexOfFirst, indexOfLast);
+    currentPosts = Object.keys(product).slice(indexOfFirst, indexOfLast);
     // currentPosts = posts.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };

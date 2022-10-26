@@ -24,6 +24,9 @@ export const updateProductAPI = async (id, edit) => {
   await axios.patch(`${DATA_URL}/products/${id}`, edit);
 };
 
+export const getDetailProductAPI = async (id) => {
+  await axios.get(`http://54.173.186.166:8080/products/${id}`);
+};
 // profile
 export const updateProfileAPI = async (id, edit) => {
   await axios.patch(`${DATA_URL}/mypage/${id}`, edit);

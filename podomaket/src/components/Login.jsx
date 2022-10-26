@@ -9,6 +9,7 @@ import { __setUser } from "../features/userSlice";
 import { setUserApi } from "../features/apis";
 import { login, localGet } from "../localStorage";
 import axios from "axios";
+import kakao from "../img/kakao.png";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -79,7 +80,6 @@ export const Login = () => {
       </h4>
       <h2>로그인</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>아이디</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
@@ -89,7 +89,6 @@ export const Login = () => {
           onChange={onChangeHandler}
           required
         />
-        <p>비밀번호</p>
         <input
           type="password"
           name="password"
@@ -101,13 +100,15 @@ export const Login = () => {
         />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
-      <MainButton type="submit" onClick={clickHandler}>
-        로그인
-      </MainButton>
-      <Button onClick={signupHandler}>회원가입</Button>
+      <div>
+        <MainButton type="submit" onClick={clickHandler}>
+          로그인
+        </MainButton>
+        <Button onClick={signupHandler}>회원가입</Button>
+      </div>
       <p>
         <br />
-        <Kakao onClick={kakaoHandler}></Kakao>
+        <img src={kakao} />
       </p>
     </MainBox>
   );
@@ -124,6 +125,9 @@ const MainBox = styled.div`
   margin-top: 80px;
   justify-content: center;
   & h2 {
+    margin-top: 50px;
+    font-weight: 600;
+    font-size: 30px;
     padding: 10px;
     text-align: center;
   }
@@ -133,20 +137,26 @@ const MainBox = styled.div`
   & h4 {
     text-align: right;
   }
+  & div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const MainButton = styled.button`
+  margin: 30px auto;
   width: 300px;
   height: 40px;
   border: none;
   border-radius: 25px;
   background-color: #681170;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
-  float: right;
-  margin-right: 100px;
-  margin-top: 60px;
+  margin: auto;
+  justify-content: center;
 `;
 
 const Box = styled.form`
@@ -156,12 +166,16 @@ const Box = styled.form`
     margin-top: 20px;
   }
   & input {
-    width: 250px;
+    width: 60%;
+    height: 20px;
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    margin: 30px auto;
+    padding: 10px;
     border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    margin-right: 10px;
-    margin-left: 100px;
+    outline: none;
+    border-radius: 5px;
   }
   & button {
     background-color: transparent;
@@ -175,24 +189,15 @@ const Box = styled.form`
 `;
 
 const Button = styled.button`
+  font-size: 20px;
+  font-weight: 600;
   background-color: transparent;
   width: 200px;
   color: #373737;
   border: none;
   cursor: pointer;
-  margin-left: 150px;
   margin-top: 10px;
   display: inline-block;
-`;
-
-const Kakao = styled(RiKakaoTalkFill)`
-  font-size: 35px;
-  background-color: #f9f94d;
-  color: #282424;
-  padding: 4px;
-  border-radius: 30px;
-  text-align: center;
-  cursor: pointer;
 `;
 
 const Close = styled(IoMdClose)`

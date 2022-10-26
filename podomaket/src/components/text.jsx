@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __delPrudcts, __getProducts } from "../features/podoSlice";
+import {
+  __delPrudcts,
+  __getDetailProduct,
+  __getProducts,
+} from "../features/podoSlice";
 import {
   Button,
   CommentInput,
@@ -27,13 +31,11 @@ export const Product = () => {
   const products = useSelector((state) => state.productList.products);
   const { id } = useParams();
 
-  const data = products.data;
-
-  console.log(data);
+  console.log(products);
 
   // 상품 보여주기
   useEffect(() => {
-    dispatch(__getProducts());
+    dispatch(__getDetailProduct(id));
   }, []);
 
   const handleGoBack = () => {
@@ -78,9 +80,9 @@ export const Product = () => {
           <Flex>
             <Flex>
               <div>
-                <H1>{data?.title}</H1>
+                <H1>{products?.title}</H1>
               </div>
-              <Price>{data?.price}</Price>
+              <Price>{products?.price}</Price>
             </Flex>
             <Flex>
               <EditButton onClick={() => navigate("/product/edit/" + id)}>
@@ -89,8 +91,8 @@ export const Product = () => {
               <DeleteButton onClick={deletePost}>삭제</DeleteButton>
             </Flex>
           </Flex>
-          <Image src={data?.imgUrl}></Image>
-          <P>{data?.content}</P>
+          <Image src={products?.imgUrl}></Image>
+          <P>{products?.content}</P>
         </>
         <hr />
         <Flex>

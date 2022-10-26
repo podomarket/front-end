@@ -1,32 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
+import {
+  delPostAPI,
+  getDetailProductAPI,
+  getProductOneAPI,
+  updateProductAPI,
+} from "./apis";
 
 const DATA_URL = "http://54.173.186.166:8080";
 
 const register = (payload) => {
-  console.log(payload); //글쓰기 내용이 담김
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
-  // console.log("accessToken", accessToken);
-  // console.log("refreshToken", refreshToken);
+
   const frm = new FormData();
   frm.append("title", payload.title);
   frm.append("content", payload.content);
-  // frm.append("file", payload.file);
+  frm.append("file", payload.file);
   axios
     .post("http://54.173.186.166:8080/products", frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
-        "Content-Type": "application/json",
-        // "Content-Type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
+        // "Content-Type": "application/json",
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: JSON.stringify({
-        refresh: localStorage.getItem(refreshToken),
-      }),
     })
     .then(function a(response) {
       alert("게시되었습니다.");
@@ -40,13 +38,15 @@ const register = (payload) => {
 const initialState = {
   products: [
     {
+      id: 0,
+      file: "",
       title: "",
       content: "",
     },
   ],
 };
 
-// 상품 가져오기
+// 상품 전체 조회
 export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
@@ -56,6 +56,20 @@ export const __getProducts = createAsyncThunk(
       // console.log(products.data);
 
       return thunkAPI.fulfillWithValue(products.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 상품 단일 조회
+export const __getDetailProduct = createAsyncThunk(
+  "products/getDetailProduct",
+  async (params, thunkAPI) => {
+    try {
+      const response = await getDetailProductAPI(params);
+      // console.log(response);
+      return thunkAPI.fulfillWithValue(response);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -138,6 +152,9 @@ export const podoSlice = createSlice({
     [__getProducts.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [__getDetailProduct.fulfilled]: (state, action) => {
+      state.products = action.payload;
     },
 
     // ADD Product

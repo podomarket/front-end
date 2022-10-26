@@ -47,17 +47,21 @@ export const setUserApi = (login) => {
 
 //comments
 
-export const addCommentsApi = (id, comments) => {
-  axios.post(`${DATA_URL}/products/comments`, comments, {
+export const addCommentsApi = (payload) => {
+  console.log(typeof payload.comments.comments);
+  const frm = new FormData();
+  frm.append("content", payload.comments.comments);
+  axios.post(`${DATA_URL}/products/${payload.id}/comments`, frm, {
     headers: {
-      Authorization: localStorage.getItem("accessToken"),
+      Authorization: payload.token,
       "Refresh-Token": localStorage.getItem("refreshToken"),
+      "Content-Type": "application/json",
     },
   });
 };
 
-export const getCommentsApi = (id, comments) => {
-  axios.get(`${DATA_URL}/products/${id}/comments`);
+export const getCommentsApi = (payload) => {
+  axios.get(`${DATA_URL}/products/${payload.id}/comments`);
 };
 
 // 중복확인 api

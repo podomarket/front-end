@@ -13,7 +13,7 @@ export const __addComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      await axios.post(addCommentsApi, payload);
+      await addCommentsApi(payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
@@ -25,9 +25,8 @@ export const __addComments = createAsyncThunk(
 export const getComments = createAsyncThunk(
   "get/getComments",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
-      await axios.post(getCommentsApi, payload);
+      await getCommentsApi(payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
@@ -68,5 +67,5 @@ export const commentSlice = createSlice({
   },
 });
 
-export const { commnents } = commentSlice.actions;
+export const { comments } = commentSlice.actions;
 export default commentSlice.reducer;

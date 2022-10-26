@@ -27,16 +27,14 @@ export const Product = () => {
   const products = useSelector((state) => state.productList.products);
   const { id } = useParams();
 
-
   const data = products.data;
 
-  console.log(data);
-
+  // console.log(data);
 
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-  }, []);
+  }, [dispatch]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -66,13 +64,16 @@ export const Product = () => {
     });
   };
 
+  const token = localStorage.getItem("accessToken");
+
   const onAddCommentsHandler = (e) => {
     e.preventDefault();
-    dispatch(__addComments(comments));
+    dispatch(__addComments({ comments, token, id }));
     setComments({
       comments: "",
     });
   };
+
   return (
     <Wrap>
       <Container>
@@ -109,6 +110,7 @@ export const Product = () => {
           placeholder="댓글을 작성해주세요"
           onChange={onChangeHandler}
         ></CommentInput>
+        {}
       </Container>
     </Wrap>
   );

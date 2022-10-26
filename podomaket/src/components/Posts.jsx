@@ -21,7 +21,7 @@ import {
   Wrap,
 } from "../style/main_styled";
 
-const Posts = ({ posts }) => {
+const Posts = () => {
   const detailDate = (a) => {
     const milliSeconds = new Date().getTime() - a;
     const seconds = milliSeconds / 1000;
@@ -43,34 +43,18 @@ const Posts = ({ posts }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(4);
-  const [totalPosts, setTotalPosts] = useState(0);
 
   const data = products.data;
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await axios.get("http://54.173.186.166:8080/products");
+      const response = await axios.get("http://localhost:3000/products");
       setProducts(response.data);
       setLoading(false);
     };
     fetchData();
   }, []);
-
-  const indexOfLast = currentPage * postsPerPage;
-  const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (posts) => {
-    let currentPosts = 0;
-    currentPosts = Object.keys(posts).slice(indexOfFirst, indexOfLast);
-    // currentPosts = posts.slice(indexOfFirst, indexOfLast);
-    return currentPosts;
-  };
-
-  const ShowMoreItems = () => {
-    setPostsPerPage(postsPerPage + 4);
-  };
 
   return (
     <>
@@ -85,6 +69,7 @@ const Posts = ({ posts }) => {
                   <List key={post.id}>
                     <Product>
                       <Thumbnail
+                        src={post.imgUrl}
                         onClick={() => navigate("/product/" + post.id)}
                       ></Thumbnail>
                       <LikeAndReply>

@@ -77,8 +77,7 @@ export const DeleteButton = styled.button`
     transition: all ease-in-out 350ms;
   }
 `;
-export const Image = styled.div`
-  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Atlas_Mountains_snow_cover.jpg/800px-Atlas_Mountains_snow_cover.jpg");
+export const Image = styled.img`
   width: 500px;
   padding: 180px 20px;
   margin: 10px auto;

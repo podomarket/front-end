@@ -51,7 +51,7 @@ export const Loading = styled.div`
 export const Product = styled.div`
   width: 200px;
 `;
-export const Thumbnail = styled.div`
+export const Thumbnail = styled.img`
   width: 200px;
   height: 200px;
   margin-bottom: 10px;

@@ -48,7 +48,12 @@ export const setUserApi = (login) => {
 //comments
 
 export const addCommentsApi = (id, comments) => {
-  axios.post(`${DATA_URL}/products/comments`, comments);
+  axios.post(`${DATA_URL}/products/comments`, comments, {
+    headers: {
+      Authorization: localStorage.getItem("accessToken"),
+      "Refresh-Token": localStorage.getItem("refreshToken"),
+    },
+  });
 };
 
 export const getCommentsApi = (id, comments) => {

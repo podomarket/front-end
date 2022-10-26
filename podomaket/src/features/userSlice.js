@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { localSet } from "../localStorage";
+import { localSet, localDel } from "../localStorage";
 
 const initialState = {
   token: null,
@@ -10,6 +10,19 @@ const initialState = {
   error: null,
   isLogin: null,
 };
+
+//HG
+const instance = axios.create({
+  baseURL: "http://54.173.186.166:8080",
+});
+
+export const loginApi = async (userInfo) => {
+  const response = await instance.post("users/login", userInfo);
+
+  return response;
+};
+
+//~.
 
 export const __addUser = createAsyncThunk(
   "post/addUser",
@@ -56,6 +69,18 @@ export const __setUser = createAsyncThunk(
   }
 );
 
+export const __login = createAsyncThunk(
+  "post/login",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await loginApi(payload);
+      return thunkAPI.fulfillWithValue(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "userSlice",
   initialState,
@@ -82,5 +107,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setToken } = userSlice.actions;
 export default userSlice.reducer;

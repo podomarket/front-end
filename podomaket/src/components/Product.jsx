@@ -27,9 +27,11 @@ export const Product = () => {
   const products = useSelector((state) => state.productList.products);
   const { id } = useParams();
 
+
   const data = products.data;
 
   console.log(products);
+
 
   // 상품 보여주기
   useEffect(() => {

@@ -24,9 +24,11 @@ export const updateProductAPI = async (id, edit) => {
   await axios.patch(`${DATA_URL}/products/${id}`, edit);
 };
 
-export const getDetailProductAPI = async (id) => {
-  await axios.get(`http://54.173.186.166:8080/products/${id}`);
-};
+// export const getDetailProductAPI = async (payload) => {
+//   console.log("get api=>", payload.id);
+//   await axios.get(`http://54.173.186.166:8080/products/${payload.id}`);
+// };
+
 // profile
 export const updateProfileAPI = async (id, edit) => {
   await axios.patch(`${DATA_URL}/mypage/${id}`, edit);
@@ -50,9 +52,7 @@ export const setUserApi = (login) => {
 export const addCommentsApi = (payload) => {
   const frm = new FormData();
   frm.append("content", payload.content);
-
-  console.log("api consolelog임", payload);
-
+  // console.log("api consolelog임", payload);
   axios.post(`${DATA_URL}/products/${payload.id}/comments`, frm, {
     headers: {
       Authorization: localStorage.getItem("accessToken"),
@@ -63,8 +63,8 @@ export const addCommentsApi = (payload) => {
 };
 
 export const getCommentsApi = (payload) => {
-  console.log(payload);
-  axios.get(`${DATA_URL}/products/${payload.id}/comments`);
+  // console.log("get=>", payload);
+  axios.get(`${DATA_URL}/products/${payload.id}`);
 };
 
 // 중복확인 api

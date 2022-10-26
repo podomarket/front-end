@@ -9,6 +9,10 @@ export const Wrap = styled.div`
   height: 600px;
   border-radius: 10px;
   padding: 30px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const Container = styled.div`
   margin: auto;
@@ -77,10 +81,13 @@ export const DeleteButton = styled.button`
     transition: all ease-in-out 350ms;
   }
 `;
+export const ImageBox = styled.div`
+  text-align: center;
+  margin: auto;
+`;
 export const Image = styled.img`
   width: 500px;
-  padding: 180px 20px;
-  margin: 10px auto;
+  margin: 20px auto;
 `;
 export const P = styled.div`
   margin: 10px 0 10px 0;

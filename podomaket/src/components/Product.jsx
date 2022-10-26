@@ -14,6 +14,7 @@ import {
   Flex,
   H1,
   Image,
+  ImageBox,
   Like,
   LikeAndComment,
   P,
@@ -111,7 +112,9 @@ export const Product = () => {
               </Flex>
             ) : null}
           </Flex>
-          <Image src={contents?.imgUrl}></Image>
+          <ImageBox>
+            <Image src={contents?.imgUrl}></Image>
+          </ImageBox>
           <P>{contents?.content}</P>
         </>
         <hr />
@@ -151,5 +154,5 @@ export default Product;
 
 const Box = styled.div`
   padding: 15px;
-  width: 300px;
+  width: 500px;
 `;

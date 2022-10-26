@@ -3,7 +3,7 @@ import axios from "axios";
 import { addCommentsApi, getCommentsApi } from "./apis";
 
 const initialState = {
-  comments: [],
+  content: [],
   isLoading: false,
   error: null,
 };
@@ -11,9 +11,10 @@ const initialState = {
 export const __addComments = createAsyncThunk(
   "post/addComments",
   async (payload, thunkAPI) => {
-    console.log(payload);
+    console.log("getCommnets payload값", payload);
     try {
       await addCommentsApi(payload);
+
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
@@ -25,6 +26,7 @@ export const __addComments = createAsyncThunk(
 export const getComments = createAsyncThunk(
   "get/getComments",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       await getCommentsApi(payload);
       return thunkAPI.fulfillWithValue(payload);
@@ -36,7 +38,7 @@ export const getComments = createAsyncThunk(
 );
 
 export const commentSlice = createSlice({
-  name: "commnents",
+  name: "content",
   initialState,
   reducers: {},
   extraReducers: {
@@ -46,26 +48,27 @@ export const commentSlice = createSlice({
     },
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments.push(action.payload);
+      console.log("액션페이로드=>", action.payload);
+      state.content.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
 
-    [__addComments.pending]: (state) => {
+    [getComments.pending]: (state) => {
       state.isLoading = true;
     },
-    [__addComments.fulfilled]: (state, action) => {
+    [getComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.content = action.payload;
     },
-    [__addComments.rejected]: (state, action) => {
+    [getComments.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
   },
 });
 
-export const { comments } = commentSlice.actions;
+export const { content } = commentSlice.actions;
 export default commentSlice.reducer;

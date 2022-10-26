@@ -48,12 +48,14 @@ export const setUserApi = (login) => {
 //comments
 
 export const addCommentsApi = (payload) => {
-  console.log(typeof payload.comments.comments);
   const frm = new FormData();
-  frm.append("content", payload.comments.comments);
+  frm.append("content", payload.content);
+
+  console.log("api consolelog임", payload);
+
   axios.post(`${DATA_URL}/products/${payload.id}/comments`, frm, {
     headers: {
-      Authorization: payload.token,
+      Authorization: localStorage.getItem("accessToken"),
       "Refresh-Token": localStorage.getItem("refreshToken"),
       "Content-Type": "application/json",
     },
@@ -61,6 +63,7 @@ export const addCommentsApi = (payload) => {
 };
 
 export const getCommentsApi = (payload) => {
+  console.log(payload);
   axios.get(`${DATA_URL}/products/${payload.id}/comments`);
 };
 

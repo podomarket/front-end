@@ -100,15 +100,15 @@ export const Login = () => {
         />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
-      <div>
+      <Flex>
         <MainButton type="submit" onClick={clickHandler}>
           로그인
         </MainButton>
         <Button onClick={signupHandler}>회원가입</Button>
-      </div>
+      </Flex>
       <p>
         <br />
-        <img src={kakao} />
+        {/* <img src={kakao} /> */}
       </p>
     </MainBox>
   );
@@ -137,26 +137,30 @@ const MainBox = styled.div`
   & h4 {
     text-align: right;
   }
-  & div {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+`;
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto 100px;
 `;
 
 const MainButton = styled.button`
-  margin: 30px auto;
-  width: 300px;
-  height: 40px;
+  text-decoration: none;
   border: none;
-  border-radius: 25px;
-  background-color: #681170;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
-  color: white;
-  margin: auto;
-  justify-content: center;
+  background-color: #681170;
+  border: 1.5px solid #f2f5f7;
+  border-radius: 2em;
+  font-weight: 600;
+  color: #f2f5f7;
+  &:hover {
+    color: #f2f5f7;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
 `;
 
 const Box = styled.form`
@@ -189,15 +193,22 @@ const Box = styled.form`
 `;
 
 const Button = styled.button`
-  font-size: 20px;
-  font-weight: 600;
-  background-color: transparent;
-  width: 200px;
-  color: #373737;
+  text-decoration: none;
   border: none;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 10px;
-  display: inline-block;
+  background-color: #681170;
+  border: 1.5px solid #f2f5f7;
+  border-radius: 2em;
+  font-weight: 600;
+  color: #f2f5f7;
+  &:hover {
+    color: #f2f5f7;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
 `;
 
 const Close = styled(IoMdClose)`

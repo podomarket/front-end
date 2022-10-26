@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { delPostAPI, getProductOneAPI, updateProductAPI } from "./apis";
 
+const token = localStorage.getItem("accessToken");
+
 const DATA_URL = "http://54.173.186.166:8080";
 
-const register = (payload) => {
+const addProduct = (payload) => {
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -23,6 +25,32 @@ const register = (payload) => {
     })
     .then(function a(response) {
       alert("게시되었습니다.");
+      window.location.replace("/");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+const updateProduct = (payload) => {
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  const frm = new FormData();
+  frm.append("title", payload.title);
+  frm.append("content", payload.content);
+  frm.append("file", payload.file);
+  axios
+    .patch("http://54.173.186.166:8080/products", frm, {
+      headers: {
+        Authorization: accessToken,
+        "Refresh-Token": refreshToken,
+        "Content-Type": "multipart/form-data",
+        // "Content-Type": "application/json",
+      },
+    })
+    .then(function a(response) {
+      alert("수정되었습니다.");
       window.location.replace("/");
     })
     .catch(function (error) {
@@ -124,11 +152,11 @@ export const podoSlice = createSlice({
     // action => dispatch로 보낸 데이터를 받아오는 곳
     addPost: (state, action) => {
       state.products = action.payload;
-      register(action.payload);
+      addProduct(action.payload);
     },
     updatePost: (state, action) => {
       state.products = action.payload;
-      register(action.payload);
+      updateProduct(action.payload);
     },
   },
   extraReducers: {
@@ -142,6 +170,20 @@ export const podoSlice = createSlice({
       state.products = action.payload;
     },
     [__getProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // 상품 삭제
+    [__delPrudcts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__delPrudcts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.products = state.products.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    [__delPrudcts.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

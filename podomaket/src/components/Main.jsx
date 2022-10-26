@@ -45,7 +45,6 @@ export const Main = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productList.products);
 
-  console.log(products);
   const data = products.data;
 
   useEffect(() => {
@@ -75,8 +74,6 @@ export const Main = () => {
     }
   }, [data]);
 
-  console.log(items);
-
   return (
     <>
       <Container>
@@ -100,14 +97,14 @@ export const Main = () => {
                         <Title onClick={() => navigate("/product/" + post.id)}>
                           {post?.title}
                         </Title>
-                        <LikeAndReplyFlex>
+                        {/* <LikeAndReplyFlex>
                           <Like>
                             ❤<span></span>
                           </Like>
                           <Reply>
                             💬<span></span>
                           </Reply>
-                        </LikeAndReplyFlex>
+                        </LikeAndReplyFlex> */}
                       </LikeAndReply>
                       <FlexDiv>
                         <Price>{post?.price}</Price>

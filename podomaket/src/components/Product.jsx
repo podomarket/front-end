@@ -131,7 +131,9 @@ export const Product = () => {
           return (
             <Box>
               <p>
-                {comment?.username} :{comment?.content}
+                {comment?.username} : {comment?.content}
+                <button>수정</button>
+                <button>삭제</button>
               </p>
             </Box>
           );

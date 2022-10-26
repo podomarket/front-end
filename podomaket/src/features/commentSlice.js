@@ -14,6 +14,7 @@ export const __addComments = createAsyncThunk(
     // console.log("getCommnets payload값", payload);
     try {
       await addCommentsApi(payload);
+      window.location.reload();
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");

@@ -26,17 +26,12 @@ import styled from "styled-components";
 export const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { id } = useParams();
-
-  // console.log("게시글 보여줘...", data);
 
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
   }, [dispatch]);
-
-  // console.log("Product.jsx file", products);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -68,14 +63,13 @@ export const Product = () => {
     setContent("");
   };
 
-  //Test
+  //get 방식으로..
 
   const [comments, setComments] = useState([]);
   const datas = comments.data?.commentList;
   const contents = comments.data;
 
   // const commentList = Object.values(datas)[1].commentList;
-
   // console.log("data console", datas);
 
   const fetchComments = async () => {

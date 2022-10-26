@@ -29,7 +29,7 @@ export const Product = () => {
 
   const data = products.data;
 
-  // console.log(data);
+  console.log(products);
 
   // 상품 보여주기
   useEffect(() => {

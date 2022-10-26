@@ -107,7 +107,7 @@ export const Product = () => {
           onChange={onChangeHandler}
         ></CommentInput>
         <p>
-          {id} : {content}
+          {id} : {content} 되나요
         </p>
       </Container>
     </Wrap>

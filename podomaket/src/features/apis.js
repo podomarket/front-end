@@ -67,6 +67,11 @@ export const getCommentsApi = (payload) => {
   axios.get(`${DATA_URL}/products/${payload.id}`);
 };
 
+export const putCommentsApi = (payload) => {
+  // console.log("get=>", payload);
+  axios.get(`${DATA_URL}/products/${payload.id}`);
+};
+
 // 중복확인 api
 
 export const duplicationCheckAPI = async (userid) => {

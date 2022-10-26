@@ -153,6 +153,7 @@ export const podoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
     [__getDetailProduct.fulfilled]: (state, action) => {
       state.products = action.payload;
     },

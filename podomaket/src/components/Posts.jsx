@@ -45,11 +45,12 @@ const Posts = () => {
   const [loading, setLoading] = useState(false);
 
   const data = products.data;
+  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/products");
+      const response = await axios.get("http://54.173.186.166:8080/products");
       setProducts(response.data);
       setLoading(false);
     };

@@ -27,6 +27,8 @@ import Pagination from "./Pagination";
 import styled from "styled-components";
 
 export const Main = () => {
+  const dispatch = useDispatch();
+
   const [products, setProducts] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -39,9 +41,8 @@ export const Main = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await axios.get("http://54.173.186.166:8080/products");
-      setProducts(response.data);
-
+      dispatch(__getProducts());
+      // setProducts(response.data);
       setLoading(false);
     };
     fetchData();
@@ -49,12 +50,11 @@ export const Main = () => {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (product) => {
+  const currentPosts = (data) => {
     let currentPosts = 0;
 
-    currentPosts = Object.keys(products).slice(indexOfFirst, indexOfLast);
-    // currentPosts = posts.slice(indexOfFirst, indexOfLast);
-
+    currentPosts = data?.slice(indexOfFirst, indexOfLast);
+    console.log(currentPosts);
     return currentPosts;
   };
 
@@ -68,7 +68,7 @@ export const Main = () => {
         <h2>오늘의 상품 추천</h2>
         <NewPost to="/product">새 글 작성</NewPost>
       </Container>
-      <Posts posts={currentPosts(products)} loading={loading}></Posts>
+      <Posts posts={currentPosts(data)} loading={loading}></Posts>
 
       <ProductView>
         <div></div>

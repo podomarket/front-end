@@ -11,10 +11,10 @@ const initialState = {
 export const __addComments = createAsyncThunk(
   "post/addComments",
   async (payload, thunkAPI) => {
-    console.log("getCommnets payload값", payload);
+    // console.log("getCommnets payload값", payload);
     try {
       await addCommentsApi(payload);
-
+      window.location.reload();
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
@@ -26,7 +26,7 @@ export const __addComments = createAsyncThunk(
 export const getComments = createAsyncThunk(
   "get/getComments",
   async (payload, thunkAPI) => {
-    console.log(payload);
+    // console.log("get=>", payload);
     try {
       await getCommentsApi(payload);
       return thunkAPI.fulfillWithValue(payload);
@@ -48,7 +48,8 @@ export const commentSlice = createSlice({
     },
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log("액션페이로드=>", action.payload);
+      // console.log("post액션페이로드=>", action.payload);
+
       state.content.data?.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
@@ -61,6 +62,7 @@ export const commentSlice = createSlice({
     },
     [getComments.fulfilled]: (state, action) => {
       state.isLoading = false;
+      // console.log("get=>", action.payload);
       state.content = action.payload;
     },
     [getComments.rejected]: (state, action) => {

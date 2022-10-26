@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __delPrudcts, __getProducts } from "../features/podoSlice";
+import { __delPrudcts } from "../features/podoSlice";
+import { __getProducts } from "../features/podoSlice";
+import axios from "axios";
 import {
   Button,
   CommentInput,
@@ -18,24 +20,23 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
-import { getComments, __addComments } from "../features/commentSlice";
+import { __addComments } from "../features/commentSlice";
+import styled from "styled-components";
 
 export const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const products = useSelector((state) => state.productList.products);
   const { id } = useParams();
 
-  const data = products.data;
-
-  console.log(products);
+  // console.log("게시글 보여줘...", data);
 
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-    dispatch(getComments({ id }));
   }, [dispatch]);
+
+  // console.log("Product.jsx file", products);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -67,8 +68,28 @@ export const Product = () => {
     setContent("");
   };
 
-  //comments 불러오기
-  useEffect(() => {});
+  //Test
+
+  const [comments, setComments] = useState([]);
+  const datas = comments.data?.commentList;
+  const contents = comments.data;
+
+  // const commentList = Object.values(datas)[1].commentList;
+
+  // console.log("data console", datas);
+
+  const fetchComments = async () => {
+    const { data } = await axios.get(
+      `http://54.173.186.166:8080/products/${id}`
+    );
+    setComments(data);
+  };
+
+  console.log("jsx get 요청 =>", contents);
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   return (
     <Wrap>
@@ -77,9 +98,9 @@ export const Product = () => {
           <Flex>
             <Flex>
               <div>
-                <H1>{data?.title}</H1>
+                <H1>{contents?.title}</H1>
               </div>
-              <Price>{data?.price}</Price>
+              <Price>{contents?.price}</Price>
             </Flex>
             {token ? (
               <Flex>
@@ -90,8 +111,8 @@ export const Product = () => {
               </Flex>
             ) : null}
           </Flex>
-          <Image src={data?.imgUrl}></Image>
-          <P>{data?.content}</P>
+          <Image src={contents?.imgUrl}></Image>
+          <P>{contents?.content}</P>
         </>
         <hr />
         <Flex>
@@ -110,12 +131,25 @@ export const Product = () => {
           placeholder="댓글을 작성해주세요"
           onChange={onChangeHandler}
         ></CommentInput>
-        <p>
-          {id} : {content}
-        </p>
+        {datas?.map((comment) => {
+          return (
+            <Box>
+              <p>
+                {comment?.username} : {comment?.content}
+                <button>수정</button>
+                <button>삭제</button>
+              </p>
+            </Box>
+          );
+        })}
       </Container>
     </Wrap>
   );
 };
 
 export default Product;
+
+const Box = styled.div`
+  padding: 15px;
+  width: 300px;
+`;

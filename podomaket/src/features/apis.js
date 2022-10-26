@@ -56,3 +56,21 @@ export const addCommentsApi = (id, comments) => {
 export const getCommentsApi = (id, comments) => {
   axios.get(`${DATA_URL}/products/${id}/comments`);
 };
+
+// 중복확인 api
+
+export const duplicationCheckAPI = async (userid) => {
+  let return_value;
+  await axios
+    .post("http://54.173.186.166:8080/users", {
+      userid: userid,
+    })
+    .then((response) => {
+      return_value = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return_value = true;
+    });
+  return return_value;
+};

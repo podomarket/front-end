@@ -49,7 +49,7 @@ export const commentSlice = createSlice({
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       console.log("액션페이로드=>", action.payload);
-      state.content.push(action.payload);
+      state.content.data?.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
       state.isLoading = false;

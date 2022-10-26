@@ -31,23 +31,23 @@ const ProductEdit = () => {
   const [post, setPost] = useState({
     title: "",
     content: "",
-    // file: "",
+    file: "",
   });
 
-  // const imgFileHandler = (e) => {
-  //   setUploadImageForm(e.target.files[0]);
+  const imgFileHandler = (e) => {
+    setUploadImageForm(e.target.files[0]);
 
-  //   let reader = new FileReader();
-  //   if (e.target.files[0]) {
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   }
-  //   reader.onload = () => {
-  //     const previewImgUrl = reader.result;
-  //     if (previewImgUrl) {
-  //       setPreviewImage([...previewImage, previewImgUrl]);
-  //     }
-  //   };
-  // };
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        setPreviewImage([...previewImage, previewImgUrl]);
+      }
+    };
+  };
 
   const postHandler = (e) => {
     setTitle(e.target.value);
@@ -56,14 +56,13 @@ const ProductEdit = () => {
     setPost({
       ...post,
       [name]: value,
-      // file: uploadImageForm,
+      file: uploadImageForm,
     });
   };
 
   const submitHandler = () => {
     dispatch(updatePost(post));
-    // if (!title || !content || !previewImage) {
-    if (!title || !content) {
+    if (!title || !content || !previewImage) {
       return alert("빈칸 없이 입력해 주세요");
     }
   };
@@ -71,7 +70,7 @@ const ProductEdit = () => {
   return (
     <Wrap>
       <Container>
-        {/* <ImageLayout>
+        <ImageLayout>
           <ImageLabel htmlFor="file" />
           <ImageInput
             id="addFile"
@@ -82,7 +81,7 @@ const ProductEdit = () => {
             onChange={imgFileHandler}
           />
           <ImagePreview src={previewImage} />
-        </ImageLayout> */}
+        </ImageLayout>
         <Input
           id="title"
           name="title"

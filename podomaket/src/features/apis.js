@@ -16,7 +16,13 @@ export const addProductApi = (product) => {
 };
 
 export const delPostAPI = async (id) => {
-  const response = await axios.delete(`${DATA_URL}/products/${id}`);
+  const response = await axios.delete(`${DATA_URL}/products/${id}`, {
+    headers: {
+      Authorization: localStorage.getItem("accessToken"),
+      "Refresh-Token": localStorage.getItem("refreshToken"),
+      "Content-Type": "application/json",
+    },
+  });
   return response.data;
 };
 
@@ -33,7 +39,7 @@ export const updateProfileAPI = async (id, edit) => {
 };
 
 export const getProfileOneAPI = async (id) => {
-  await axios.get(`http://localhost:3000/mypage/${id}`);
+  await axios.get(`http://54.173.186.166:8080/mypage/${id}`);
 };
 
 // user

@@ -81,12 +81,14 @@ export const Product = () => {
               </div>
               <Price>{data?.price}</Price>
             </Flex>
-            <Flex>
-              <EditButton onClick={() => navigate("/product/edit/" + id)}>
-                수정
-              </EditButton>
-              <DeleteButton onClick={deletePost}>삭제</DeleteButton>
-            </Flex>
+            {token ? (
+              <Flex>
+                <EditButton onClick={() => navigate("/product/edit/" + id)}>
+                  수정
+                </EditButton>
+                <DeleteButton onClick={deletePost}>삭제</DeleteButton>
+              </Flex>
+            ) : null}
           </Flex>
           <Image src={data?.imgUrl}></Image>
           <P>{data?.content}</P>
@@ -97,7 +99,9 @@ export const Product = () => {
             <Like>❤ 5</Like>
             <div>💬 3</div>
           </LikeAndComment>
-          <Button onClick={onAddCommentsHandler}>댓글달기</Button>
+          {token ? (
+            <Button onClick={onAddCommentsHandler}>댓글달기</Button>
+          ) : null}
         </Flex>
         <CommentInput
           type="text"
@@ -107,7 +111,7 @@ export const Product = () => {
           onChange={onChangeHandler}
         ></CommentInput>
         <p>
-          {id} : {content} 되나요
+          {id} : {content}
         </p>
       </Container>
     </Wrap>

@@ -21,13 +21,14 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
-import { __addComments } from "../features/commentSlice";
+import { putComments, __addComments } from "../features/commentSlice";
 import styled from "styled-components";
 
 export const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { commentId } = useParams();
 
   // 상품 보여주기
   useEffect(() => {
@@ -86,6 +87,18 @@ export const Product = () => {
     fetchComments();
   }, []);
 
+  // 댓글 수정
+
+  const onupdateCommentsHandler = (e) => {
+    e.preventDefault();
+    dispatch(putComments());
+  };
+
+  const [isEdit, setIsEdit] = useState(false);
+  const handleOpen = () => {
+    setIsEdit(!isEdit);
+  };
+
   return (
     <Wrap>
       <Container>
@@ -130,10 +143,10 @@ export const Product = () => {
         ></CommentInput>
         {datas?.map((comment) => {
           return (
-            <Box>
+            <Box key={comment?.id}>
               <p>
                 {comment?.username} : {comment?.content}
-                <button>수정</button>
+                <button onClick={onupdateCommentsHandler}>수정</button>
                 <button>삭제</button>
               </p>
             </Box>

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addCommentsApi, getCommentsApi } from "./apis";
+import { addCommentsApi, getCommentsApi, putCommentsApi } from "./apis";
 
 const initialState = {
   content: [],
@@ -23,12 +23,26 @@ export const __addComments = createAsyncThunk(
   }
 );
 
-export const updateComments = createAsyncThunk(
-  "put/updateComments",
+export const getComments = createAsyncThunk(
+  "get/getComments",
   async (payload, thunkAPI) => {
     // console.log("get=>", payload);
     try {
       await getCommentsApi(payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      console.log("error");
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const putComments = createAsyncThunk(
+  "put/putComments",
+  async (payload, thunkAPI) => {
+    console.log("put=>", payload);
+    try {
+      await putCommentsApi(payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
@@ -49,7 +63,6 @@ export const commentSlice = createSlice({
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       // console.log("post액션페이로드=>", action.payload);
-
       state.content.data?.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {

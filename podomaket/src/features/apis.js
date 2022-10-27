@@ -74,7 +74,7 @@ export const getCommentsApi = (payload) => {
 };
 
 export const putCommentsApi = (payload) => {
-  // console.log("get=>", payload);
+  console.log("put=>", payload);
   axios.get(`${DATA_URL}/products/${payload.id}`);
 };
 

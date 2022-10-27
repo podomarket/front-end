@@ -68,6 +68,9 @@ export const Main = () => {
   const indexOfFirst = indexOfLast - postsPerPage;
 
   const [items, setItems] = useState([]);
+  const itemsData = items.data;
+
+  // console.log("items 콘솔로그=>", items.data);
 
   const addItems = () => {
     setItems(data?.slice(indexOfFirst, indexOfLast));
@@ -82,6 +85,7 @@ export const Main = () => {
       ShowMoreItems();
     }
   }, [data]);
+
   return (
     <div>
       <Container>
@@ -102,6 +106,9 @@ export const Main = () => {
                     ></Thumbnail>
                     <Flex>
                       <Title onClick={() => navigate("/product/" + post?.id)}>
+                      onClick={() => navigate("/product/" + post.id)}
+                    ></Thumbnail>
+                    <Flex>
                         {post?.title}
                       </Title>
                       <div>💬 {post?.commentsNum}</div>

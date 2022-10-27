@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import {
   Container,
+  Flex,
   FlexDiv,
   H2Button,
   Hr,
@@ -22,20 +23,7 @@ import {
 import { __getProducts } from "../features/podoSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
-// 이게 소영이 올린 Main.jsx입니다
-
-// 이게 소영이 올린 Main.jsx입니다
-
 export const Main = () => {
-  const [items, setItems] = useState([]);
-  const [visible, setVisible] = useState(8);
-
-  console.log(items);
-
-  const ShowMoreItems = () => {
-    setVisible((prevValue) => prevValue + 4);
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -65,8 +53,36 @@ export const Main = () => {
     return `${Math.floor(years)}년 전`;
   };
 
-  const [like, setLike] = useState(0);
-  const [reply, setReply] = useState(0);
+  const products = useSelector((state) => state.productList.products);
+
+  const data = products.data;
+
+  useEffect(() => {
+    dispatch(__getProducts());
+  }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+
+  const [items, setItems] = useState([]);
+
+  const addItems = () => {
+    setItems(data?.slice(indexOfFirst, indexOfLast));
+  };
+
+  const ShowMoreItems = () => {
+    addItems();
+    setPostsPerPage(postsPerPage + 4);
+  };
+
+  useEffect(() => {
+    if (!!data && items.length === 0) {
+      ShowMoreItems();
+    }
+  }, [data]);
   return (
     <div>
       <Container>
@@ -75,44 +91,33 @@ export const Main = () => {
       </Container>
       <Hr />
       <Wrap>
-        {Object.keys(items)
-          .slice(0, visible)
-          .map((podo) => {
-            return (
-              <List key={podo.id}>
-                <Product>
-                  <Thumbnail
-                    onClick={() => navigate("/product/" + podo.id)}
-                  ></Thumbnail>
-                  <LikeAndReply>
-                    <Title onClick={() => navigate("/product/" + podo.id)}>
-                      {podo.title}
-                    </Title>
-                    {/* <LikeAndReplyFlex>
-                      <Like
-                        onClick={() => {
-                          setLike(like + 1);
-                        }}
-                      >
-                        ❤<span>{like}</span>
-                      </Like>
-                      <Reply
-                        onClick={() => {
-                          setReply(reply + 1);
-                        }}
-                      >
-                        💬<span>{reply}</span>
-                      </Reply>
-                    </LikeAndReplyFlex> */}
-                  </LikeAndReply>
-                  <FlexDiv>
-                    {/* <Price>{podo.price}</Price> */}
-                    {/* <div>{detailDate(podo.date)}</div> */}
-                  </FlexDiv>
-                </Product>
-              </List>
-            );
-          })}
+        <>
+          <ul>
+            {items &&
+              items.map((post) => {
+                return (
+                  <List key={post.id}>
+                    <Product>
+                      <Thumbnail
+                        src={post.imgUrl}
+                        onClick={() => navigate("/product/" + post.id)}
+                      ></Thumbnail>
+                      <Flex>
+                        <Title onClick={() => navigate("/product/" + post.id)}>
+                          {post?.title}
+                        </Title>
+                        <div>💬 {post?.commentsNum}</div>
+                      </Flex>
+                      <FlexDiv>
+                        <Price>{post?.price}원</Price>
+                        <div>{detailDate(post.createdAt)}</div>
+                      </FlexDiv>
+                    </Product>
+                  </List>
+                );
+              })}
+          </ul>
+        </>
       </Wrap>
       <Hr />
       <ProductView>

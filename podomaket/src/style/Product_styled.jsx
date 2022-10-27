@@ -147,7 +147,7 @@ export const CommentBtn = styled.button`
 `;
 export const CommentInput = styled.input`
   resize: none;
-  width: 350px;
+  width: 380px;
   padding: 20px;
   background-color: #cfcfcf;
   border: none;
@@ -200,3 +200,5 @@ export const Commentinput = styled.input`
   color: #fff;
   resize: none;
 `;
+
+export const UpdateButton = styled.div``;

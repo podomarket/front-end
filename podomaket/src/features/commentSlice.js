@@ -23,8 +23,13 @@ export const __addComments = createAsyncThunk(
   }
 );
 
+
 export const getComments = createAsyncThunk(
   "post/getComments",
+
+export const updateComments = createAsyncThunk(
+  "put/updateComments",
+
   async (payload, thunkAPI) => {
     // console.log("get=>", payload);
     try {

@@ -75,6 +75,7 @@ export const getCommentsApi = (payload) => {
   axios.get(`${DATA_URL}/products/${payload.id}`);
 };
 
+
 export const delCommentAPI = async (payload) => {
   const response = await axios.delete(
     `${DATA_URL}/products/comments/${payload}`,
@@ -87,6 +88,11 @@ export const delCommentAPI = async (payload) => {
     }
   );
   return response.data;
+
+export const putCommentsApi = (payload) => {
+  // console.log("get=>", payload);
+  axios.get(`${DATA_URL}/products/${payload.id}`);
+
 };
 
 // 중복확인 api

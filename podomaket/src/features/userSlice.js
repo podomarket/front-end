@@ -13,7 +13,7 @@ const initialState = {
 
 //HG
 const instance = axios.create({
-  baseURL: "http://43.201.102.30:8080",
+  baseURL: "http://3.86.227.196:8080",
 });
 
 export const loginApi = async (userInfo) => {
@@ -27,7 +27,7 @@ export const __getUsers = createAsyncThunk(
   "post/getUser",
   async (payload, thunkAPI) => {
     try {
-      const users = await axios.get(`http://43.201.102.30:8080`);
+      const users = await axios.get(`http://3.86.227.196:8080`);
       return thunkAPI.fulfillWithValue(users.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -40,7 +40,7 @@ export const __addUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      await axios.post("http://43.201.102.30:8080/users/signup", payload);
+      await axios.post("http://3.86.227.196:8080/users/signup", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -53,7 +53,7 @@ export const __setUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.post(
-        "http://43.201.102.30:8080/users/login",
+        "http://3.86.227.196:8080/users/login",
         payload
       );
       const accessToken = response.headers.authorization;

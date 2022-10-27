@@ -23,6 +23,7 @@ import {
   LikeAndComment,
   P,
   Price,
+  UpdateButton,
   Wrap,
 } from "../style/Product_styled";
 import {
@@ -93,7 +94,7 @@ export const Product = () => {
   // console.log(data);
   // const __getCommentOne = async () => {
   //   const { data } = await axios.get(
-  //     `http://43.201.102.30:8080/products/${id}`
+  //     `http://54.173.186.166:8080/products/${id}`
   //   );
   //   setComment(data);
   // };
@@ -118,9 +119,7 @@ export const Product = () => {
   }, [dispatch]);
 
   const fetchComments = async () => {
-    const { data } = await axios.get(
-      `http://43.201.102.30:8080/products/${id}`
-    );
+    const { data } = await axios.get(`http://3.86.227.196:8080/products/${id}`);
     setComments(data);
   };
 
@@ -179,21 +178,21 @@ export const Product = () => {
             <Box key={comment.id}>
               <p>
                 {comment?.username} : {comment?.content}
-                <EditCommentButton
+                {/* <EditCommentButton
                   onClick={() => {
                     setModal(!modal);
                     setSelected(comment?.id);
                   }}
                 >
                   {modal === true && comment?.id === selected ? "완료" : "수정"}
-                </EditCommentButton>
-                {/* <DeleteCommentButton
+                </EditCommentButton> */}
+                <DeleteCommentButton
                   onClick={() => {
                     dispatch(__delComment(comment?.id));
                   }}
                 >
                   삭제
-                </DeleteCommentButton> */}
+                </DeleteCommentButton>
               </p>
               {/* 댓글 수정 모달창 */}
               {modal === true && comment?.id === selected ? (
@@ -230,5 +229,3 @@ export const Product = () => {
 };
 
 export default Product;
-
-const UpdateButton = styled.div``;

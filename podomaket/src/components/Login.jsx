@@ -33,7 +33,6 @@ export const Login = () => {
   //       }
   //     });
   // };
-
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {
@@ -78,7 +77,6 @@ export const Login = () => {
       </h4>
       <h2>로그인</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>닉네임</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
@@ -88,7 +86,6 @@ export const Login = () => {
           onChange={onChangeHandler}
           required
         />
-        <p>비밀번호</p>
         <input
           type="password"
           name="password"
@@ -121,6 +118,9 @@ const MainBox = styled.div`
   margin-top: 80px;
   justify-content: center;
   & h2 {
+    margin-top: 60px;
+    font-weight: 600;
+    font-size: 30px;
     padding: 10px;
     text-align: center;
   }
@@ -132,8 +132,14 @@ const MainBox = styled.div`
   }
 `;
 
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto 60px;
+`;
+
 const MainButton = styled.button`
-  width: 300px;
+  width: 100px;
   height: 40px;
   border: none;
   border-radius: 25px;
@@ -142,8 +148,6 @@ const MainButton = styled.button`
   font-size: 14px;
   color: white;
   float: right;
-  margin-right: 100px;
-  margin-top: 60px;
 `;
 
 const Box = styled.form`
@@ -153,12 +157,16 @@ const Box = styled.form`
     margin-top: 20px;
   }
   & input {
-    width: 250px;
+    width: 60%;
+    height: 20px;
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    margin: 30px auto;
+    padding: 10px;
     border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    margin-right: 10px;
-    margin-left: 100px;
+    outline: none;
+    border-radius: 5px;
   }
   & button {
     background-color: transparent;
@@ -172,23 +180,15 @@ const Box = styled.form`
 `;
 
 const Button = styled.button`
-  background-color: transparent;
-  width: 200px;
-  color: #373737;
+  width: 100px;
+  height: 40px;
   border: none;
+  border-radius: 25px;
+  background-color: #681170;
   cursor: pointer;
-  margin-left: 150px;
-  margin-top: 10px;
-  display: inline-block;
-`;
-
-const Kakao = styled(RiKakaoTalkFill)`
-  font-size: 35px;
-  background-color: #f9f94d;
-  color: #282424;
-  padding: 4px;
-  border-radius: 30px;
-  text-align: center;
+  font-size: 14px;
+  color: white;
+  float: right;
 `;
 
 const Close = styled(IoMdClose)`

@@ -72,7 +72,7 @@ export const Main = () => {
   const addItems = () => {
     setItems(data?.slice(indexOfFirst, indexOfLast));
   };
-
+  console.log(data);
   const ShowMoreItems = () => {
     addItems();
     setPostsPerPage(postsPerPage + 4);

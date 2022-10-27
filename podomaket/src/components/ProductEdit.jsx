@@ -77,7 +77,11 @@ const ProductEdit = () => {
   const data = products.data;
   const __getDetailProduct = async () => {
     const { data } = await axios.get(
+<<<<<<< HEAD
       `http://43.201.102.30:8080/products/${id}`
+=======
+      `http://54.173.186.166:8080/products/${id}`
+>>>>>>> 3b1798bae0cb855bfb27c6d1b27c16be6d80afb7
     );
     setProducts(data);
   };

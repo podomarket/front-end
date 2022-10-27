@@ -1,11 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import {
-  addCommentsApi,
-  delCommentAPI,
-  getCommentsApi,
-  updateCommentAPI,
-} from "./apis";
+import { addCommentsApi, delCommentAPI, getCommentsApi } from "./apis";
 
 const initialState = {
   content: [],
@@ -60,6 +55,7 @@ export const updateComments = createAsyncThunk(
 export const __delComment = createAsyncThunk(
   "post/delComment",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       const response = await delCommentAPI(payload);
       window.location.reload();
@@ -76,7 +72,7 @@ export const __editComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.put(
-        `http://43.201.102.30:8080/products/comments/${payload.id}`,
+        `http://54.173.186.166:8080/products/comments/${payload.id}`,
         {
           comment: payload.text,
         }
@@ -87,20 +83,6 @@ export const __editComment = createAsyncThunk(
     }
   }
 );
-
-// export const __editComment = createAsyncThunk(
-//   "post/editComment",
-//   async (payload, thunkAPI) => {
-//     console.log(payload.id);
-//     try {
-//       const response = await updateCommentAPI(payload.id, payload.text);
-//       return thunkAPI.fulfillWithValue({ id: payload.id, text: payload.text }); // 인자가 하나여야 함
-//     } catch (err) {
-//       console.log("error ::::::", err.response);
-//       return thunkAPI.rejectWithValue("<<", err);
-//     }
-//   }
-// );
 
 export const commentSlice = createSlice({
   name: "content",
@@ -141,7 +123,6 @@ export const commentSlice = createSlice({
     },
     [__delComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log(action);
       state.content = state.content.filter(
         (item) => item.id !== action.payload
       );

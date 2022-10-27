@@ -13,7 +13,7 @@ const initialState = {
 
 //HG
 const instance = axios.create({
-  baseURL: "http://43.201.102.30:8080",
+  baseURL: "http://54.173.186.166:8080",
 });
 
 export const loginApi = async (userInfo) => {
@@ -27,14 +27,13 @@ export const __getUsers = createAsyncThunk(
   "post/getUser",
   async (payload, thunkAPI) => {
     try {
-      const users = await axios.get(`http://43.201.102.30:8080`);
+      const users = await axios.get(`http://54.173.186.166:8080`);
       return thunkAPI.fulfillWithValue(users.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-// 43.201.102.30
 // 유저 추가하기
 export const __addUser = createAsyncThunk(
   "post/addUser",
@@ -54,7 +53,7 @@ export const __setUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.post(
-        "http://43.201.102.30:8080/users/login",
+        "http://54.173.186.166:8080/users/login",
         payload
       );
       const accessToken = response.headers.authorization;

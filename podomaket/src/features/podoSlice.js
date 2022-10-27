@@ -8,7 +8,7 @@ import {
   updateProductAPI,
 } from "./apis";
 
-const DATA_URL = "http://43.201.102.30:8080";
+const DATA_URL = "http://54.173.186.166:8080";
 
 const addProduct = (payload) => {
   const accessToken = localStorage.getItem("accessToken");
@@ -20,7 +20,7 @@ const addProduct = (payload) => {
   frm.append("price", payload.price);
   frm.append("file", payload.file);
   axios
-    .post("http://43.201.102.30:8080/products", frm, {
+    .post("http://54.173.186.166:8080/products", frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
@@ -46,7 +46,7 @@ const updateProduct = (payload) => {
   frm.append("price", payload.price);
   frm.append("file", payload.file);
   axios
-    .put(`http://43.201.102.30:8080/products/${payload.id}`, frm, {
+    .put(`http://54.173.186.166:8080/products/${payload.id}`, frm, {
       headers: {
         Authorization: accessToken,
         "Refresh-Token": refreshToken,
@@ -74,7 +74,7 @@ export const __getProducts = createAsyncThunk(
   "products/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const products = await axios.get("http://43.201.102.30:8080/products");
+      const products = await axios.get("http://54.173.186.166:8080/products");
 
       // console.log(products.data);
 
@@ -171,21 +171,6 @@ export const podoSlice = createSlice({
       state.products = action.payload;
     },
     [__getProducts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-
-    // 상품 삭제
-    [__delPrudcts.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__delPrudcts.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.products = state.products.filter(
-        (item) => item.id !== action.payload
-      );
-    },
-    [__delPrudcts.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

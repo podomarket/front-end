@@ -11,14 +11,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { localGet } from "../localStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { __getUser, __getUsers } from "../features/userSlice";
-import { __getProducts } from "../features/podoSlice";
-import axios from "axios";
+import { __getUser } from "../features/userSlice";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { id } = useParams();
 
   const [useToken, setUseToken] = useState(false);
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DATA_URL = "http://43.201.102.30:8080";
+const DATA_URL = "http://54.173.186.166:8080";
 
 // const instance = axios.create({
 //   baseURL: "http://43.201.102.30:8080",
@@ -32,7 +32,7 @@ export const updateProductAPI = async (id, edit) => {
 
 export const getDetailProductAPI = async (payload) => {
   const response = await axios.get(
-    `http://43.201.102.30:8080/products/${payload.id}`
+    `http://54.173.186.166:8080/products/${payload.id}`
   );
   return response.data;
 };
@@ -43,7 +43,7 @@ export const updateProfileAPI = async (id, edit) => {
 };
 
 export const getProfileOneAPI = async (id) => {
-  await axios.get(`http://43.201.102.30:8080/mypage/${id}`);
+  await axios.get(`http://54.173.186.166:8080/mypage/${id}`);
 };
 
 // user
@@ -88,27 +88,3 @@ export const delCommentAPI = async (payload) => {
   );
   return response.data;
 };
-
-// export const putCommentsApi = (payload) => {
-//   console.log("put=>", payload);
-//   axios.get(`${DATA_URL}/products/${payload.id}`);
-
-// };
-
-// 중복확인 api
-
-// export const duplicationCheckAPI = async (userid) => {
-//   let return_value;
-//   await axios
-//     .post("http://43.201.102.30:8080/users", {
-//       userid: userid,
-//     })
-//     .then((response) => {
-//       return_value = response.data;
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//       return_value = true;
-//     });
-//   return return_value;
-// };

@@ -70,7 +70,7 @@ export const Main = () => {
   const [items, setItems] = useState([]);
   const itemsData = items.data;
 
-  console.log("items 콘솔로그=>", items.data);
+  // console.log("items 콘솔로그=>", items.data);
 
   const addItems = () => {
     setItems(data?.slice(indexOfFirst, indexOfLast));

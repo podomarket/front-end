@@ -21,15 +21,11 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
-<<<<<<< HEAD
-import { putComments, __addComments } from "../features/commentSlice";
-=======
 import {
   __addComments,
   __delComment,
   __editComment,
 } from "../features/commentSlice";
->>>>>>> cc3437529fd52c05bdeae8aeae0f1411c6e8a539
 import styled from "styled-components";
 
 export const Product = () => {
@@ -113,11 +109,9 @@ export const Product = () => {
 
   // const commentList = Object.values(datas)[1].commentList;
 
-
   useEffect(() => {
     dispatch(__getProducts());
   }, [dispatch]);
-
 
   const fetchComments = async () => {
     const { data } = await axios.get(
@@ -227,27 +221,6 @@ export const Product = () => {
             <Button onClick={onAddCommentsHandler}>댓글달기</Button>
           ) : null}
         </Flex>
-<<<<<<< HEAD
-        <CommentInput
-          type="text"
-          autoComplete="off"
-          name="comments"
-          placeholder="댓글을 작성해주세요"
-          onChange={onChangeHandler}
-        ></CommentInput>
-        {datas?.map((comment) => {
-          return (
-            <Box key={comment?.id}>
-              <p>
-                {comment?.username} : {comment?.content}
-                <button onClick={onupdateCommentsHandler}>수정</button>
-                <button>삭제</button>
-              </p>
-            </Box>
-          );
-        })}
-=======
->>>>>>> cc3437529fd52c05bdeae8aeae0f1411c6e8a539
       </Container>
     </Wrap>
   );

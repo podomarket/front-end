@@ -30,7 +30,7 @@ export const Main = () => {
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-    fetch("http://43.201.102.30:8080/products")
+    fetch("http://3.86.227.196:8080/products")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);

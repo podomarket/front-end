@@ -105,4 +105,4 @@ export const duplicationCheckAPI = async (userid) => {
       return_value = true;
     });
   return return_value;
-};
+}

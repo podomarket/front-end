@@ -92,7 +92,7 @@ export const Product = () => {
   // console.log(data);
   // const __getCommentOne = async () => {
   //   const { data } = await axios.get(
-  //     `http://54.173.186.166:8080/products/${id}`
+  //     `http://43.201.102.30:8080/products/${id}`
   //   );
   //   setComment(data);
   // };
@@ -118,7 +118,7 @@ export const Product = () => {
 
   const fetchComments = async () => {
     const { data } = await axios.get(
-      `http://54.173.186.166:8080/products/${id}`
+      `http://43.201.102.30:8080/products/${id}`
     );
     setComments(data);
   };
@@ -186,13 +186,13 @@ export const Product = () => {
                 >
                   {modal === true && comment?.id === selected ? "완료" : "수정"}
                 </EditCommentButton>
-                <DeleteCommentButton
+                {/* <DeleteCommentButton
                   onClick={() => {
                     dispatch(__delComment(comment?.id));
                   }}
                 >
                   삭제
-                </DeleteCommentButton>
+                </DeleteCommentButton> */}
               </p>
               {/* 댓글 수정 모달창 */}
               {modal === true && comment?.id === selected ? (

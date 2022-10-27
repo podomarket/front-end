@@ -147,7 +147,7 @@ export const CommentBtn = styled.button`
 `;
 export const CommentInput = styled.input`
   resize: none;
-  width: 380px;
+  width: 350px;
   padding: 20px;
   background-color: #cfcfcf;
   border: none;

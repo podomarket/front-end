@@ -68,6 +68,9 @@ export const Main = () => {
   const indexOfFirst = indexOfLast - postsPerPage;
 
   const [items, setItems] = useState([]);
+  const itemsData = items.data;
+
+  console.log("items 콘솔로그=>", items.data);
 
   const addItems = () => {
     setItems(data?.slice(indexOfFirst, indexOfLast));
@@ -83,6 +86,7 @@ export const Main = () => {
       ShowMoreItems();
     }
   }, [data]);
+
   return (
     <div>
       <Container>
@@ -93,29 +97,28 @@ export const Main = () => {
       <Wrap>
         <>
           <ul>
-            {items &&
-              items.map((post) => {
-                return (
-                  <List key={post.id}>
-                    <Product>
-                      <Thumbnail
-                        src={post.imgUrl}
-                        onClick={() => navigate("/product/" + post.id)}
-                      ></Thumbnail>
-                      <Flex>
-                        <Title onClick={() => navigate("/product/" + post.id)}>
-                          {post?.title}
-                        </Title>
-                        <div>💬 {post?.commentsNum}</div>
-                      </Flex>
-                      <FlexDiv>
-                        <Price>{post?.price}원</Price>
-                        <div>{detailDate(post.createdAt)}</div>
-                      </FlexDiv>
-                    </Product>
-                  </List>
-                );
-              })}
+            {itemsData?.map((post) => {
+              return (
+                <List key={post?.id}>
+                  <Product>
+                    <Thumbnail
+                      src={post?.imgUrl}
+                      onClick={() => navigate("/product/" + post.id)}
+                    ></Thumbnail>
+                    <Flex>
+                      <Title onClick={() => navigate("/product/" + post.id)}>
+                        {post?.title}
+                      </Title>
+                      <div>💬 {post?.commentsNum}</div>
+                    </Flex>
+                    <FlexDiv>
+                      <Price>{post?.price}원</Price>
+                      <div>{detailDate(post?.createdAt)}</div>
+                    </FlexDiv>
+                  </Product>
+                </List>
+              );
+            })}
           </ul>
         </>
       </Wrap>

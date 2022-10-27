@@ -8,18 +8,15 @@ export const Logo = styled.div`
   font-size: 30px;
   font-weight: 600;
   cursor: pointer;
+  margin-left: 10px;
 `;
 
 export const NavBar = styled.div`
   height: 4rem;
-  width: 100vw;
+  width: 100%;
   display: flex;
   background-color: #681170;
   justify-content: space-between;
-  @media screen and (max-width: 800px) {
-    position: fixed;
-    z-index: 3;
-  }
 `;
 export const NavLinks = styled.ul`
   display: flex;
@@ -78,6 +75,7 @@ export const NavLinks = styled.ul`
 export const LogInOutButton = styled.button`
   padding: 0.4rem 0.8rem;
   margin-left: 2vw;
+  margin-right: 10px;
   font-size: 1rem;
   cursor: pointer;
   background-color: transparent;

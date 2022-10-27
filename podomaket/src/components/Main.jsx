@@ -22,6 +22,8 @@ import {
 import { __getProducts } from "../features/podoSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
+// 이게 소영이 올린 Main.jsx입니다
+
 export const Main = () => {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(8);
@@ -33,11 +35,10 @@ export const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { products } = useSelector((state) => state.productList);
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-    fetch("http://localhost:3001/products")
+    fetch("http://43.201.102.30:8080/products")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
@@ -62,7 +63,6 @@ export const Main = () => {
 
   const [like, setLike] = useState(0);
   const [reply, setReply] = useState(0);
-
   return (
     <div>
       <Container>
@@ -71,42 +71,26 @@ export const Main = () => {
       </Container>
       <Hr />
       <Wrap>
-        {items.slice(0, visible).map((podo) => {
-          return (
-            <List key={podo.id}>
-              <Product>
-                <Thumbnail
-                  onClick={() => navigate("/product/" + podo.id)}
-                ></Thumbnail>
-                <LikeAndReply>
+        {Object.keys(items)
+          .slice(0, visible)
+          .map((podo) => {
+            return (
+              <List key={podo.id}>
+                <Product>
+                  <Thumbnail
+                    onClick={() => navigate("/product/" + podo.id)}
+                  ></Thumbnail>
                   <Title onClick={() => navigate("/product/" + podo.id)}>
                     {podo.title}
                   </Title>
-                  <LikeAndReplyFlex>
-                    <Like
-                      onClick={() => {
-                        setLike(like + 1);
-                      }}
-                    >
-                      ❤<span>{like}</span>
-                    </Like>
-                    <Reply
-                      onClick={() => {
-                        setReply(reply + 1);
-                      }}
-                    >
-                      💬<span>{reply}</span>
-                    </Reply>
-                  </LikeAndReplyFlex>
-                </LikeAndReply>
-                <FlexDiv>
-                  <Price>{podo.price}</Price>
-                  <div>{detailDate(podo.date)}</div>
-                </FlexDiv>
-              </Product>
-            </List>
-          );
-        })}
+                  <FlexDiv>
+                    {/* <Price>{podo.price}</Price> */}
+                    {/* <div>{detailDate(podo.date)}</div> */}
+                  </FlexDiv>
+                </Product>
+              </List>
+            );
+          })}
       </Wrap>
       <Hr />
       <ProductView>

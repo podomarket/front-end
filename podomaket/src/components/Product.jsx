@@ -2,45 +2,46 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __delPrudcts, __getProducts } from "../features/podoSlice";
+import { __delPrudcts } from "../features/podoSlice";
+import { __getProducts } from "../features/podoSlice";
+import axios from "axios";
 import {
+  Box,
   Button,
-  CommentBody,
-  CommentContainer,
-  CommentDate,
-  CommentInfo,
   Commentinput,
   CommentInput,
-  CommentMore,
   Container,
   DeleteButton,
+  DeleteCommentButton,
   EditButton,
+  EditCommentButton,
   Flex,
   H1,
   Image,
+  ImageBox,
   Like,
   LikeAndComment,
   P,
   Price,
   Wrap,
 } from "../style/Product_styled";
+import {
+  __addComments,
+  __delComment,
+  __editComment,
+} from "../features/commentSlice";
+import styled from "styled-components";
 
 export const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { products } = useSelector((state) => state.productList);
-  const { users } = useSelector((state) => state.userSlice);
   const { id } = useParams();
-
-  // 상품 하나만 보여주도록 find 함수 사용
-  const post = products.find((post) => post.id === Number(id));
-  const user = users.find((user) => user.id === Number(id));
+  const { commentId } = useParams();
 
   // 상품 보여주기
   useEffect(() => {
     dispatch(__getProducts());
-  }, []);
+  }, [dispatch]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -57,6 +58,103 @@ export const Product = () => {
     dispatch(__delPrudcts(params));
   };
 
+  //Comments 추가
+  const [content, setContent] = useState("");
+
+  const onChangeHandler = (e) => {
+    setContent(e.target.value);
+  };
+
+  const token = localStorage.getItem("accessToken");
+
+  const onAddCommentsHandler = (e) => {
+    e.preventDefault();
+    dispatch(__addComments({ content, id }));
+    setContent("");
+  };
+
+  //get 방식으로..
+
+  const [comments, setComments] = useState([]);
+  const products = useSelector((state) => state.productList.products);
+
+  // const post = products.data;
+  // console.log(post);
+  // const [comment, setComment] = useState({
+  //   productId: id,
+  //   commentId: post?.id,
+  // });
+
+  // console.log(comment);
+
+  // const [comment, setComment] = useState([]);
+  // const data = comment.data?.commentList;
+
+  // console.log(data);
+  // const __getCommentOne = async () => {
+  //   const { data } = await axios.get(
+  //     `http://43.201.102.30:8080/products/${id}`
+  //   );
+  //   setComment(data);
+  // };
+
+  // useEffect(() => {
+  //   __getCommentOne(id);
+  // }, []);
+
+  // // 코멘트 삭제
+  // const deleteComment = () => {
+  //   dispatch(__delComment([id, data?.id]));
+  // };
+
+  const datas = comments.data?.commentList;
+  const product = products;
+  const contents = comments.data;
+
+  useEffect(() => {
+    dispatch(__getProducts());
+  }, [dispatch]);
+
+  const fetchComments = async () => {
+    const { data } = await axios.get(
+      `http://43.201.102.30:8080/products/${id}`
+    );
+    setComments(data);
+  };
+
+  // console.log("jsx get 요청 =>", contents);
+
+  const updatePost = () => {
+    const params = {
+      id,
+      comments,
+    };
+    dispatch(__editComment(params));
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const handleChange = (e) => {
+    setCommentText(e.target.value);
+  };
+  // 모달 상태
+  const [modal, setModal] = useState(false);
+  // 댓글의 id값 판별
+  const [selected, setSelected] = useState(null);
+
+  const [commentText, setCommentText] = useState("");
+  console.log(commentText);
+  const handleSubmit = (e) => {
+    if (commentText !== "") {
+      dispatch(__editComment({ id: selected, text: commentText }));
+    } else {
+      return;
+    }
+    setCommentText("");
+    navigate(`/product/${id}`);
+  };
   return (
     <Wrap>
       <Container>
@@ -64,36 +162,80 @@ export const Product = () => {
           <Flex>
             <Flex>
               <div>
-                <H1>{post?.title}</H1>
+                <H1>{contents?.title}</H1>
               </div>
-              <Price>{post?.price}</Price>
+              <Price>{contents?.price}원</Price>
             </Flex>
-            <Flex>
-              <EditButton onClick={() => navigate("/product/edit/" + id)}>
-                수정
-              </EditButton>
-              <DeleteButton onClick={deletePost}>삭제</DeleteButton>
-            </Flex>
+            {token ? (
+              <Flex>
+                <EditButton onClick={() => navigate("/product/edit/" + id)}>
+                  수정
+                </EditButton>
+                <DeleteButton onClick={deletePost}>삭제</DeleteButton>
+              </Flex>
+            ) : null}
           </Flex>
-          <Image></Image>
-          <P>{post?.content}</P>
+          <ImageBox>
+            <Image src={contents?.imgUrl}></Image>
+          </ImageBox>
+          <P>{contents?.content}</P>
         </>
         <hr />
+        {datas?.map((comment) => {
+          return (
+            <Box key={comment.id}>
+              <p>
+                {comment?.username} : {comment?.content}
+                <EditCommentButton
+                  onClick={() => {
+                    setModal(!modal);
+                    setSelected(comment?.id);
+                  }}
+                >
+                  {modal === true && comment?.id === selected ? "완료" : "수정"}
+                </EditCommentButton>
+                <DeleteCommentButton
+                  onClick={() => {
+                    dispatch(__delComment(comment?.id));
+                  }}
+                >
+                  삭제
+                </DeleteCommentButton>
+              </p>
+              {/* 댓글 수정 모달창 */}
+              {modal === true && comment?.id === selected ? (
+                <UpdateButton>
+                  <Commentinput onChange={handleChange} value={commentText} />
+                  <button
+                    onClick={() => {
+                      handleSubmit();
+                      setModal(!modal);
+                    }}
+                  >
+                    수정 완료
+                  </button>
+                </UpdateButton>
+              ) : null}
+            </Box>
+          );
+        })}
         <Flex>
-          <LikeAndComment>
-            <Like>❤ 5</Like>
-            <div>💬 3</div>
-          </LikeAndComment>
-          <Button>댓글달기</Button>
+          <CommentInput
+            type="text"
+            autoComplete="off"
+            name="comments"
+            placeholder="댓글을 작성해주세요"
+            onChange={onChangeHandler}
+          ></CommentInput>
+          {token ? (
+            <Button onClick={onAddCommentsHandler}>댓글달기</Button>
+          ) : null}
         </Flex>
-        <CommentInput
-          type="text"
-          autoComplete="off"
-          placeholder="댓글을 작성해주세요"
-        />
       </Container>
     </Wrap>
   );
 };
 
 export default Product;
+
+const UpdateButton = styled.div``;

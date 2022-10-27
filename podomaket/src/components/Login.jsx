@@ -1,13 +1,10 @@
 // 로그인 페이지
 import React, { useState } from "react";
 import styled from "styled-components";
-import { RiKakaoTalkFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __setUser } from "../features/userSlice";
-import { setUserApi } from "../features/apis";
-import { login, localGet } from "../localStorage";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -54,13 +51,9 @@ export const Login = () => {
     });
   };
 
-  const signupHandler = () => {
-    navigate("/users/signup");
-  };
-
   const kakaoHandler = (e) => {
     window.location.href =
-      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://localhost:8080/users/kakao/callback&response_type=code";
+      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://43.201.102.30:8080/users/kakao/callback&response_type=code";
   };
 
   const handleAddUsers = (e) => {
@@ -79,7 +72,7 @@ export const Login = () => {
       </h4>
       <h2>로그인</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>아이디</p>
+        <p>닉네임</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
@@ -104,11 +97,7 @@ export const Login = () => {
       <MainButton type="submit" onClick={clickHandler}>
         로그인
       </MainButton>
-      <Button onClick={signupHandler}>회원가입</Button>
-      <p>
-        <br />
-        <Kakao onClick={kakaoHandler}></Kakao>
-      </p>
+      <Button>회원가입</Button>
     </MainBox>
   );
 };
@@ -183,16 +172,6 @@ const Button = styled.button`
   margin-left: 150px;
   margin-top: 10px;
   display: inline-block;
-`;
-
-const Kakao = styled(RiKakaoTalkFill)`
-  font-size: 35px;
-  background-color: #f9f94d;
-  color: #282424;
-  padding: 4px;
-  border-radius: 30px;
-  text-align: center;
-  cursor: pointer;
 `;
 
 const Close = styled(IoMdClose)`

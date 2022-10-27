@@ -1,42 +1,32 @@
 {
   "products": [
     {
-      "title": "살려주세요",
+      "title": "사람살려요",
       "imageUrl": "",
       "content": "ㅠㅠ",
       "price": "개발자는사람아님",
       "date": 1666539704466,
-      "id": 1
-    },
-    {
-      "title": "수정!!",
-      "imageUrl": "",
-      "content": "수정합니다",
-      "price": "수정입니다",
-      "date": 1666545068099,
-      "id": 2
-    },
-    {
-      "title": "엉덩이방석팝니다",
-      "imageUrl": "",
-      "content": "싸게팔아요...\n",
-      "price": "10000원",
-      "date": 1666549895497,
-      "id": 3
-    },
-    {
-      "title": "123",
-      "imageUrl": "",
-      "content": "123",
-
-      "price": "123",
-      "date": 1666526546369,
-      "id": 6
+      "id": 1,
+      "sub": "123"
     }
   ],
   "login": [
     {
       "id": 1
+    }
+  ],
+
+  "mypage": [
+    {
+      "id": 1,
+      "nickname": "오성은",
+      "content": "자기소개입니다~"
+    }
+  ],
+  "comments": [
+    {
+      "username": "thdud",
+      "comment": "안녕하세요?"
     }
   ]
 }

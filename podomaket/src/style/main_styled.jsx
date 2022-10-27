@@ -29,18 +29,29 @@ export const Hr = styled.hr`
   margin: 0;
 `;
 export const Wrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* display: flex;
+  flex-wrap: wrap; */
+  margin: 20px 0;
+  & ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+  }
 `;
 export const List = styled.div`
   padding: 10px 20px;
   margin: 10px;
 `;
+export const Loading = styled.div`
+  font-weight: 600;
+  font-size: 100px;
+  text-align: center;
+`;
 export const Product = styled.div`
   width: 200px;
 `;
-export const Thumbnail = styled.div`
+export const Thumbnail = styled.img`
   width: 200px;
   height: 200px;
   margin-bottom: 10px;
@@ -48,7 +59,7 @@ export const Thumbnail = styled.div`
   background-image: url("https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/free_myprofile/%EB%B0%80%EB%A6%AC%EC%BD%A9/%EB%B3%B4%EB%93%A4%EC%9D%B4.png");
   background-position: center;
   cursor: pointer;
-  background-size: cover;
+  object-fit: cover;
 `;
 export const Title = styled.div`
   margin-bottom: 10px;
@@ -67,20 +78,7 @@ export const Price = styled.div`
   width: 120px;
   white-space: nowrap;
 `;
-export const LikeAndReply = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const LikeAndReplyFlex = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const Like = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const Reply = styled.div`
-  margin-left: 5px;
+export const Flex = styled.div`
   display: flex;
   justify-content: space-between;
 `;

@@ -23,6 +23,8 @@ import {
 } from "../style/main_styled";
 import { Flex } from "../style/Product_styled";
 
+// 이게 소영이 올린 Main.jsx입니다
+
 export const Main = () => {
   const detailDate = (a) => {
     const milliSeconds = new Date().getTime() - a;

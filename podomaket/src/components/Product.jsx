@@ -78,7 +78,6 @@ export const Product = () => {
 
   const [comments, setComments] = useState([]);
   const products = useSelector((state) => state.productList.products);
-
   const datas = comments.data?.commentList;
   const product = products;
   const contents = comments.data;

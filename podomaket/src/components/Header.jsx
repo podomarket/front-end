@@ -11,10 +11,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { localGet } from "../localStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { __getUser } from "../features/userSlice";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const tokens = useSelector((state) => state.userSlice.isLogin);
 
   const [useToken, setUseToken] = useState(false);
 
@@ -39,12 +39,6 @@ export const Header = () => {
     <NavBar>
       <Logo onClick={main}>PODOMARKET</Logo>
       <NavLinks>
-        <li>
-          <p>닉네임</p>
-        </li>
-        <li>
-          <a onClick={myPage}>마이페이지</a>
-        </li>
         <li>
           <LogInOutButton onClick={toLogin}>
             {token ? "로그아웃" : "로그인"}

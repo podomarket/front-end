@@ -39,13 +39,15 @@ export const SignUp = () => {
       passwordCheck: "",
     });
   };
-
+  const close = () => {
+    navigate("/");
+  };
   //중복확인
 
   return (
     <MainBox>
       <h4>
-        <Close />
+        <Close onClick={close} />
       </h4>
       <h2>회원가입</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
@@ -192,7 +194,7 @@ const ReButton = styled.button`
   text-decoration: none;
   border: none;
   padding: 0.6rem 0.8rem;
-  margin-left: 2vw;
+  margin-left: 14px;
   font-size: 1rem;
   cursor: pointer;
   background-color: #681170;
@@ -212,6 +214,7 @@ const ReButton = styled.button`
 `;
 
 const Close = styled(IoMdClose)`
+  cursor: pointer;
   font-size: 30px;
   padding: 15px;
 `;

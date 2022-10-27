@@ -19,22 +19,6 @@ export const Login = () => {
     navigate("/");
   };
 
-  // const handleLogin = () => {
-  //   fetch(`${setUserApi}/login`, {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       userId: this.state.userId,
-  //       password: this.state.password,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-
-  //     .then((response) => {
-  //       if (response.ACCESS_TOKEN) {
-  //         localStorage.setItem("login-token", response.ACCESS_TOKEN);
-  //       }
-  //     });
-  // };
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {

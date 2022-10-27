@@ -9,6 +9,10 @@ export const Wrap = styled.div`
   height: 600px;
   border-radius: 10px;
   padding: 30px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const Container = styled.div`
   margin: auto;
@@ -16,7 +20,6 @@ export const Container = styled.div`
 export const H1 = styled.h1`
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   width: 300px;
   font-size: 25px;
   margin-right: 10px;
@@ -30,7 +33,6 @@ export const H4 = styled.h4`
 `;
 export const Button = styled.button`
   padding: 0.4rem 0.8rem;
-  margin-left: 2vw;
   font-size: 1rem;
   cursor: pointer;
   background-color: transparent;
@@ -77,11 +79,13 @@ export const DeleteButton = styled.button`
     transition: all ease-in-out 350ms;
   }
 `;
-export const Image = styled.div`
-  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Atlas_Mountains_snow_cover.jpg/800px-Atlas_Mountains_snow_cover.jpg");
+export const ImageBox = styled.div`
+  text-align: center;
+  margin: auto;
+`;
+export const Image = styled.img`
   width: 500px;
-  padding: 180px 20px;
-  margin: 10px auto;
+  margin: 20px auto;
 `;
 export const P = styled.div`
   margin: 10px 0 10px 0;
@@ -144,18 +148,9 @@ export const CommentBtn = styled.button`
 `;
 export const CommentInput = styled.input`
   resize: none;
-  width: 500px;
+  width: 380px;
   padding: 20px;
   background-color: #cfcfcf;
   border: none;
   outline: none;
-  margin: auto;
-`;
-export const Commentinput = styled.textarea`
-  width: 20rem;
-  height: 10rem;
-  border: none;
-  outline: none;
-  background-color: #5f5f5f;
-  color: #fff;
 `;

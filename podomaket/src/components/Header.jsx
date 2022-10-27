@@ -9,22 +9,22 @@ import {
 } from "../style/header_styled";
 import { useNavigate, useParams } from "react-router-dom";
 import { localGet } from "../localStorage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { __getUser } from "../features/userSlice";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const tokens = useSelector((state) => state.userSlice.isLogin);
 
   const [useToken, setUseToken] = useState(false);
-  useEffect(() => {
-    setUseToken(!useToken);
-  }, [tokens]);
+
+  const token = localStorage.getItem("accessToken");
 
   const toLogin = () => {
     navigate("/users/login");
-    if (localGet) {
-      return localStorage.removeItem("token");
+    if (token) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
     }
   };
 
@@ -40,14 +40,8 @@ export const Header = () => {
       <Logo onClick={main}>PODOMARKET</Logo>
       <NavLinks>
         <li>
-          <p>닉네임</p>
-        </li>
-        <li>
-          <a onClick={myPage}>마이페이지</a>
-        </li>
-        <li>
           <LogInOutButton onClick={toLogin}>
-            {useToken ? "로그아웃" : "로그인"}
+            {token ? "로그아웃" : "로그인"}
           </LogInOutButton>
         </li>
       </NavLinks>

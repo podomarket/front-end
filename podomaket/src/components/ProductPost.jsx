@@ -30,23 +30,24 @@ const ProductPost = () => {
   const [post, setPost] = useState({
     title: "",
     content: "",
-    // file: "",
+    price: "",
+    file: "",
   });
 
-  // const imgFileHandler = (e) => {
-  //   setUploadImageForm(e.target.files[0]);
+  const imgFileHandler = (e) => {
+    setUploadImageForm(e.target.files[0]);
 
-  //   let reader = new FileReader();
-  //   if (e.target.files[0]) {
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   }
-  //   reader.onload = () => {
-  //     const previewImgUrl = reader.result;
-  //     if (previewImgUrl) {
-  //       setPreviewImage([...previewImage, previewImgUrl]);
-  //     }
-  //   };
-  // };
+    let reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = () => {
+      const previewImgUrl = reader.result;
+      if (previewImgUrl) {
+        setPreviewImage([...previewImage, previewImgUrl]);
+      }
+    };
+  };
 
   const postHandler = (e) => {
     setTitle(e.target.value);
@@ -55,14 +56,13 @@ const ProductPost = () => {
     setPost({
       ...post,
       [name]: value,
-      // file: uploadImageForm,
+      file: uploadImageForm,
     });
   };
 
   const submitHandler = () => {
     dispatch(addPost(post));
-    // if (!title || !content || !previewImage) {
-    if (!title || !content) {
+    if (!title || !content || !previewImage) {
       return alert("빈칸 없이 입력해 주세요");
     }
   };
@@ -70,7 +70,7 @@ const ProductPost = () => {
   return (
     <Wrap>
       <Container>
-        {/* <ImageLayout>
+        <ImageLayout>
           <ImageLabel htmlFor="file" />
           <ImageInput
             id="addFile"
@@ -81,7 +81,7 @@ const ProductPost = () => {
             onChange={imgFileHandler}
           />
           <ImagePreview src={previewImage} />
-        </ImageLayout> */}
+        </ImageLayout>
         <Input
           id="title"
           name="title"
@@ -97,13 +97,13 @@ const ProductPost = () => {
             onChange={postHandler}
           ></TextArea>
         </div>
-        {/* <Input
+        <Input
           id="price"
           name="price"
           type="text"
           placeholder="가격을 입력해주세요"
           onChange={postHandler}
-        /> */}
+        />
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
           <NewButton onClick={submitHandler} to="/">

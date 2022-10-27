@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { localSet } from "../localStorage";
+import { localSet, localDel } from "../localStorage";
 
 const initialState = {
   token: null,
@@ -11,6 +11,31 @@ const initialState = {
   isLogin: null,
 };
 
+//HG
+const instance = axios.create({
+  baseURL: "http://54.173.186.166:8080",
+});
+
+export const loginApi = async (userInfo) => {
+  const response = await instance.post("users/login", userInfo);
+
+  return response;
+};
+
+//유저 조회하기
+export const __getUsers = createAsyncThunk(
+  "post/getUser",
+  async (payload, thunkAPI) => {
+    try {
+      const users = await axios.get(`http://54.173.186.166:8080`);
+      return thunkAPI.fulfillWithValue(users.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 유저 추가하기
 export const __addUser = createAsyncThunk(
   "post/addUser",
   async (payload, thunkAPI) => {
@@ -56,6 +81,18 @@ export const __setUser = createAsyncThunk(
   }
 );
 
+export const __login = createAsyncThunk(
+  "post/login",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await loginApi(payload);
+      return thunkAPI.fulfillWithValue(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "userSlice",
   initialState,
@@ -82,5 +119,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setToken } = userSlice.actions;
 export default userSlice.reducer;

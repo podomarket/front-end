@@ -39,25 +39,29 @@ export const SignUp = () => {
       passwordCheck: "",
     });
   };
+  const close = () => {
+    navigate("/");
+  };
+  //중복확인
 
   return (
     <MainBox>
       <h4>
-        <Close />
+        <Close onClick={close} />
       </h4>
       <h2>회원가입</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
-        <p>아이디</p>
-        <input
-          type="text"
-          name="userId"
-          minLength="5"
-          placeholder="아이디를 입력하세요"
-          value={user.userId}
-          onChange={onChangeHandler}
-        />
-        <ReButton type="button">중복확인</ReButton>
-        <p>비밀번호</p>
+        <div>
+          <input
+            type="text"
+            name="userId"
+            minLength="5"
+            placeholder="아이디를 입력하세요"
+            value={user.userId}
+            onChange={onChangeHandler}
+          />
+          <ReButton type="button">중복확인</ReButton>
+        </div>
         <input
           type="password"
           name="password"
@@ -66,7 +70,6 @@ export const SignUp = () => {
           value={user.password}
           onChange={onChangeHandler}
         />
-        <p>비밀번호 재확인</p>
         <input
           type="Password"
           name="passwordCheck"
@@ -75,7 +78,6 @@ export const SignUp = () => {
           value={user.passwordCheck}
           onChange={onChangeHandler}
         />
-        <p>이름</p>
         <input
           type="text"
           name="username"
@@ -83,7 +85,6 @@ export const SignUp = () => {
           value={user.username}
           onChange={onChangeHandler}
         />
-        <p>e-mail</p>
         <input
           type="e-mail"
           name="email"
@@ -92,16 +93,23 @@ export const SignUp = () => {
           onChange={onChangeHandler}
         />
         <br />
-        {/* <button>비밀번호를 잊어버리셨나요?</button> */}
-        <MainButton
-          type="submit"
-          // onClick={() => {
-          //   navigate("/");
-          // }}
-        >
-          가입하기
-        </MainButton>
-        <Back>취소</Back>
+        <Div>
+          <Back
+            onClick={() => {
+              navigate("/users/login");
+            }}
+          >
+            취소
+          </Back>
+          <MainButton
+            type="submit"
+            // onClick={() => {
+            //   navigate("/");
+            // }}
+          >
+            가입하기
+          </MainButton>
+        </Div>
       </Box>
     </MainBox>
   );
@@ -118,6 +126,9 @@ const MainBox = styled.div`
   margin-top: 80px;
   justify-content: center;
   & h2 {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 30px;
     padding: 10px;
     text-align: center;
   }
@@ -130,17 +141,23 @@ const MainBox = styled.div`
 `;
 
 const MainButton = styled.button`
-  width: 100px !important;
-  height: 40px !important;
+  text-decoration: none;
   border: none;
-  border-radius: 25px;
-  background-color: #681170 !important;
+  padding: 0.6rem 0.8rem;
+  margin-left: 2vw;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 14px;
-  color: white !important;
-  float: right;
-  margin-right: 130px;
-  margin-top: 90px;
+  background-color: #681170;
+  border: 1.5px solid #f2f5f7;
+  border-radius: 2em;
+  font-weight: 600;
+  color: #f2f5f7;
+  &:hover {
+    color: #f2f5f7;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
 `;
 
 const Box = styled.form`
@@ -151,40 +168,78 @@ const Box = styled.form`
     margin-top: 20px;
   }
   & input {
-    width: 200px;
+    width: 60%;
+    height: 20px;
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    margin: 30px auto;
+    padding: 10px;
     border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    margin-right: 10px;
-    margin-left: 130px;
+    outline: none;
+    border-radius: 5px;
+  }
+  & input:nth-child(1) {
+    width: 185px;
+    margin-top: 33px;
+    margin-bottom: 10px;
+    margin-left: 90px;
+  }
+  & div {
+    display: flex;
   }
 `;
 
 const ReButton = styled.button`
-  background-color: transparent;
-  color: #2b2b2b;
+  text-decoration: none;
   border: none;
-  float: right;
+  padding: 0.6rem 0.8rem;
+  margin-left: 14px;
+  font-size: 1rem;
   cursor: pointer;
-  margin-right: 90px;
+  background-color: #681170;
+  border: 1.5px solid #f2f5f7;
+  border-radius: 2em;
+  font-weight: 600;
+  color: #f2f5f7;
+  height: 46px;
+  margin-top: 30px;
+  margin-right: 89px;
+  &:hover {
+    color: #f2f5f7;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
 `;
 
 const Close = styled(IoMdClose)`
+  cursor: pointer;
   font-size: 30px;
   padding: 15px;
 `;
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const Back = styled.button`
-  width: 100px !important;
-  height: 40px !important;
+  text-decoration: none;
   border: none;
-  border-radius: 25px;
-  background-color: #c8c8c8 !important;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 14px;
-  color: #000000 !important;
-  margin-top: 90px;
-  margin-left: 130px;
+  background-color: #681170;
+  border: 1.5px solid #f2f5f7;
+  border-radius: 2em;
+  font-weight: 600;
+  color: #f2f5f7;
+  &:hover {
+    color: #f2f5f7;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
 `;
 
 export default SignUp;

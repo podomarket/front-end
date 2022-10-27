@@ -1,6 +1,8 @@
 // 메인 페이지
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { __getProducts } from "../features/podoSlice";
 import {
   Container,
   FlexDiv,
@@ -19,30 +21,9 @@ import {
   Title,
   Wrap,
 } from "../style/main_styled";
-import { __getProducts } from "../features/podoSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { Flex } from "../style/Product_styled";
 
 export const Main = () => {
-  const [items, setItems] = useState([]);
-  const [visible, setVisible] = useState(8);
-
-  console.log(items);
-
-  const ShowMoreItems = () => {
-    setVisible((prevValue) => prevValue + 4);
-  };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // 상품 보여주기
-  useEffect(() => {
-    dispatch(__getProducts());
-    fetch("http://54.173.186.166:8080/products")
-      .then((res) => res.json())
-      .then((data) => setItems(data));
-  }, []);
-
   const detailDate = (a) => {
     const milliSeconds = new Date().getTime() - a;
     const seconds = milliSeconds / 1000;
@@ -61,62 +42,80 @@ export const Main = () => {
     return `${Math.floor(years)}년 전`;
   };
 
-  const [like, setLike] = useState(0);
-  const [reply, setReply] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.productList.products);
 
+  const data = products.data;
+
+  useEffect(() => {
+    dispatch(__getProducts());
+  }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+
+  const [items, setItems] = useState([]);
+
+  const addItems = () => {
+    setItems(data?.slice(indexOfFirst, indexOfLast));
+  };
+
+  const ShowMoreItems = () => {
+    addItems();
+    setPostsPerPage(postsPerPage + 4);
+  };
+
+  useEffect(() => {
+    if (!!data && items.length === 0) {
+      ShowMoreItems();
+    }
+  }, [data]);
   return (
-    <div>
+    <>
       <Container>
         <h2>오늘의 상품 추천</h2>
         <NewPost to="/product">새 글 작성</NewPost>
       </Container>
       <Hr />
       <Wrap>
-        {Object.keys(items)
-          .slice(0, visible)
-          .map((podo) => {
-            return (
-              <List key={podo.id}>
-                <Product>
-                  <Thumbnail
-                    onClick={() => navigate("/product/" + podo.id)}
-                  ></Thumbnail>
-                  <LikeAndReply>
-                    <Title onClick={() => navigate("/product/" + podo.id)}>
-                      {podo.title}
-                    </Title>
-                    {/* <LikeAndReplyFlex>
-                      <Like
-                        onClick={() => {
-                          setLike(like + 1);
-                        }}
-                      >
-                        ❤<span>{like}</span>
-                      </Like>
-                      <Reply
-                        onClick={() => {
-                          setReply(reply + 1);
-                        }}
-                      >
-                        💬<span>{reply}</span>
-                      </Reply>
-                    </LikeAndReplyFlex> */}
-                  </LikeAndReply>
-                  <FlexDiv>
-                    {/* <Price>{podo.price}</Price> */}
-                    {/* <div>{detailDate(podo.date)}</div> */}
-                  </FlexDiv>
-                </Product>
-              </List>
-            );
-          })}
+        <>
+          <ul>
+            {items &&
+              items.map((post) => {
+                return (
+                  <List key={post.id}>
+                    <Product>
+                      <Thumbnail
+                        src={post.imgUrl}
+                        onClick={() => navigate("/product/" + post.id)}
+                      ></Thumbnail>
+                      <Flex>
+                        <Title onClick={() => navigate("/product/" + post.id)}>
+                          {post?.title}
+                        </Title>
+                        <div>💬 {post?.commentsNum}</div>
+                      </Flex>
+                      <FlexDiv>
+                        <Price>{post?.price}원</Price>
+                        <div>{detailDate(post.createdAt)}</div>
+                      </FlexDiv>
+                    </Product>
+                  </List>
+                );
+              })}
+          </ul>
+        </>
       </Wrap>
       <Hr />
       <ProductView>
         <div></div>
         <H2Button onClick={ShowMoreItems}>더 많은 상품 보기</H2Button>
       </ProductView>
-    </div>
+    </>
   );
 };
 

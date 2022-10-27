@@ -79,40 +79,9 @@ export const Product = () => {
   const [comments, setComments] = useState([]);
   const products = useSelector((state) => state.productList.products);
 
-  // const post = products.data;
-  // console.log(post);
-  // const [comment, setComment] = useState({
-  //   productId: id,
-  //   commentId: post?.id,
-  // });
-
-  // console.log(comment);
-
-  // const [comment, setComment] = useState([]);
-  // const data = comment.data?.commentList;
-
-  // console.log(data);
-  // const __getCommentOne = async () => {
-  //   const { data } = await axios.get(
-  //     `http://54.173.186.166:8080/products/${id}`
-  //   );
-  //   setComment(data);
-  // };
-
-  // useEffect(() => {
-  //   __getCommentOne(id);
-  // }, []);
-
-  // // 코멘트 삭제
-  // const deleteComment = () => {
-  //   dispatch(__delComment([id, data?.id]));
-  // };
-
   const datas = comments.data?.commentList;
   const product = products;
   const contents = comments.data;
-
-  // const commentList = Object.values(datas)[1].commentList;
 
   useEffect(() => {
     dispatch(__getProducts());
@@ -122,8 +91,6 @@ export const Product = () => {
     const { data } = await axios.get(`http://3.86.227.196:8080/products/${id}`);
     setComments(data);
   };
-
-  // console.log("jsx get 요청 =>", contents);
 
   useEffect(() => {
     fetchComments();

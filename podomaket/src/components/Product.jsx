@@ -89,7 +89,7 @@ export const Product = () => {
   // console.log(data);
   // const __getCommentOne = async () => {
   //   const { data } = await axios.get(
-  //     `http://43.201.102.30:8080/products/${id}`
+  //     `http://3.86.227.196:8080/products/${id}`
   //   );
   //   setComment(data);
   // };
@@ -114,9 +114,7 @@ export const Product = () => {
   }, [dispatch]);
 
   const fetchComments = async () => {
-    const { data } = await axios.get(
-      `http://43.201.102.30:8080/products/${id}`
-    );
+    const { data } = await axios.get(`http://3.86.227.196:8080/products/${id}`);
     setComments(data);
   };
 

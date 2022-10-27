@@ -32,6 +32,7 @@ export const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { commentId } = useParams();
 
   // 상품 보여주기
   useEffect(() => {
@@ -108,11 +109,9 @@ export const Product = () => {
 
   // const commentList = Object.values(datas)[1].commentList;
 
-
   useEffect(() => {
     dispatch(__getProducts());
   }, [dispatch]);
-
 
   const fetchComments = async () => {
     const { data } = await axios.get(

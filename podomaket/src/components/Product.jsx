@@ -6,11 +6,15 @@ import { __delPrudcts } from "../features/podoSlice";
 import { __getProducts } from "../features/podoSlice";
 import axios from "axios";
 import {
+  Box,
   Button,
+  Commentinput,
   CommentInput,
   Container,
   DeleteButton,
+  DeleteCommentButton,
   EditButton,
+  EditCommentButton,
   Flex,
   H1,
   Image,
@@ -19,6 +23,7 @@ import {
   LikeAndComment,
   P,
   Price,
+  UpdateButton,
   Wrap,
 } from "../style/Product_styled";
 import {
@@ -73,41 +78,9 @@ export const Product = () => {
 
   const [comments, setComments] = useState([]);
   const products = useSelector((state) => state.productList.products);
-
-  // const post = products.data;
-  // console.log(post);
-  // const [comment, setComment] = useState({
-  //   productId: id,
-  //   commentId: post?.id,
-  // });
-
-  // console.log(comment);
-
-  // const [comment, setComment] = useState([]);
-  // const data = comment.data?.commentList;
-
-  // console.log(data);
-  // const __getCommentOne = async () => {
-  //   const { data } = await axios.get(
-  //     `http://3.86.227.196:8080/products/${id}`
-  //   );
-  //   setComment(data);
-  // };
-
-  // useEffect(() => {
-  //   __getCommentOne(id);
-  // }, []);
-
-  // // 코멘트 삭제
-  // const deleteComment = () => {
-  //   dispatch(__delComment([id, data?.id]));
-  // };
-
   const datas = comments.data?.commentList;
   const product = products;
   const contents = comments.data;
-
-  // const commentList = Object.values(datas)[1].commentList;
 
   useEffect(() => {
     dispatch(__getProducts());
@@ -117,8 +90,6 @@ export const Product = () => {
     const { data } = await axios.get(`http://3.86.227.196:8080/products/${id}`);
     setComments(data);
   };
-
-  // console.log("jsx get 요청 =>", contents);
 
   useEffect(() => {
     fetchComments();
@@ -133,7 +104,6 @@ export const Product = () => {
   const [selected, setSelected] = useState(null);
 
   const [commentText, setCommentText] = useState("");
-
   const handleSubmit = (e) => {
     if (commentText !== "") {
       dispatch(__editComment({ id: selected, text: commentText }));
@@ -174,14 +144,14 @@ export const Product = () => {
             <Box key={comment.id}>
               <p>
                 {comment?.username} : {comment?.content}
-                <EditCommentButton
+                {/* <EditCommentButton
                   onClick={() => {
                     setModal(!modal);
                     setSelected(comment?.id);
                   }}
                 >
                   {modal === true && comment?.id === selected ? "완료" : "수정"}
-                </EditCommentButton>
+                </EditCommentButton> */}
                 <DeleteCommentButton
                   onClick={() => {
                     dispatch(__delComment(comment?.id));
@@ -225,63 +195,3 @@ export const Product = () => {
 };
 
 export default Product;
-
-const Box = styled.div`
-  padding: 15px;
-  width: 500px;
-`;
-const EditCommentButton = styled.button`
-  margin-left: 10px;
-  padding: 0.2rem 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1.5px solid #2e0533;
-  border-radius: 2em;
-  font-weight: 600;
-  &:hover {
-    color: #fff;
-    background-color: #2e0533;
-    border: 1.5px solid #2e0533;
-    transition: all ease-in-out 350ms;
-  }
-`;
-const DeleteCommentButton = styled.button`
-  margin-left: 10px;
-  padding: 0.2rem 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1.5px solid #2e0533;
-  border-radius: 2em;
-  font-weight: 600;
-  &:hover {
-    color: #fff;
-    background-color: #2e0533;
-    border: 1.5px solid #2e0533;
-    transition: all ease-in-out 350ms;
-  }
-`;
-
-const Commentinput = styled.input`
-  margin: 10px auto;
-  width: 460px;
-  padding: 20px;
-  border: none;
-  outline: none;
-  background-color: #cfcfcf;
-  color: #fff;
-  resize: none;
-`;
-
-const CommentMore = styled.span`
-  margin-right: 10px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: all 0.3s;
-  &:hover {
-    color: whitesmoke;
-    transform: scale(1.2);
-  }
-`;
-const UpdateButton = styled.div``;

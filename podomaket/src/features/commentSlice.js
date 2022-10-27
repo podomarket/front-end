@@ -37,21 +37,6 @@ export const getComments = createAsyncThunk(
   }
 );
 
-export const updateComments = createAsyncThunk(
-  "put/updateComments",
-
-  async (payload, thunkAPI) => {
-    // console.log("get=>", payload);
-    try {
-      await getCommentsApi(payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (err) {
-      console.log("error");
-      return thunkAPI.rejectWithValue(err);
-    }
-  }
-);
-
 export const __delComment = createAsyncThunk(
   "post/delComment",
   async (payload, thunkAPI) => {
@@ -72,7 +57,7 @@ export const __editComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.put(
-        `http://3.86.227.196:8080/products/comments/${payload.id}`,
+        `http://54.173.186.166:8080/products/comments/${payload.id}`,
         {
           comment: payload.text,
         }

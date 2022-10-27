@@ -89,26 +89,19 @@ export const delCommentAPI = async (payload) => {
   return response.data;
 };
 
-// export const putCommentsApi = (payload) => {
-//   console.log("put=>", payload);
-//   axios.get(`${DATA_URL}/products/${payload.id}`);
-
-// };
-
 // 중복확인 api
-
-// export const duplicationCheckAPI = async (userid) => {
-//   let return_value;
-//   await axios
-//     .post("http://3.86.227.196:8080/users", {
-//       userid: userid,
-//     })
-//     .then((response) => {
-//       return_value = response.data;
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//       return_value = true;
-//     });
-//   return return_value;
-// };
+export const duplicationCheckAPI = async (userid) => {
+  let return_value;
+  await axios
+    .post("http://3.86.227.196:8080/users", {
+      userid: userid,
+    })
+    .then((response) => {
+      return_value = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return_value = true;
+    });
+  return return_value;
+}

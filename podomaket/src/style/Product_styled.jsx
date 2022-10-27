@@ -39,7 +39,6 @@ export const Button = styled.button`
   border: 1.5px solid #2e0533;
   border-radius: 2em;
   font-weight: 600;
-  margin-bottom: 10px;
   &:hover {
     color: #fff;
     background-color: #2e0533;
@@ -154,3 +153,52 @@ export const CommentInput = styled.input`
   border: none;
   outline: none;
 `;
+export const Box = styled.div`
+  padding: 15px;
+  width: 500px;
+`;
+export const EditCommentButton = styled.button`
+  margin-left: 10px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.5px solid #2e0533;
+  border-radius: 2em;
+  font-weight: 600;
+  &:hover {
+    color: #fff;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
+`;
+export const DeleteCommentButton = styled.button`
+  margin-left: 10px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.5px solid #2e0533;
+  border-radius: 2em;
+  font-weight: 600;
+  &:hover {
+    color: #fff;
+    background-color: #2e0533;
+    border: 1.5px solid #2e0533;
+    transition: all ease-in-out 350ms;
+  }
+`;
+
+export const Commentinput = styled.input`
+  margin: 10px auto;
+  width: 460px;
+  padding: 20px;
+  border: none;
+  outline: none;
+  background-color: #cfcfcf;
+  color: #fff;
+  resize: none;
+`;
+
+export const UpdateButton = styled.div``;

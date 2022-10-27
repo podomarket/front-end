@@ -1,17 +1,17 @@
 // 로그인 페이지
 import React, { useState } from "react";
 import styled from "styled-components";
-import { RiKakaoTalkFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __setUser } from "../features/userSlice";
-import { setUserApi } from "../features/apis";
-import { login } from "../localStorage";
+import axios from "axios";
+import kakao from "../img/kakao.png";
+import SignUp from "./SignUp";
 
 export const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const close = () => {
     navigate("/");
@@ -41,11 +41,14 @@ export const Login = () => {
     navigate("/");
   };
 
+  const signup = () => {
+    navigate("/users/signup");
+  };
+
   const [login, setLogin] = useState({
     userId: "",
     password: "",
   });
-  console.log(login);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -97,14 +100,12 @@ export const Login = () => {
         />
         {/* <button>비밀번호를 잊어버리셨나요?</button> */}
       </Box>
-      <MainButton type="submit" onClick={clickHandler}>
-        로그인
-      </MainButton>
-      <Button>회원가입</Button>
-      <p>
-        <br />
-        <Kakao onClick={kakaoHandler}></Kakao>
-      </p>
+      <Flex>
+        <MainButton type="submit" onClick={clickHandler}>
+          로그인
+        </MainButton>
+        <Button onClick={signup}>회원가입</Button>
+      </Flex>
     </MainBox>
   );
 };

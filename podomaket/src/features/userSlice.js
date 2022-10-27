@@ -34,7 +34,6 @@ export const __getUsers = createAsyncThunk(
     }
   }
 );
-// 43.201.102.30
 // 유저 추가하기
 export const __addUser = createAsyncThunk(
   "post/addUser",

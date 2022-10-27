@@ -24,6 +24,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 // 이게 소영이 올린 Main.jsx입니다
 
+// 이게 소영이 올린 Main.jsx입니다
+
 export const Main = () => {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(8);

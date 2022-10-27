@@ -6,11 +6,15 @@ import { __delPrudcts } from "../features/podoSlice";
 import { __getProducts } from "../features/podoSlice";
 import axios from "axios";
 import {
+  Box,
   Button,
+  Commentinput,
   CommentInput,
   Container,
   DeleteButton,
+  DeleteCommentButton,
   EditButton,
+  EditCommentButton,
   Flex,
   H1,
   Image,
@@ -135,7 +139,6 @@ export const Product = () => {
   const [selected, setSelected] = useState(null);
 
   const [commentText, setCommentText] = useState("");
-
   const handleSubmit = (e) => {
     if (commentText !== "") {
       dispatch(__editComment({ id: selected, text: commentText }));
@@ -184,13 +187,13 @@ export const Product = () => {
                 >
                   {modal === true && comment?.id === selected ? "완료" : "수정"}
                 </EditCommentButton>
-                <DeleteCommentButton
+                {/* <DeleteCommentButton
                   onClick={() => {
                     dispatch(__delComment(comment?.id));
                   }}
                 >
                   삭제
-                </DeleteCommentButton>
+                </DeleteCommentButton> */}
               </p>
               {/* 댓글 수정 모달창 */}
               {modal === true && comment?.id === selected ? (
@@ -228,62 +231,4 @@ export const Product = () => {
 
 export default Product;
 
-const Box = styled.div`
-  padding: 15px;
-  width: 500px;
-`;
-const EditCommentButton = styled.button`
-  margin-left: 10px;
-  padding: 0.2rem 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1.5px solid #2e0533;
-  border-radius: 2em;
-  font-weight: 600;
-  &:hover {
-    color: #fff;
-    background-color: #2e0533;
-    border: 1.5px solid #2e0533;
-    transition: all ease-in-out 350ms;
-  }
-`;
-const DeleteCommentButton = styled.button`
-  margin-left: 10px;
-  padding: 0.2rem 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1.5px solid #2e0533;
-  border-radius: 2em;
-  font-weight: 600;
-  &:hover {
-    color: #fff;
-    background-color: #2e0533;
-    border: 1.5px solid #2e0533;
-    transition: all ease-in-out 350ms;
-  }
-`;
-
-const Commentinput = styled.input`
-  margin: 10px auto;
-  width: 460px;
-  padding: 20px;
-  border: none;
-  outline: none;
-  background-color: #cfcfcf;
-  color: #fff;
-  resize: none;
-`;
-
-const CommentMore = styled.span`
-  margin-right: 10px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: all 0.3s;
-  &:hover {
-    color: whitesmoke;
-    transform: scale(1.2);
-  }
-`;
 const UpdateButton = styled.div``;

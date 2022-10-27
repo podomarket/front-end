@@ -95,14 +95,13 @@ export const Login = () => {
           onChange={onChangeHandler}
           required
         />
-        {/* <button>비밀번호를 잊어버리셨나요?</button> */}
+        <Flex>
+          <MainButton type="submit" onClick={clickHandler}>
+            로그인
+          </MainButton>
+          <Button onClick={signup}>회원가입</Button>
+        </Flex>
       </Box>
-      <Flex>
-        <MainButton type="submit" onClick={clickHandler}>
-          로그인
-        </MainButton>
-        <Button onClick={signup}>회원가입</Button>
-      </Flex>
     </MainBox>
   );
 };

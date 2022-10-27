@@ -17,6 +17,23 @@ export const Login = () => {
     navigate("/");
   };
 
+  // const handleLogin = () => {
+  //   fetch(`${setUserApi}/login`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       userId: this.state.userId,
+  //       password: this.state.password,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+
+  //     .then((response) => {
+  //       if (response.ACCESS_TOKEN) {
+  //         localStorage.setItem("login-token", response.ACCESS_TOKEN);
+  //       }
+  //     });
+  // };
+
   const logins = useSelector((state) => state.userSlice);
 
   const clickHandler = async () => {
@@ -42,7 +59,7 @@ export const Login = () => {
 
   const kakaoHandler = (e) => {
     window.location.href =
-      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://localhost:3000/&response_type=code";
+      "https://kauth.kakao.com/oauth/authorize?client_id=2d9446f9a3859a8aebc0b8a40164318d&redirect_uri=http://43.201.102.30:8080/users/kakao/callback&response_type=code";
   };
 
   const handleAddUsers = (e) => {
@@ -61,6 +78,7 @@ export const Login = () => {
       </h4>
       <h2>로그인</h2>
       <Box onSubmit={(e) => handleAddUsers(e)}>
+        <p>닉네임</p>
         <input
           type="text"
           placeholder="닉네임을 입력하세요"
@@ -70,6 +88,7 @@ export const Login = () => {
           onChange={onChangeHandler}
           required
         />
+        <p>비밀번호</p>
         <input
           type="password"
           name="password"
@@ -102,9 +121,6 @@ const MainBox = styled.div`
   margin-top: 80px;
   justify-content: center;
   & h2 {
-    margin-top: 50px;
-    font-weight: 600;
-    font-size: 30px;
     padding: 10px;
     text-align: center;
   }
@@ -115,29 +131,19 @@ const MainBox = styled.div`
     text-align: right;
   }
 `;
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin: auto 100px;
-`;
 
 const MainButton = styled.button`
-  text-decoration: none;
+  width: 300px;
+  height: 40px;
   border: none;
-  padding: 0.6rem 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
+  border-radius: 25px;
   background-color: #681170;
-  border: 1.5px solid #f2f5f7;
-  border-radius: 2em;
-  font-weight: 600;
-  color: #f2f5f7;
-  &:hover {
-    color: #f2f5f7;
-    background-color: #2e0533;
-    border: 1.5px solid #2e0533;
-    transition: all ease-in-out 350ms;
-  }
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  float: right;
+  margin-right: 100px;
+  margin-top: 60px;
 `;
 
 const Box = styled.form`
@@ -147,16 +153,12 @@ const Box = styled.form`
     margin-top: 20px;
   }
   & input {
-    width: 60%;
-    height: 20px;
-    background: #e0dede;
-    justify-content: center;
-    display: flex;
-    margin: 30px auto;
-    padding: 10px;
+    width: 250px;
     border: none;
-    outline: none;
-    border-radius: 5px;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    margin-right: 10px;
+    margin-left: 100px;
   }
   & button {
     background-color: transparent;
@@ -170,22 +172,23 @@ const Box = styled.form`
 `;
 
 const Button = styled.button`
-  text-decoration: none;
+  background-color: transparent;
+  width: 200px;
+  color: #373737;
   border: none;
-  padding: 0.6rem 0.8rem;
-  font-size: 1rem;
   cursor: pointer;
-  background-color: #681170;
-  border: 1.5px solid #f2f5f7;
-  border-radius: 2em;
-  font-weight: 600;
-  color: #f2f5f7;
-  &:hover {
-    color: #f2f5f7;
-    background-color: #2e0533;
-    border: 1.5px solid #2e0533;
-    transition: all ease-in-out 350ms;
-  }
+  margin-left: 150px;
+  margin-top: 10px;
+  display: inline-block;
+`;
+
+const Kakao = styled(RiKakaoTalkFill)`
+  font-size: 35px;
+  background-color: #f9f94d;
+  color: #282424;
+  padding: 4px;
+  border-radius: 30px;
+  text-align: center;
 `;
 
 const Close = styled(IoMdClose)`

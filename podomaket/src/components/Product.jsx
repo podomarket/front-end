@@ -36,6 +36,7 @@ export const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { commentId } = useParams();
 
   // 상품 보여주기
   useEffect(() => {

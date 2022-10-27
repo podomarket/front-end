@@ -37,21 +37,6 @@ export const getComments = createAsyncThunk(
   }
 );
 
-export const updateComments = createAsyncThunk(
-  "put/updateComments",
-
-  async (payload, thunkAPI) => {
-    // console.log("get=>", payload);
-    try {
-      await getCommentsApi(payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (err) {
-      console.log("error");
-      return thunkAPI.rejectWithValue(err);
-    }
-  }
-);
-
 export const __delComment = createAsyncThunk(
   "post/delComment",
   async (payload, thunkAPI) => {

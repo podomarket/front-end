@@ -75,13 +75,9 @@ export const getCommentsApi = (payload) => {
   axios.get(`${DATA_URL}/products/${payload.id}`);
 };
 
-export const delCommentAPI = (payload) => {
-  const frm = new FormData();
-  frm.append("content", payload.content);
-  console.log(payload);
-  axios.delete(
-    `http://54.173.186.166:8080/${payload.id}/comments/${payload.id}`,
-    frm,
+export const delCommentAPI = async (payload) => {
+  const response = await axios.delete(
+    `${DATA_URL}/products/comments/${payload}`,
     {
       headers: {
         Authorization: localStorage.getItem("accessToken"),
@@ -90,6 +86,7 @@ export const delCommentAPI = (payload) => {
       },
     }
   );
+  return response.data;
 };
 
 // 중복확인 api

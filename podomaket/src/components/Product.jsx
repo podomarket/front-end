@@ -21,7 +21,11 @@ import {
   Price,
   Wrap,
 } from "../style/Product_styled";
-import { __addComments, __delComment } from "../features/commentSlice";
+import {
+  __addComments,
+  __delComment,
+  __editComment,
+} from "../features/commentSlice";
 import styled from "styled-components";
 
 export const Product = () => {
@@ -72,12 +76,46 @@ export const Product = () => {
   //Test
 
   const [comments, setComments] = useState([]);
+  const products = useSelector((state) => state.productList.products);
+
+  // const post = products.data;
+  // console.log(post);
+  // const [comment, setComment] = useState({
+  //   productId: id,
+  //   commentId: post?.id,
+  // });
+
+  // console.log(comment);
+
+  // const [comment, setComment] = useState([]);
+  // const data = comment.data?.commentList;
+
+  // console.log(data);
+  // const __getCommentOne = async () => {
+  //   const { data } = await axios.get(
+  //     `http://54.173.186.166:8080/products/${id}`
+  //   );
+  //   setComment(data);
+  // };
+
+  // useEffect(() => {
+  //   __getCommentOne(id);
+  // }, []);
+
+  // // 코멘트 삭제
+  // const deleteComment = () => {
+  //   dispatch(__delComment([id, data?.id]));
+  // };
+
   const datas = comments.data?.commentList;
+  const product = products;
   const contents = comments.data;
 
   // const commentList = Object.values(datas)[1].commentList;
 
-  // console.log("data console", datas);
+  useEffect(() => {
+    dispatch(__getProducts());
+  }, [dispatch]);
 
   const fetchComments = async () => {
     const { data } = await axios.get(
@@ -92,6 +130,25 @@ export const Product = () => {
     fetchComments();
   }, []);
 
+  const handleChange = (e) => {
+    setCommentText(e.target.value);
+  };
+  // 모달 상태
+  const [modal, setModal] = useState(false);
+  // 댓글의 id값 판별
+  const [selected, setSelected] = useState(null);
+
+  const [commentText, setCommentText] = useState("");
+
+  const handleSubmit = (e) => {
+    if (commentText !== "") {
+      dispatch(__editComment({ id: selected, text: commentText }));
+    } else {
+      return;
+    }
+    setCommentText("");
+    navigate(`/product/${id}`);
+  };
   return (
     <Wrap>
       <Container>
@@ -118,25 +175,19 @@ export const Product = () => {
           <P>{contents?.content}</P>
         </>
         <hr />
-        <Flex>
-          <div></div>
-          {token ? (
-            <Button onClick={onAddCommentsHandler}>댓글달기</Button>
-          ) : null}
-        </Flex>
-        <CommentInput
-          type="text"
-          autoComplete="off"
-          name="comments"
-          placeholder="댓글을 작성해주세요"
-          onChange={onChangeHandler}
-        ></CommentInput>
         {datas?.map((comment) => {
           return (
             <Box key={comment.id}>
               <p>
                 {comment?.username} : {comment?.content}
-                <EditCommentButton>수정</EditCommentButton>
+                <EditCommentButton
+                  onClick={() => {
+                    setModal(!modal);
+                    setSelected(comment?.id);
+                  }}
+                >
+                  {modal === true && comment?.id === selected ? "완료" : "수정"}
+                </EditCommentButton>
                 <DeleteCommentButton
                   onClick={() => {
                     dispatch(__delComment(comment?.id));
@@ -145,9 +196,35 @@ export const Product = () => {
                   삭제
                 </DeleteCommentButton>
               </p>
+              {/* 댓글 수정 모달창 */}
+              {modal === true && comment?.id === selected ? (
+                <UpdateButton>
+                  <Commentinput onChange={handleChange} value={commentText} />
+                  <button
+                    onClick={() => {
+                      handleSubmit();
+                      setModal(!modal);
+                    }}
+                  >
+                    수정 완료
+                  </button>
+                </UpdateButton>
+              ) : null}
             </Box>
           );
         })}
+        <Flex>
+          <CommentInput
+            type="text"
+            autoComplete="off"
+            name="comments"
+            placeholder="댓글을 작성해주세요"
+            onChange={onChangeHandler}
+          ></CommentInput>
+          {token ? (
+            <Button onClick={onAddCommentsHandler}>댓글달기</Button>
+          ) : null}
+        </Flex>
       </Container>
     </Wrap>
   );
@@ -191,3 +268,26 @@ const DeleteCommentButton = styled.button`
     transition: all ease-in-out 350ms;
   }
 `;
+
+const Commentinput = styled.input`
+  margin: 10px auto;
+  width: 460px;
+  padding: 20px;
+  border: none;
+  outline: none;
+  background-color: #cfcfcf;
+  color: #fff;
+  resize: none;
+`;
+
+const CommentMore = styled.span`
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  &:hover {
+    color: whitesmoke;
+    transform: scale(1.2);
+  }
+`;
+const UpdateButton = styled.div``;

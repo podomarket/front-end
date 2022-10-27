@@ -47,9 +47,6 @@ export const Main = () => {
   const products = useSelector((state) => state.productList.products);
 
   const data = products.data;
-  const time = data?.modifiedAt;
-  const date = new Date().getTime();
-  console.log(time);
 
   useEffect(() => {
     dispatch(__getProducts());
@@ -77,7 +74,6 @@ export const Main = () => {
       ShowMoreItems();
     }
   }, [data]);
-
   return (
     <>
       <Container>
@@ -101,6 +97,7 @@ export const Main = () => {
                         <Title onClick={() => navigate("/product/" + post.id)}>
                           {post?.title}
                         </Title>
+                        <div>💬 {post?.commentsNum}</div>
                       </Flex>
                       <FlexDiv>
                         <Price>{post?.price}원</Price>

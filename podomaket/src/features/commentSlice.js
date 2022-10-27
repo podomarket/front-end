@@ -37,29 +37,34 @@ export const getComments = createAsyncThunk(
   }
 );
 
-// export const __delComment = createAsyncThunk(
-//   "post/delComment",
-//   async (payload, thunkAPI) => {
-//     try {
-//       await axios.delete(
-//         `http://54.173.186.166:8080/products/comments/${payload}`
-//       );
-//       return thunkAPI.fulfillWithValue(payload);
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err);
-//     }
-//   }
-// );
-
 export const __delComment = createAsyncThunk(
-  "post/delProducts",
-  async (params, thunkAPI) => {
+  "post/delComment",
+  async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      const response = await delCommentAPI(params);
-      return thunkAPI.fulfillWithValue(params);
+      const response = await delCommentAPI(payload);
+      window.location.reload();
+      return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error ::::::", err.response);
       return thunkAPI.rejectWithValue("<<", err);
+    }
+  }
+);
+
+export const __editComment = createAsyncThunk(
+  "post/editComment",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.put(
+        `http://54.173.186.166:8080/products/comments/${payload.id}`,
+        {
+          comment: payload.text,
+        }
+      );
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
     }
   }
 );
@@ -76,7 +81,6 @@ export const commentSlice = createSlice({
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       // console.log("post액션페이로드=>", action.payload);
-
       state.content.data?.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
@@ -84,6 +88,7 @@ export const commentSlice = createSlice({
       state.error = action.payload;
     },
 
+    //GET Comments
     [getComments.pending]: (state) => {
       state.isLoading = true;
     },
@@ -104,7 +109,7 @@ export const commentSlice = createSlice({
     [__delComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.content = state.content.filter(
-        (content) => content.id !== action.payload
+        (item) => item.id !== action.payload
       );
     },
     [__delComment.rejected]: (state, action) => {

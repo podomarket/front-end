@@ -33,7 +33,6 @@ export const H4 = styled.h4`
 `;
 export const Button = styled.button`
   padding: 0.4rem 0.8rem;
-  margin-left: 2vw;
   font-size: 1rem;
   cursor: pointer;
   background-color: transparent;
@@ -149,18 +148,9 @@ export const CommentBtn = styled.button`
 `;
 export const CommentInput = styled.input`
   resize: none;
-  width: 500px;
+  width: 380px;
   padding: 20px;
   background-color: #cfcfcf;
   border: none;
   outline: none;
-  margin: auto;
-`;
-export const Commentinput = styled.textarea`
-  width: 20rem;
-  height: 10rem;
-  border: none;
-  outline: none;
-  background-color: #5f5f5f;
-  color: #fff;
 `;

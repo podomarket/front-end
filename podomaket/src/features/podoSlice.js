@@ -174,20 +174,6 @@ export const podoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    // 상품 삭제
-    [__delPrudcts.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__delPrudcts.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.products = state.products.filter(
-        (item) => item.id !== action.payload
-      );
-    },
-    [__delPrudcts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
   },
 });
 

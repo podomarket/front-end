@@ -56,7 +56,6 @@ export const Thumbnail = styled.img`
   height: 200px;
   margin-bottom: 10px;
   border: 1px solid black;
-  background-image: url("https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/free_myprofile/%EB%B0%80%EB%A6%AC%EC%BD%A9/%EB%B3%B4%EB%93%A4%EC%9D%B4.png");
   background-position: center;
   cursor: pointer;
   object-fit: cover;

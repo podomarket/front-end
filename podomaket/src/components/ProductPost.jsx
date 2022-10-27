@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addPost, __addProducts, __getProducts } from "../features/podoSlice";
 import {
   BackButton,
@@ -17,6 +18,7 @@ import {
 
 const ProductPost = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // text useState
   const [title, setTitle] = useState("");
@@ -106,9 +108,7 @@ const ProductPost = () => {
         />
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
-          <NewButton onClick={submitHandler} to="/">
-            새 글 작성
-          </NewButton>
+          <NewButton onClick={submitHandler}>새 글 작성</NewButton>
         </ButtonSet>
       </Container>
     </Wrap>

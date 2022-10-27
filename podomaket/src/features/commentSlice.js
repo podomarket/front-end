@@ -57,7 +57,7 @@ export const __editComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.put(
-        `http://43.201.102.30:8080/products/comments/${payload.id}`,
+        `http://3.86.227.196:8080/products/comments/${payload.id}`,
         {
           comment: payload.text,
         }

@@ -76,9 +76,7 @@ const ProductEdit = () => {
   const [products, setProducts] = useState([]);
   const data = products.data;
   const __getDetailProduct = async () => {
-    const { data } = await axios.get(
-      `http://43.201.102.30:8080/products/${id}`
-    );
+    const { data } = await axios.get(`http://3.86.227.196:8080/products/${id}`);
     setProducts(data);
   };
 

@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const DATA_URL = "http://43.201.102.30:8080";
+const DATA_URL = "http://3.86.227.196:8080";
 
 // const instance = axios.create({
-//   baseURL: "http://43.201.102.30:8080",
+//   baseURL: "http://3.86.227.196:8080",
 //   headers: {
 //     token: "",
 //     username: "",
@@ -32,7 +32,7 @@ export const updateProductAPI = async (id, edit) => {
 
 export const getDetailProductAPI = async (payload) => {
   const response = await axios.get(
-    `http://43.201.102.30:8080/products/${payload.id}`
+    `http://3.86.227.196:8080/products/${payload.id}`
   );
   return response.data;
 };
@@ -43,16 +43,16 @@ export const updateProfileAPI = async (id, edit) => {
 };
 
 export const getProfileOneAPI = async (id) => {
-  await axios.get(`http://43.201.102.30:8080/mypage/${id}`);
+  await axios.get(`http://3.86.227.196:8080/mypage/${id}`);
 };
 
 // user
 export const addUserApi = (users) => {
-  axios.post("http://43.201.102.30:8080/users/signup", users);
+  axios.post("http://3.86.227.196:8080/users/signup", users);
 };
 
 export const setUserApi = (login) => {
-  axios.post("http://43.201.102.30:8080/users/login", login);
+  axios.post("http://3.86.227.196:8080/users/login", login);
 };
 
 //comments //
@@ -94,7 +94,7 @@ export const delCommentAPI = async (payload) => {
 export const duplicationCheckAPI = async (userid) => {
   let return_value;
   await axios
-    .post("http://43.201.102.30:8080/users", {
+    .post("http://3.86.227.196:8080/users", {
       userid: userid,
     })
     .then((response) => {

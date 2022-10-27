@@ -21,6 +21,7 @@ import {
   Title,
   Wrap,
 } from "../style/main_styled";
+import { Flex } from "../style/Product_styled";
 
 export const Main = () => {
   const detailDate = (a) => {
@@ -52,7 +53,7 @@ export const Main = () => {
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(4);
+  const [postsPerPage, setPostsPerPage] = useState(8);
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
@@ -73,7 +74,6 @@ export const Main = () => {
       ShowMoreItems();
     }
   }, [data]);
-
   return (
     <>
       <Container>
@@ -93,22 +93,15 @@ export const Main = () => {
                         src={post.imgUrl}
                         onClick={() => navigate("/product/" + post.id)}
                       ></Thumbnail>
-                      <LikeAndReply>
+                      <Flex>
                         <Title onClick={() => navigate("/product/" + post.id)}>
                           {post?.title}
                         </Title>
-                        {/* <LikeAndReplyFlex>
-                          <Like>
-                            ❤<span></span>
-                          </Like>
-                          <Reply>
-                            💬<span></span>
-                          </Reply>
-                        </LikeAndReplyFlex> */}
-                      </LikeAndReply>
+                        <div>💬 {post?.commentsNum}</div>
+                      </Flex>
                       <FlexDiv>
-                        <Price>{post?.price}</Price>
-                        <div>{detailDate(post.date)}</div>
+                        <Price>{post?.price}원</Price>
+                        <div>{detailDate(post.createdAt)}</div>
                       </FlexDiv>
                     </Product>
                   </List>

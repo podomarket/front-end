@@ -22,8 +22,20 @@ export const loginApi = async (userInfo) => {
   return response;
 };
 
-//~.
+//유저 조회하기
+export const __getUsers = createAsyncThunk(
+  "post/getUser",
+  async (payload, thunkAPI) => {
+    try {
+      const users = await axios.get(`http://54.173.186.166:8080`);
+      return thunkAPI.fulfillWithValue(users.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
+// 유저 추가하기
 export const __addUser = createAsyncThunk(
   "post/addUser",
   async (payload, thunkAPI) => {

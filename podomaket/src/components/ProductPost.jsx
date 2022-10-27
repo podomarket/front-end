@@ -30,6 +30,7 @@ const ProductPost = () => {
   const [post, setPost] = useState({
     title: "",
     content: "",
+    price: "",
     file: "",
   });
 
@@ -96,13 +97,13 @@ const ProductPost = () => {
             onChange={postHandler}
           ></TextArea>
         </div>
-        {/* <Input
+        <Input
           id="price"
           name="price"
           type="text"
           placeholder="가격을 입력해주세요"
           onChange={postHandler}
-        /> */}
+        />
         <ButtonSet>
           <BackButton to="/">뒤로가기</BackButton>
           <NewButton onClick={submitHandler} to="/">

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addCommentsApi, getCommentsApi } from "./apis";
+import { addCommentsApi, delCommentAPI, getCommentsApi } from "./apis";
 
 const initialState = {
   content: [],
@@ -23,8 +23,13 @@ export const __addComments = createAsyncThunk(
   }
 );
 
+
+export const getComments = createAsyncThunk(
+  "post/getComments",
+
 export const updateComments = createAsyncThunk(
   "put/updateComments",
+
   async (payload, thunkAPI) => {
     // console.log("get=>", payload);
     try {
@@ -32,6 +37,38 @@ export const updateComments = createAsyncThunk(
       return thunkAPI.fulfillWithValue(payload);
     } catch (err) {
       console.log("error");
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const __delComment = createAsyncThunk(
+  "post/delComment",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const response = await delCommentAPI(payload);
+      window.location.reload();
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (err) {
+      console.log("error ::::::", err.response);
+      return thunkAPI.rejectWithValue("<<", err);
+    }
+  }
+);
+
+export const __editComment = createAsyncThunk(
+  "post/editComment",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.put(
+        `http://54.173.186.166:8080/products/comments/${payload.id}`,
+        {
+          comment: payload.text,
+        }
+      );
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -49,7 +86,6 @@ export const commentSlice = createSlice({
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       // console.log("post액션페이로드=>", action.payload);
-
       state.content.data?.push(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
@@ -57,6 +93,7 @@ export const commentSlice = createSlice({
       state.error = action.payload;
     },
 
+    //GET Comments
     [getComments.pending]: (state) => {
       state.isLoading = true;
     },
@@ -66,6 +103,21 @@ export const commentSlice = createSlice({
       state.content = action.payload;
     },
     [getComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    // DELETE Comment
+    [__delComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__delComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.content = state.content.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    [__delComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
